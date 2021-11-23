@@ -1,6 +1,6 @@
-from flask import render_template, request, flash, redirect, url_for
-from app import app
-from service import department_service
+from flask import render_template, request, redirect, url_for
+from ..app import app
+from ..service import department_service
 
 
 @app.route('/departments/', methods=['GET', 'POST'])

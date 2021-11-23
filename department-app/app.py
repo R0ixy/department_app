@@ -1,10 +1,8 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager
 
-
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='static')
 # db_url = 'mysql+pymysql://root:testpassword@localhost:80/db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:testpassword@localhost:80/db'
@@ -12,9 +10,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:testpassword@local
 app.config['SECRET_KEY'] = 'gcfgsdhxzncvbsjhuytsgf236uteq2e2t17dcz'
 
 db = SQLAlchemy(app)
-from models.employee_model import Employee
+
+
 # login_manager = LoginManager(app)
-import views
 
 
 @app.route('/')

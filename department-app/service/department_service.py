@@ -1,5 +1,5 @@
-from app import db
-from models.department_model import Department
+from ..app import db
+from ..models.department_model import Department
 
 
 def get_all_departments() -> list:
