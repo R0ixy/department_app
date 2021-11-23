@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new department</title>
+    <link href="/static/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+    <span class="head_link"><a href="index.html">Company</a></span>
+    <span class="head_link"><a href="departments.html">Departments</a></span>
+    <span class="head_link"><a href="employees.html">Employees</a></span>
+    <span class="right sign"><a href="registration.html" class="link">Log out</a></span>
+    <span class="right username">Username</span>
+</header>
+<div class="content">
+    <h3 class="add_new"><a href="/departments/" class="add_new">Cancel</a></h3>
+    <div class="add_department_block">
+        <span class="top_add_title">Add new department</span>
+        <form action="" method="post">
+            <p>
+                <label class="add_department_title">Department name
+                    <input type="text" class="add_title" name="title">
+                </label>
+            </p>
+            <p>
+                <label class="add_department_description">Description
+                    <textarea name="description"></textarea>
+                </label>
+            </p>
+            <input type="submit" class="save" value="Save">
+        </form>
+    </div>
+</div>
+</body>
+</html>
