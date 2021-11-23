@@ -169,7 +169,6 @@ p {
     margin: 30px auto 10px;
     background-color: white;
     padding: 10px 0 10px 0;
-    height:200px;
 }
 
 .department_button {
@@ -179,7 +178,7 @@ p {
     padding-left: -50px;
 }
 
-input.edit, input.save_btn {
+input.delete, input.edit, input.save_btn {
     width: 100px;
     padding: 10px;
     border: 1px solid #0d6efd;
@@ -194,13 +193,13 @@ input.save_btn:hover {
     background-color: blue;
     cursor: pointer;
 }
-
-.delete {
-    border: 1px solid #0d6efd;
-    border-radius: 5px;
-    padding: 9px 11px;
-    font-size: 1em;
-    margin: 0;
+input.delete{
+    color:white;
+    background-color: #0d6efd;
+}
+input.delete:hover{
+    background-color:blue;
+    cursor: pointer;
 }
 
 input.edit {
@@ -213,22 +212,10 @@ input.edit:hover {
     cursor: pointer;
 }
 
-.delete:hover {
-    background-color: blue;
-    cursor: pointer;
-}
-
 .delete {
     background-color: #0d6efd;
 }
 
-.delete a {
-    color: white;
-    display: inline-block;
-    padding: 10px 16px;
-    margin-top: 2px;
-    margin-left: 2px;
-}
 
 .department_title {
     text-align: left;

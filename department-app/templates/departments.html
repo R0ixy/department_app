@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Departments</title>
-    <link href="/department-app/staticment-app/static/style.css" rel="stylesheet" type="text/css"/>
+    <link href="/department-app/static/style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <header>
@@ -16,67 +16,71 @@
 <div class="content departments">
     <h3 class="add_new"><a href="/add_department/" class="add_new">Add new department</a></h3>
     {% for department in departments %}
-    <div class="department_block" id={{department.id}}>
-        <h2 class="department_title">{{ department.name }}</h2>
-        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>
-        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>
-        <div class="department_button">
-            <p>
-                <input type="button" data-id="1" class="edit" value="Edit">
+        <div class="department_block" id={{ department.id }}>
+            <h2 class="department_title">{{ department.name }}</h2>
+            <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">{{ department.number }}</b>
             </p>
-            <p>
-                <span class="delete"><a href="">Delete</a></span>
-            </p>
-        </div>
-        <section class="department_description">
-            {{ department.description }}
-        </section>
+            <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.salary }}</b></p>
+            <div class="department_button">
+                <p>
+                    <input type="button" data-id="{{ department.id }}" class="edit" value="Edit">
+                </p>
+                <form action="/delete_department/{{ department.id }}" method="post">
+                    <p>
+                        <input type="submit" class="delete" value="Delete">
+                    </p>
+                </form>
 
-    </div>
-{% endfor %}
-{#    <div class="department_block" id="2">#}
-{#        <h2 class="department_title">Department two</h2>#}
-{#        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>#}
-{#        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>#}
-{#        <section class="department_description">#}
-{#            Description#}
-{#            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et#}
-{#            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex#}
-{#            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat#}
-{#            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit#}
-{#            anim id est laborum.#}
-{#        </section>#}
-{#        <div class="department_button">#}
-{#            <p>#}
-{#                <input type="button" class="edit" data-id="2" value="Edit">#}
-{#            </p>#}
-{#            <p>#}
-{#                <span class="delete"><a href="">Delete</a></span>#}
-{#            </p>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <div class="department_block" id="3">#}
-{#        <h2 class="department_title">Department three</h2>#}
-{#        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>#}
-{#        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>#}
-{#        <section class="department_description">#}
-{#            Description#}
-{#            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et#}
-{#            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex#}
-{#            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat#}
-{#            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit#}
-{#            anim id est laborum.#}
-{#        </section>#}
-{#        <div class="department_button">#}
-{#            <p>#}
-{#                <input type="button" class="edit" data-id="3" value="Edit">#}
-{#            </p>#}
-{#            <p>#}
-{#                <span class="delete"><a href="">Delete</a></span>#}
-{#            </p>#}
-{#        </div>#}
-{#    </div>#}
+            </div>
+            <section class="department_description">
+                {{ department.description }}
+            </section>
+
+        </div>
+    {% endfor %}
+    {#    <div class="department_block" id="2">#}
+    {#        <h2 class="department_title">Department two</h2>#}
+    {#        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>#}
+    {#        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>#}
+    {#        <section class="department_description">#}
+    {#            Description#}
+    {#            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et#}
+    {#            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex#}
+    {#            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat#}
+    {#            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit#}
+    {#            anim id est laborum.#}
+    {#        </section>#}
+    {#        <div class="department_button">#}
+    {#            <p>#}
+    {#                <input type="button" class="edit" data-id="2" value="Edit">#}
+    {#            </p>#}
+    {#            <p>#}
+    {#                <span class="delete"><a href="">Delete</a></span>#}
+    {#            </p>#}
+    {#        </div>#}
+    {#    </div>#}
+    {##}
+    {#    <div class="department_block" id="3">#}
+    {#        <h2 class="department_title">Department three</h2>#}
+    {#        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>#}
+    {#        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>#}
+    {#        <section class="department_description">#}
+    {#            Description#}
+    {#            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et#}
+    {#            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex#}
+    {#            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat#}
+    {#            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit#}
+    {#            anim id est laborum.#}
+    {#        </section>#}
+    {#        <div class="department_button">#}
+    {#            <p>#}
+    {#                <input type="button" class="edit" data-id="3" value="Edit">#}
+    {#            </p>#}
+    {#            <p>#}
+    {#                <span class="delete"><a href="">Delete</a></span>#}
+    {#            </p>#}
+    {#        </div>#}
+    {#    </div>#}
     <div class="b-popup"></div>
     <div id="window_dep" style="display: none">
         <div class="x"></div>
