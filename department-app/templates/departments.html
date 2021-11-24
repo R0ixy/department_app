@@ -14,73 +14,31 @@
     <span class="right username">Username</span>
 </header>
 <div class="content departments">
-    <h3 class="add_new"><a href="/add_department/" class="add_new">Add new department</a></h3>
-    {% for department in departments %}
-        <div class="department_block" id={{ department.id }}>
-            <h2 class="department_title">{{ department.name }}</h2>
-            <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">{{ department.number }}</b>
-            </p>
-            <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.salary }}</b></p>
-            <div class="department_button">
-                <p>
-                    <input type="button" data-id="{{ department.id }}" class="edit" value="Edit">
-                </p>
-                <form action="/delete_department/{{ department.id }}" method="post">
-                    <p>
-                        <input type="submit" class="delete" value="Delete">
-                    </p>
-                </form>
-
-            </div>
-            <section class="department_description">
-                {{ department.description }}
-            </section>
-
-        </div>
-    {% endfor %}
-    {#    <div class="department_block" id="2">#}
-    {#        <h2 class="department_title">Department two</h2>#}
-    {#        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>#}
-    {#        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>#}
-    {#        <section class="department_description">#}
-    {#            Description#}
-    {#            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et#}
-    {#            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex#}
-    {#            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat#}
-    {#            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit#}
-    {#            anim id est laborum.#}
-    {#        </section>#}
-    {#        <div class="department_button">#}
-    {#            <p>#}
-    {#                <input type="button" class="edit" data-id="2" value="Edit">#}
+    <h3 class="add_new"><a href="{{ url_for('add_department') }}" class="add_new">Add new department</a></h3>
+    {#    {% for department in departments %}#}
+    {#        <div class="department_block" id={{ department.id }}>#}
+    {#            <h2 class="department_title">{{ department.name }}</h2>#}
+    {#            <p class="department_text" style="margin-top: 40px;">Number of employees: <b#}
+    {#                    style="color:#0d6efd">{{ department.number }}</b>#}
     {#            </p>#}
-    {#            <p>#}
-    {#                <span class="delete"><a href="">Delete</a></span>#}
-    {#            </p>#}
-    {#        </div>#}
-    {#    </div>#}
+    {#            <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.salary }}</b></p>#}
+    {#            <div class="department_button">#}
+    {#                <p>#}
+    {#                    <input type="button" data-id="{{ department.id }}" class="edit" value="Edit">#}
+    {#                </p>#}
+    {#                <form action="/delete_department/{{ department.id }}" method="post">#}
+    {#                    <p>#}
+    {#                        <input type="submit" class="delete" value="Delete">#}
+    {#                    </p>#}
+    {#                </form>#}
+    {#            </div>#}
+    {#            <section class="department_description">#}
+    {#                {{ department.description }}#}
+    {#            </section>#}
     {##}
-    {#    <div class="department_block" id="3">#}
-    {#        <h2 class="department_title">Department three</h2>#}
-    {#        <p class="department_text" style="margin-top: 40px;">Number of employees: <b style="color:#0d6efd">34</b></p>#}
-    {#        <p class="department_text">Average salary: <b style="color:#0d6efd">1234</b></p>#}
-    {#        <section class="department_description">#}
-    {#            Description#}
-    {#            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et#}
-    {#            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex#}
-    {#            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat#}
-    {#            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit#}
-    {#            anim id est laborum.#}
-    {#        </section>#}
-    {#        <div class="department_button">#}
-    {#            <p>#}
-    {#                <input type="button" class="edit" data-id="3" value="Edit">#}
-    {#            </p>#}
-    {#            <p>#}
-    {#                <span class="delete"><a href="">Delete</a></span>#}
-    {#            </p>#}
     {#        </div>#}
-    {#    </div>#}
+    {#    {% endfor %}#}
+
     <div class="b-popup"></div>
     <div id="window_dep" style="display: none">
         <div class="x"></div>
@@ -99,27 +57,78 @@
             <input type="submit" class="save" value="Save">
         </form>
     </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(xmlHttp.responseText);
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous
+        xmlHttp.send(null);
+    }
 
-        $('.edit').click(function () {
+    httpGetAsync('http://127.0.0.1:5000/api/get_all_departments/', function (response) {
+
+        for (let i of JSON.parse(response)) {
+            let div = document.createElement('div');
+            div.innerHTML = `      <div class="department_block" id=${i.id}>` +
+                `<h2 class="department_title">${i.name}</h2>` +
+                '<p class="department_text" style="margin-top: 40px;">' +
+                'Number of employees: <b style="color:#0d6efd">${}</b>' +
+                '</p>' +
+                '<p class="department_text">Average salary: <b style="color:#0d6efd">${}</b></p>' +
+                '<div class="department_button">' +
+                '<p>' +
+                `<input type="button" data-id="${i.id}" class="edit" value="Edit">` +
+                '</p>' +
+                `<form action="/delete_department/${i.id}" method="post">` +
+                '<p>' +
+                '<input type="submit" class="delete" value="Delete">' +
+                '</p>' +
+                '</form>' +
+                '</div>' +
+                '<section class="department_description">' +
+                `${i.description}}` +
+                '</section></div>'
+
+            $('div.content').append(div);
+        }
+    })
+
+    $(document).ready(function () {
+        $('body').on('click', '.edit', function () {
+
             const a = $(`#${this.dataset.id}`);
-            const title = a.find('.department_title').html()
-            const text = a.find('section.department_description').html()
+            const title = a.find('.department_title').html();
+            const text = a.find('section.department_description').html();
             $("textarea").append(text);
             $('.add_title').val(title);
             $('input#dep_id').val(this.dataset.id)
             $('div#window_dep').show();
             $('.b-popup').show();
-        })
-        $('.x').click(function () {
-            $('div#window_dep').hide();
-            $('.b-popup').hide();
-        })
+        });
+    });
 
-    </script>
+    {#$('.edit').click(function () {#}
+    {#    const a = $(`#${this.dataset.id}`);#}
+    {#    const title = a.find('.department_title').html();#}
+    {#    const text = a.find('section.department_description').html();#}
+    {#    $("textarea").append(text);#}
+    {#    $('.add_title').val(title);#}
+    {#    $('input#dep_id').val(this.dataset.id)#}
+    {#    $('div#window_dep').show();#}
+    {#    $('.b-popup').show();#}
+    {# });#}
 
-</div>
+    $('.x').click(function () {
+        $('div#window_dep').hide();
+        $('.b-popup').hide();
+    });
+</script>
+
 </body>
 </html>

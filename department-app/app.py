@@ -1,15 +1,15 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-
 app = Flask(__name__, static_url_path='/department-app/static/')
 # db_url = 'mysql+pymysql://root:testpassword@localhost:80/db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:testpassword@localhost:80/db'
 
 app.config['SECRET_KEY'] = 'gcfgsdhxzncvbsjhuytsgf236uteq2e2t17dcz'
-
 db = SQLAlchemy(app)
+from rest import api
+app.register_blueprint(api, url_prefix='/api')
 import views
 
 # login_manager = LoginManager(app)
