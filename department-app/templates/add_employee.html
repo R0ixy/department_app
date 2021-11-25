@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new employee</title>
+    <link href="/department-app/static/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+    <span class="head_link"><a href="index.html">Company</a></span>
+    <span class="head_link"><a href="departments.html">Departments</a></span>
+    <span class="head_link"><a href="employees.html">Employees</a></span>
+    <span class="right sign"><a href="registration.html" class="link">Log out</a></span>
+    <span class="right username">Username</span>
+</header>
+<div class="content">
+    <div class="up_emp" style="background:#f7f7f7">
+        <h3 class="add_new_emp"><a href="{{ url_for('employees') }}" class="add_new_emp">Go back</a></h3>
+    </div>
+    <div class="add_employee_block">
+        <form>
+            <h2 class="department_title"><label id="title_add_emp"><sup>Full name</sup><input type="text"
+                                                                                              class="input_name"
+                                                                                              placeholder="Name Surname"></label>
+            </h2>
+            <div class="employee_text_block">
+                <div class="textcols-item">
+                    <p class="emp_text_center"><label>Salary:<input type="number" class="emp_inp"></label></p>
+                    <p class="emp_text_center"><label>Position: <input type="text" class="emp_inp"></label></p>
+                </div>
+                <div class="textcols-item">
+                    <p class="emp_text_right"><label>Department: <select class="">
+                        <option value="Department one">Department one</option>
+                        <option value="Department two">Department two</option>
+                    </select></label></p>
+                    <p class="emp_text_left"><label>Birthday: <input type="date" class="emp_inp_date"></label></p>
+                </div>
+            </div>
+            <div class="department_button">
+                <p>
+                    <input type="reset" class="edit" value="Clear">
+                </p>
+                <p>
+                    <input type="button" class="save_btn" value="Save">
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('input.input_name')
+        .focus(function () {
+            $('sup').show();
+        })
+        .blur(function () {
+            $('sup').hide();
+        })
+</script>
+</body>
+</html>
