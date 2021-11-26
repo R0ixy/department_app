@@ -1,4 +1,4 @@
-from ..app import db
+from app import db
 from models.department_model import Department
 from tests.base import BaseTest
 
