@@ -21,7 +21,7 @@ jobs:
     steps:
       - docker/build:
           image: r0ixy/mysql_db
-       - run:
+      - run:
            command: docker run -p 80:80 r0ixy/mysql_db
 
 #          extra_build_args: -p 80:80
