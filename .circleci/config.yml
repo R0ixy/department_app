@@ -22,7 +22,7 @@ jobs:
       - docker/build:
           image: r0ixy/mysql_db:latest
       - run:
-           command: docker run -p 80:80 r0ixy/mysql_db:latest
+           command: docker run -p 81:3306 -d r0ixy/mysql_db:latest
 
 #          extra_build_args: -p 80:80
 #          command: docker run -p 80:80 -d r0ixy/mysql_db
