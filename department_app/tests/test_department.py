@@ -1,6 +1,6 @@
 from department_app.app import db
 from department_app.models.department_model import Department
-from department_app.tests.base import BaseTest
+from department_app.tests.conftest import BaseTest
 
 
 class TestDepartment(BaseTest):
