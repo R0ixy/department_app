@@ -2,3 +2,4 @@ Flask
 Flask-sqlalchemy
 PyMysql
 flask_migrate
+cryptography
