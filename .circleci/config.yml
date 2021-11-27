@@ -45,7 +45,7 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          command: python -m unittest department-app.tests.test_department.TestDepartment
+          command: python -m unittest department_app.tests.test_department.TestDepartment
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
