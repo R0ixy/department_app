@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='/department_app/static/')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config["SQLALCHEMY_DATABASE_URI"] = f'mysql+pymysql://{DB_username}:{DB_password}@{DB_host}:{DB_port}/db'
 # app.config['SECRET_KEY'] = SECRET_KEY
-app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:testpassword@localhost:80/db'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:testpassword@localhost:3306/db'
 app.config['SECRET_KEY'] = 'gcfgsdhxzncvbsjhuytsgf236uteq2e2t17dcz'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

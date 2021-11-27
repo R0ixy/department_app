@@ -10,20 +10,17 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.2
-  docker: circleci/docker@1.7.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build-db:
     docker:
-#        - image: cimg/base:stable
         - image: r0ixy/mysql_db:latest
     steps:
-#      - docker/pull:
-#        - image: r0ixy/mysql_db:latest
-      - run:
-          command: docker run -p 80:3306 -d r0ixy/mysql_db:latest
+      - checkout
+#      - run:
+#          command: --port 8081
 
 #          extra_build_args: -p 80:80
 #          command: docker run -p 80:80 -d r0ixy/mysql_db
