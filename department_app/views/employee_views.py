@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from department_app.app import app
+from ..app import app
 
 
 @app.route('/employees/', methods=['GET', 'POST'])

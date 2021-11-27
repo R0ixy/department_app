@@ -1,4 +1,4 @@
-from department_app.app import db
+from ..app import db
 
 
 class Department(db.Model):
