@@ -19,8 +19,15 @@ jobs:
         - image: r0ixy/mysql_db:latest
     steps:
       - checkout
-#      - run:
-#          command: --port 8081
+      - run:
+          command: |
+            for i in `seq 1 10`;
+            do
+              nc -z 127.0.0.1 3306 && echo Success && exit 0
+              echo -n .
+              sleep 1
+            done
+            echo Failed waiting for MySQL && exit 1
 
 #          extra_build_args: -p 80:80
 #          command: docker run -p 80:80 -d r0ixy/mysql_db
