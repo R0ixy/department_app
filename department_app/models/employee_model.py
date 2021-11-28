@@ -1,4 +1,7 @@
-from ..app import db
+"""
+Module contains the class Employee to work with `employee` table
+"""
+from ..loader import db
 
 
 # class User(db.Model):
@@ -10,8 +13,11 @@ from ..app import db
 #     def __repr__(self):
 #         return f'<User {self.username}>'
 
-
+# pylint: disable=no-member
 class Employee(db.Model):
+    """
+    Employee table.
+    """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     full_name = db.Column(db.String(length=64), nullable=False)
     salary = db.Column(db.Integer)

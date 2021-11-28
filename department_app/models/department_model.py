@@ -1,7 +1,15 @@
-from ..app import db
+"""
+Module contains the class Department to work with `department` table
+"""
+# pylint: disable=cyclic-import
+from ..loader import db
 
 
+# pylint: disable=no-member
 class Department(db.Model):
+    """
+    Department table.
+    """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(length=32))
     description = db.Column(db.Text)

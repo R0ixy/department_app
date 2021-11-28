@@ -1,4 +1,4 @@
-from department_app.app import db
+from department_app.loader import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.department_model import Department
 from department_app.models.employee_model import Employee
@@ -31,14 +31,21 @@ class TestDepartmentServices(BaseTest):
         department_service.delete_department(1)
         self.assertEqual(0, Department.query.count())
 
-    def test_get_average_salary(self):
+    @staticmethod
+    def add_entries_to_db():
         department_service.add_new_department('department1', 'description1')
         employee1 = Employee(full_name='John Smith', salary=15000, date_of_birth='1987-06-06', position='engineer',
                              department_id=1)
         employee2 = Employee(full_name='Steve Jobs', salary=20000, date_of_birth='1955-02-24', position='SEO',
                              department_id=1)
-
         db.session.add(employee1)
         db.session.add(employee2)
         db.session.commit()
+
+    def test_get_average_salary(self):
+        self.add_entries_to_db()
         self.assertEqual(17500, department_service.get_average_salary(1))
+
+    def test_get_number_of_employees(self):
+        self.add_entries_to_db()
+        self.assertEqual(2, department_service.get_number_of_employees(1))

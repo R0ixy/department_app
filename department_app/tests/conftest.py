@@ -1,6 +1,6 @@
 import unittest
 
-from department_app.app import app, db
+from department_app.loader import app, db
 from department_app.config import DB_username, DB_password, DB_host, DB_port
 
 

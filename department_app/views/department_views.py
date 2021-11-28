@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
-from ..app import app
-from ..service import department_service
+from . import page
+from department_app.service import department_service
 
 
-@app.route('/departments/', methods=['GET', 'POST'])
+@page.route('/departments/', methods=['GET', 'POST'])
 def departments():
     """
     Render department page.
@@ -24,7 +24,7 @@ def departments():
     return render_template('departments.html', departments=department_list)
 
 
-@app.route('/add_department/', methods=['GET', 'POST'])
+@page.route('/add_department/', methods=['GET', 'POST'])
 def add_department():
     """
     Add department to database.
@@ -40,7 +40,7 @@ def add_department():
     return render_template('add_department.html')
 
 
-@app.route('/delete_department/<dep_id>', methods=['POST'])
+@page.route('/delete_department/<dep_id>', methods=['POST'])
 def delete_department(dep_id):
     """
     Delete department entry form database.

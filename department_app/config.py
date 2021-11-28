@@ -1,7 +1,10 @@
+"""
+Config file to load environment variables.
+"""
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 #
-# load_dotenv()
+load_dotenv()
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DB_username = os.environ.get('DB_USERNAME')
 DB_password = os.environ.get('DB_PASSWORD')

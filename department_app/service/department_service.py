@@ -1,4 +1,8 @@
-from ..app import db
+"""
+CRUD operations form department model.
+"""
+# pylint: disable=no-member
+from ..loader import db
 from ..models.department_model import Department
 from ..models.employee_model import Employee
 

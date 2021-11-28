@@ -1,4 +1,8 @@
-from ..app import db
+"""
+CRUD operations form employee model.
+"""
+# pylint: disable=no-member
+from ..loader import db
 from ..models.employee_model import Employee
 
 
@@ -17,7 +21,7 @@ def add_new_employee(name, salary, birthday, position, department):
 
     :param name: full name of employee
     :param salary: salary of employee
-    :param birthday: date of birth of employee
+    :param birthday: date of birth of employee in format yyyy-mm-dd
     :param position: position of employee
     :param department: id of employee's department
     """
@@ -33,7 +37,7 @@ def update_employee(name, salary, birthday, position, department):
 
     :param name: full name of employee
     :param salary: salary of employee
-    :param birthday: date of birth of employee
+    :param birthday: date of birth of employee in format yyyy-mm-dd
     :param position: position of employee
     :param department: id of employee's department
     """
@@ -60,10 +64,10 @@ def delete_employee(emp_id):
 
 def get_employee_with_date_of_birth(first_date, second_date=None):
     """
-    Get employees born on a certain date or in the period between dates
+    Get employees born on a certain date or in the period between dates.
 
-    :param first_date:
-    :param second_date:
+    :param first_date: date in format yyyy-mm-dd
+    :param second_date: date in format yyyy-mm-dd
     :return: list pf employees
     """
     # db.session.query(Employee).filter(first_date <= Employee.date_of_birth <= second_date).all()

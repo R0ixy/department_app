@@ -1,10 +1,14 @@
-# from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for
 # from flask_login import login_user
 # from werkzeug.security import generate_password_hash, check_password_hash
 # from app import app, db, login_manager
 # from models.employee import User
+from . import page
 
 
+@page.route('/')
+def hello_world():  # put application's code here
+    return render_template('index.html')
 # @login_manager.user_loader
 # def load_user(user_id):
 #     return User.get(user_id)
