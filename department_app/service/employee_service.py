@@ -31,23 +31,24 @@ def add_new_employee(name, salary, birthday, position, department):
     db.session.commit()
 
 
-def update_employee(name, salary, birthday, position, department):
+def update_employee(emp_id, name, salary, birthday, position, department):
     """
     Change existing employee entry.
 
+    :param emp_id: id of employee
     :param name: full name of employee
     :param salary: salary of employee
     :param birthday: date of birth of employee in format yyyy-mm-dd
     :param position: position of employee
     :param department: id of employee's department
     """
-    employee = Employee.query.get_or_404()
+    employee = Employee.query.get_or_404(emp_id)
     employee.full_name = name
     employee.salary = salary
     employee.date_of_birth = birthday
     employee.position = position
     employee.department_id = department
-    db.session.add(department)
+    db.session.add(employee)
     db.session.commit()
 
 

@@ -26,4 +26,4 @@ class Employee(db.Model):
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'), nullable=False)
 
     def __repr__(self):
-        return f'<Employee {self.username}>'
+        return f'<Employee {self.full_name}>'
