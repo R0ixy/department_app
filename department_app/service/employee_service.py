@@ -2,6 +2,7 @@
 CRUD operations form employee model.
 """
 # pylint: disable=no-member
+from datetime import datetime
 from ..loader import db
 from ..models.employee_model import Employee
 
@@ -71,8 +72,8 @@ def get_employee_with_date_of_birth(first_date, second_date=None):
     :param second_date: date in format yyyy-mm-dd
     :return: list pf employees
     """
-    # db.session.query(Employee).filter(first_date <= Employee.date_of_birth <= second_date).all()
+    first_date = datetime.strptime(first_date, "%Y-%m-%d").date()
     if second_date:
-        return Employee.query.filter(first_date <= Employee.date_of_birth <= second_date).all()
-
+        second_date = datetime.strptime(second_date, "%Y-%m-%d").date()
+        return Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).all()
     return Employee.query.filter_by(date_of_birth=first_date).all()

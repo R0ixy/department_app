@@ -48,9 +48,10 @@ class TestEmployeeServices(BaseTest):
         employee_service.delete_employee(1)
         self.assertEqual(0, Employee.query.count())
 
-    # def test_get_employee_with_date_of_birth(self):
-    #     self.create_department()
-    #     self.fill_db()
-    #     self.assertEqual(Employee.query.all(), employee_service.get_employee_with_date_of_birth('1987-06-06'))
-    #     self.assertEqual(Employee.query.all(),
-    #                      employee_service.get_employee_with_date_of_birth('1982-06-06', '1990-06-27'))
+    def test_get_employee_with_date_of_birth(self):
+        self.create_department()
+        self.fill_db()
+        self.assertEqual(Employee.query.all(), employee_service.get_employee_with_date_of_birth('1987-06-06'))
+        self.assertEqual(Employee.query.all(),
+                         employee_service.get_employee_with_date_of_birth('1982-04-16', '1990-06-27'))
+
