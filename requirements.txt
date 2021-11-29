@@ -4,3 +4,4 @@ PyMysql
 flask_migrate
 cryptography
 python-dotenv
+coveralls
