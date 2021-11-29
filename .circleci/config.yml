@@ -49,7 +49,9 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: coverage run -m unittest discover department_app/tests
-      - coveralls/upload
+      done:
+        - steps:
+          - coveralls/upload
 
 
 # Invoke jobs via workflows
