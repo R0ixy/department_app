@@ -49,9 +49,12 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: coverage run -m unittest discover department_app/tests
-      done:
-        - steps:
-          - coveralls/upload
+      - coveralls/upload
+  done:
+    docker:
+      - image: 'circleci/node:10.0.0'
+    steps:
+      - coveralls/upload
 
 
 # Invoke jobs via workflows
@@ -61,3 +64,6 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+      - done:
+          requires:
+            - build-and-test
