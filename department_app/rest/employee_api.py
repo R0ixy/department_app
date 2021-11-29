@@ -9,7 +9,7 @@ class EmployeesApi(Resource):
     @staticmethod
     def get():
         """
-        Endpoint for getting all employees. If request contains parameters request will match them.
+        Endpoint for getting employees. If request contains parameters result will match them.
 
         :return: json response that contains all employee entries.
         """
@@ -25,6 +25,11 @@ class EmployeesApi(Resource):
 
     @staticmethod
     def post():
+        """
+        Endpoint for adding new employee.
+
+        :return: json response containing the message whether the request was successful or not.
+        """
         request_data = request.get_json()
         full_name = request_data['full_name']
         salary = request_data['salary']
@@ -39,6 +44,11 @@ class EmployeesApi(Resource):
 
     @staticmethod
     def put():
+        """
+        Endpoint for changing an existing employee.
+
+        :return: json response containing the message whether the request was successful or not.
+        """
         request_data = request.get_json()
         try:
             update_employee(emp_id=request_data['id'],
@@ -53,6 +63,11 @@ class EmployeesApi(Resource):
 
     @staticmethod
     def delete():
+        """
+        Endpoint for deleting an employee.
+
+        :return: json response containing the message whether the request was successful or not.
+        """
         request_data = request.get_json()
         try:
             delete_employee(request_data['id'])
