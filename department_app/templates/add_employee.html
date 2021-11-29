@@ -18,22 +18,24 @@
         <h3 class="add_new_emp"><a href="{{ url_for('page.employees') }}" class="add_new_emp">Go back</a></h3>
     </div>
     <div class="add_employee_block">
-        <form>
+        <form action="" method="post">
             <h2 class="department_title"><label id="title_add_emp"><sup>Full name</sup><input type="text"
                                                                                               class="input_name"
+                                                                                              name='full_name'
                                                                                               placeholder="Name Surname"></label>
             </h2>
             <div class="employee_text_block">
                 <div class="textcols-item">
-                    <p class="emp_text_center"><label>Salary:<input type="number" class="emp_inp"></label></p>
-                    <p class="emp_text_center"><label>Position: <input type="text" class="emp_inp"></label></p>
+                    <p class="emp_text_center"><label>Salary:<input type="number" class="emp_inp" name="salary"></label></p>
+                    <p class="emp_text_center"><label>Position: <input type="text" class="emp_inp" name="position"></label></p>
                 </div>
                 <div class="textcols-item">
-                    <p class="emp_text_right"><label>Department: <select class="">
-                        <option value="Department one">Department one</option>
-                        <option value="Department two">Department two</option>
+                    <p class="emp_text_right"><label>Department: <select name="department">
+                        {% for department in departments %}
+                        <option value="{{ department.id }}">{{ department.name }}</option>
+                        {% endfor %}
                     </select></label></p>
-                    <p class="emp_text_left"><label>Birthday: <input type="date" class="emp_inp_date"></label></p>
+                    <p class="emp_text_left"><label>Birthday: <input type="date" class="emp_inp_date" name="date_of_birth"></label></p>
                 </div>
             </div>
             <div class="department_button">
@@ -41,7 +43,7 @@
                     <input type="reset" class="edit" value="Clear">
                 </p>
                 <p>
-                    <input type="button" class="save_btn" value="Save">
+                    <input type="submit" class="save_btn" value="Save">
                 </p>
             </div>
         </form>

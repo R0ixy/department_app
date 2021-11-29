@@ -19,9 +19,9 @@
             <div class="department_block" id={{ department.id }}>
                 <h2 class="department_title">{{ department.name }}</h2>
                 <p class="department_text" style="margin-top: 40px;">Number of employees: <b
-                        style="color:#0d6efd">{{ department.number }}</b>
+                        style="color:#0d6efd">{{ department.number_of_employees }}</b>
                 </p>
-                <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.salary }}</b></p>
+                <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.average_salary }}</b></p>
                 <div class="department_button">
                     <p>
                         <input type="button" data-id="{{ department.id }}" class="edit" value="Edit">

@@ -15,28 +15,34 @@
 </header>
 <div class="content emp">
     <div class="up_emp">
-        <p class="left search">Chose birthday date</p>
+        <p class="left search">Choose date</p>
         <label><input type="date" class="left search first_date"></label>
         <label><input type="date" class="left search second_date" style="display: none"/></label>
         <label><input type="button" class="left search add_date" value="add date"></label>
         <label><input type="button" class="left search hide_date" value="hide" style="display: none"></label>
+        <label><select class="left search dep">
+                    <option selected value>choose department</option>
+                    {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                    {% endfor %}
+        </select></label>
         <label><input type="submit" class="left search" value="search"></label>
         <h3 class="add_new_emp"><a href="{{ url_for('page.add_employee') }}" class="add_new_emp">Add new employee</a></h3>
     </div>
-
+    {% for employee in employees %}
     <div class="employee_block" id="1">
-        <h2 class="department_title">Jhon Smith</h2>
+        <h2 class="department_title">{{ employee.full_name }}</h2>
         <div class="employee_text_block">
             <div class="textcols-item">
-                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>
-                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>
+                <p class="emp_text_left">Age: <b style="color:#0d6efd">{{ employee.age }}</b></p>
+                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">{{ employee.date_of_birth }}</b></p>
             </div>
             <div class="textcols-item">
-                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>
-                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>
+                <p class="emp_text_center">Salary: <b style="color:#0d6efd">{{ employee.salary }}</b></p>
+                <p class="emp_text_center">Position: <b style="color:#0d6efd">{{ employee.position }}</b></p>
             </div>
             <div class="textcols-item">
-                <p class="emp_text_right">Department: <b style="color:#0d6efd">Department two</b></p>
+                <p class="emp_text_right">Department: <b style="color:#0d6efd">{{ employee.department.name }}</b></p>
             </div>
         </div>
         <div class="department_button">
@@ -51,86 +57,88 @@
 
         </div>
     </div>
+    {% endfor %}
 
-    <div class="employee_block" id="2">
-        <h2 class="department_title">Name Surname</h2>
-        <div class="employee_text_block">
-            <div class="textcols-item">
-                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>
-                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>
-                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>
-            </div>
-        </div>
-        <div class="department_button">
-            <p>
-                <input type="button" class="edit" data-id="2" value="Edit">
-            </p>
-            <form action="/delete/2" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
-        </div>
-    </div>
-
-    <div class="employee_block" id="3">
-        <h2 class="department_title">Name Surname</h2>
-        <div class="employee_text_block">
-            <div class="textcols-item">
-                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>
-                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>
-                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>
-            </div>
-        </div>
-        <div class="department_button">
-            <p>
-                <input type="button" class="edit" data-id="3" value="Edit">
-            </p>
-            <form action="/delete/3" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
-        </div>
-    </div>
-    <div class="employee_block" id="4">
-        <h2 class="department_title">Name Surname</h2>
-        <div class="employee_text_block">
-            <div class="textcols-item">
-                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>
-                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>
-                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>
-            </div>
-        </div>
-        <div class="department_button">
-            <p>
-                <input type="button" class="edit" data-id="4" value="Edit">
-            </p>
-            <form action="/delete/4" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
-        </div>
-    </div>
+{##}
+{#    <div class="employee_block" id="2">#}
+{#        <h2 class="department_title">Name Surname</h2>#}
+{#        <div class="employee_text_block">#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>#}
+{#                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>#}
+{#            </div>#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>#}
+{#                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>#}
+{#            </div>#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="department_button">#}
+{#            <p>#}
+{#                <input type="button" class="edit" data-id="2" value="Edit">#}
+{#            </p>#}
+{#            <form action="/delete/2" method="post">#}
+{#                <p>#}
+{#                    <input type="button" class="delete" value="Delete">#}
+{#                </p>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="employee_block" id="3">#}
+{#        <h2 class="department_title">Name Surname</h2>#}
+{#        <div class="employee_text_block">#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>#}
+{#                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>#}
+{#            </div>#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>#}
+{#                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>#}
+{#            </div>#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="department_button">#}
+{#            <p>#}
+{#                <input type="button" class="edit" data-id="3" value="Edit">#}
+{#            </p>#}
+{#            <form action="/delete/3" method="post">#}
+{#                <p>#}
+{#                    <input type="button" class="delete" value="Delete">#}
+{#                </p>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="employee_block" id="4">#}
+{#        <h2 class="department_title">Name Surname</h2>#}
+{#        <div class="employee_text_block">#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>#}
+{#                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>#}
+{#            </div>#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>#}
+{#                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>#}
+{#            </div>#}
+{#            <div class="textcols-item">#}
+{#                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="department_button">#}
+{#            <p>#}
+{#                <input type="button" class="edit" data-id="4" value="Edit">#}
+{#            </p>#}
+{#            <form action="/delete/4" method="post">#}
+{#                <p>#}
+{#                    <input type="button" class="delete" value="Delete">#}
+{#                </p>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
 
 </div>
 <div class="b-popup"></div>
@@ -149,8 +157,9 @@
             </div>
             <div class="ed_textcols-item">
                 <p class="emp_text_right"><label>Department: <select class="">
-                    <option value="Department one">Department one</option>
-                    <option value="Department two">Department two</option>
+                    {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                    {% endfor %}
                 </select></label></p>
                 <p class="emp_text_left"><label>Birthday: <input type="date" id="birthday" class="emp_inp_date"></label>
                 </p>
@@ -160,37 +169,6 @@
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $('.add_date').click(function () {
-        $('.second_date').show();
-        $('.hide_date').show();
-        $('.add_date').hide();
-    })
-    $('.hide_date').click(function () {
-        $('.second_date').hide();
-        $('.add_date').show();
-        $('.hide_date').hide();
-    })
-
-    $('.edit').click(function () {
-        const a = $(`#${this.dataset.id}`);
-        const title = a.find('.department_title').html();
-        let list = [];
-        for (let i of a.find('b')) {
-            list.push(i.innerHTML);
-        }
-        $('.input_name').val(title);
-        $('#salary').val(list[2]);
-        $('#position').val(list[3]);
-        $('.title_add_emp').append(title);
-        $(`select option[value='${list[4]}']`).prop('selected', true);
-        $('div#window_emp').show();
-        $('.b-popup').show();
-    })
-    $('.x').click(function () {
-        $('div#window_emp').hide();
-        $('.b-popup').hide();
-    })
-</script>
+<script src="/department_app/static/employees.js"></script>
 </body>
 </html>

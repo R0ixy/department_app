@@ -2,18 +2,24 @@
 CRUD operations form employee model.
 """
 # pylint: disable=no-member
-from datetime import datetime
+from datetime import datetime, date
 from ..loader import db
 from ..models.employee_model import Employee
 
 
 def get_all_employees() -> list:
     """
-    Select all employees from database.
+    Select all employees from database and calculate each employee's age.
 
     :return: list of employee entries
     """
-    return db.session.query(Employee).all()
+    employees = db.session.query(Employee).all()
+    today = date.today()
+    for employee in employees:
+        born = employee.date_of_birth
+        age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        employee.age = age
+    return employees
 
 
 def add_new_employee(name, salary, birthday, position, department):
@@ -64,7 +70,7 @@ def delete_employee(emp_id):
     db.session.commit()
 
 
-def get_employee_with_date_of_birth(first_date, second_date=None):
+def get_employee_with_params(emp_id=None, first_date=None, second_date=None):
     """
     Get employees born on a certain date or in the period between dates.
 
@@ -72,8 +78,19 @@ def get_employee_with_date_of_birth(first_date, second_date=None):
     :param second_date: date in format yyyy-mm-dd
     :return: list pf employees
     """
-    first_date = datetime.strptime(first_date, "%Y-%m-%d").date()
-    if second_date:
-        second_date = datetime.strptime(second_date, "%Y-%m-%d").date()
-        return Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).all()
-    return Employee.query.filter_by(date_of_birth=first_date).all()
+    today = date.today()
+    if first_date:
+        first_date = datetime.strptime(first_date, "%Y-%m-%d").date()
+        if second_date:
+            second_date = datetime.strptime(second_date, "%Y-%m-%d").date()
+            employees = Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).filter_by(
+                id=emp_id).all()
+        else:
+            employees = Employee.query.filter_by(date_of_birth=first_date).filter_by(id=emp_id).all()
+    else:
+        employees = Employee.query.filter_by(id=emp_id).all()
+    for employee in employees:
+        born = employee.date_of_birth
+        age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        employee.age = age
+    return employees

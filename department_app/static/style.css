@@ -300,11 +300,19 @@ input.edit:hover {
     float: left;
 }
 
-input.search {
+.search {
     margin-top: 16px;
     margin-left: 10px;
 }
-
+.add_date, .hide_date{
+    height:28px;
+}
+input.search:hover, select.search:hover{
+    border: 2px solid #0d6efd;
+}
+select.dep{
+    padding: 5px;
+}
 p.search {
     margin-left: 10px;
     margin-top: 18px;

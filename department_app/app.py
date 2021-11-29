@@ -2,10 +2,10 @@
 Starts application.
 """
 from loader import app, db
-from rest import api
+from rest import rest
 from views import page
 app.register_blueprint(page)
-app.register_blueprint(api, url_prefix='/api')
+app.register_blueprint(rest, url_prefix='/api')
 
 # login_manager = LoginManager(app)
 

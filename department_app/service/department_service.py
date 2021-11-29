@@ -2,9 +2,11 @@
 CRUD operations form department model.
 """
 # pylint: disable=no-member
+
 from ..loader import db
 from ..models.department_model import Department
 from ..models.employee_model import Employee
+from sqlalchemy.sql import func
 
 
 def get_all_departments() -> list:
@@ -13,7 +15,13 @@ def get_all_departments() -> list:
 
     :return: list of department entries
     """
-    return db.session.query(Department).all()
+    departments = db.session.query(Department).all()
+    for department in departments:
+        salary = get_average_salary(department.id)
+        number_of_employees = get_number_of_employees(department.id)
+        department.average_salary = float(salary) if salary else 0
+        department.number_of_employees = number_of_employees
+    return departments
 
 
 def add_new_department(name, description):
@@ -58,13 +66,7 @@ def get_average_salary(department_id) -> float:
     :param department_id: id of department to get average salary
     :return: average_salary
     """
-    employee = db.session.query(Employee).filter_by(department_id=department_id).all()
-    average_salary = 0
-    if employee:
-        for i in employee:
-            average_salary += i.salary
-        return average_salary / len(employee)
-    return 0
+    return db.session.query(func.avg(Employee.salary)).filter_by(department_id=department_id).scalar()
 
 
 def get_number_of_employees(department_id):

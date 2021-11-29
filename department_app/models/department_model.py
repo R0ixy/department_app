@@ -23,7 +23,9 @@ class Department(db.Model):
             'id': self.id,
             'name': self.name,
             'description': self.description,
+            'average_salary': self.average_salary,
+            'number_of_employees': self.number_of_employees
         }
 
     def __repr__(self):
-        return f'<Department {self.name}>'
+        return self.name
