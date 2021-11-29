@@ -70,10 +70,11 @@ def delete_employee(emp_id):
     db.session.commit()
 
 
-def get_employee_with_params(emp_id=None, first_date=None, second_date=None):
+def get_employee_with_params(*, dep_id=None, first_date=None, second_date=None):
     """
     Get employees born on a certain date or in the period between dates.
 
+    :param dep_id: id of department
     :param first_date: date in format yyyy-mm-dd
     :param second_date: date in format yyyy-mm-dd
     :return: list pf employees
@@ -83,12 +84,21 @@ def get_employee_with_params(emp_id=None, first_date=None, second_date=None):
         first_date = datetime.strptime(first_date, "%Y-%m-%d").date()
         if second_date:
             second_date = datetime.strptime(second_date, "%Y-%m-%d").date()
-            employees = Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).filter_by(
-                id=emp_id).all()
+            if dep_id:
+                employees = Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).filter_by(
+                    department_id=dep_id).all()
+            else:
+                employees = Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).all()
         else:
-            employees = Employee.query.filter_by(date_of_birth=first_date).filter_by(id=emp_id).all()
+            if dep_id:
+                employees = Employee.query.filter_by(date_of_birth=first_date).filter_by(department_id=dep_id).all()
+            else:
+                employees = Employee.query.filter_by(date_of_birth=first_date).all()
     else:
-        employees = Employee.query.filter_by(id=emp_id).all()
+        if dep_id:
+            employees = Employee.query.filter_by(department_id=dep_id).all()
+        else:
+            employees = Employee.query.all()
     for employee in employees:
         born = employee.date_of_birth
         age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))

@@ -13,11 +13,11 @@ class EmployeesApi(Resource):
 
         :return: json response that contains all employee entries.
         """
-        emp_id = request.args.get('id')
+        dep_id = request.args.get('id')
         first_date = request.args.get('first_date')
         second_date = request.args.get('second_date')
-        if emp_id or first_date or second_date:
-            employees = get_employee_with_params(emp_id=emp_id, first_date=first_date, second_date=second_date)
+        if dep_id or first_date or second_date:
+            employees = get_employee_with_params(dep_id=dep_id, first_date=first_date, second_date=second_date)
         else:
             employees = get_all_employees()
         emp = [employee.to_dict() for employee in employees]

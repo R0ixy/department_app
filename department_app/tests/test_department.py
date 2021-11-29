@@ -16,4 +16,4 @@ class TestDepartment(BaseTest):
         # pylint: disable=no-member
         db.session.add(department)
         db.session.commit()
-        self.assertEqual('<Department test_department>', repr(department))
+        self.assertEqual('test_department', repr(department))

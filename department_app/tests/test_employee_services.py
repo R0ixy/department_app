@@ -51,7 +51,7 @@ class TestEmployeeServices(BaseTest):
     def test_get_employee_with_date_of_birth(self):
         self.create_department()
         self.fill_db()
-        self.assertEqual(Employee.query.all(), employee_service.get_employee_with_date_of_birth('1987-06-06'))
+        self.assertEqual(Employee.query.all(), employee_service.get_employee_with_params(first_date='1987-06-06'))
         self.assertEqual(Employee.query.all(),
-                         employee_service.get_employee_with_date_of_birth('1982-04-16', '1990-06-27'))
+                         employee_service.get_employee_with_params(first_date='1982-04-16', second_date='1990-06-27'))
 

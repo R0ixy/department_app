@@ -20,4 +20,4 @@ class TestEmployee(BaseTest):
         db.session.add(department)
         db.session.add(employee)
         db.session.commit()
-        self.assertEqual('<Employee John Smith>', repr(employee))
+        self.assertEqual('John Smith', repr(employee))
