@@ -43,7 +43,7 @@ class DepartmentApi(Resource):
             update_department(request_data['id'], request_data['name'], request_data['description'])
         except KeyError:
             return {'message': 'Wrong data'}, 400
-        return 'Department has been successfully changed', 201
+        return 'Department has been successfully changed', 200
 
     @staticmethod
     def delete():
@@ -57,7 +57,7 @@ class DepartmentApi(Resource):
             delete_department(request_data['id'])
         except KeyError:
             return {'message': 'Wrong data'}, 400
-        return 'Department has been successfully deleted', 201
+        return 'Department has been successfully deleted', 200
 
 
 api.add_resource(DepartmentApi, '/department/')
