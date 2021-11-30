@@ -24,6 +24,7 @@ class TestDepartmentApi(BaseTest):
         department = Department(name='Test Department', description='Test Description')
         # pylint: disable=no-member
         db.session.add(department)
+        db.session.commit()
         data = {
             'id': 1,
             'name': 'New Department',
@@ -37,6 +38,7 @@ class TestDepartmentApi(BaseTest):
         department = Department(name='Test Department', description='Test Description')
         # pylint: disable=no-member
         db.session.add(department)
+        db.session.commit()
         data = {
             'id': 1,
         }
