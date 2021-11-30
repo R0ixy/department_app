@@ -1,5 +1,6 @@
 Flask
 Flask-sqlalchemy
+Flask_restful
 PyMysql
 flask_migrate
 cryptography
