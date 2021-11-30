@@ -30,16 +30,16 @@ class EmployeesApi(Resource):
 
         :return: json response containing the message whether the request was successful or not.
         """
-        request_data = request.get_json()
-        full_name = request_data['full_name']
-        salary = request_data['salary']
-        position = request_data['position']
-        department = request_data['department_id']
-        date_of_birth = request_data['date_of_birth']
         try:
+            request_data = request.get_json()
+            full_name = request_data['full_name']
+            salary = request_data['salary']
+            position = request_data['position']
+            department = request_data['department_id']
+            date_of_birth = request_data['date_of_birth']
             add_new_employee(full_name, salary, date_of_birth, position, department)
         except KeyError:
-            return 'Wrong data', 400
+            return {'message': 'Wrong Key argument'}, 400
         return 'Employee has been successfully added', 201
 
     @staticmethod
@@ -58,7 +58,7 @@ class EmployeesApi(Resource):
                             position=request_data['position'],
                             department=request_data['department_id'])
         except KeyError:
-            return 'Wrong data', 400
+            return {'message': 'Wrong Key argument'}, 400
         return 'Employee has been successfully changed', 200
 
     @staticmethod
@@ -72,7 +72,7 @@ class EmployeesApi(Resource):
         try:
             delete_employee(request_data['id'])
         except KeyError:
-            return 'Wrong data', 400
+            return {'message': 'Wrong Key argument'}, 400
         return 'Employee has been successfully deleted', 200
 
 

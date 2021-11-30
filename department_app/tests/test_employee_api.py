@@ -24,8 +24,6 @@ class TestEmployeeApi(BaseTest):
         # pylint: disable=no-member
         db.session.add(employee)
         db.session.commit()
-        response = self.app.get('/api/employee/?id=1&first_date=1982-03-14&second_date=1991-02-21')
-        assert response.status_code == http.HTTPStatus.OK
 
     def test_get(self):
         self.fill_db()
@@ -65,6 +63,15 @@ class TestEmployeeApi(BaseTest):
                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.CREATED
 
+    def test_wrong_post(self):
+        self.create_dep()
+        data = {
+            'wrong_data': 'wrong data'
+        }
+        response = self.app.post('/api/employee/', data=json.dumps(data),
+                                 content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
     def test_put(self):
         self.fill_db()
         data = {
@@ -79,6 +86,15 @@ class TestEmployeeApi(BaseTest):
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
+    def test_wrong_put(self):
+        self.create_dep()
+        data = {
+            'wrong_data': 'wrong data'
+        }
+        response = self.app.put('/api/employee/', data=json.dumps(data),
+                                content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
     def test_delete(self):
         self.fill_db()
         data = {
@@ -87,3 +103,21 @@ class TestEmployeeApi(BaseTest):
         response = self.app.delete('/api/employee/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
+
+    def test_wrong_delete_data(self):
+        self.create_dep()
+        data = {
+            'id': 3423
+        }
+        response = self.app.delete('/api/employee/', data=json.dumps(data),
+                                   content_type='application/json')
+        assert response.status_code == http.HTTPStatus.NOT_FOUND
+
+    def test_wrong_delete_args(self):
+        self.create_dep()
+        data = {
+            'wrong_arg': 3423
+        }
+        response = self.app.delete('/api/employee/', data=json.dumps(data),
+                                   content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
