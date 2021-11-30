@@ -1,6 +1,9 @@
+"""
+This module represents the logic on routes starting with /departments
+"""
 from flask import render_template, request, redirect, url_for
-from . import page
 from department_app.service import department_service
+from . import page
 
 
 @page.route('/departments/', methods=['GET', 'POST'])
@@ -15,16 +18,10 @@ def departments():
         description = request.form['description']
         department_service.update_department(department_id, name, description)
 
-    # department_list = department_service.get_all_departments()
-
-    # for department in department_list:
-    #     department.__dict__['number'] = department_service.get_number_of_employees(department.id)
-    #     department.__dict__['salary'] = department_service.get_average_salary(department.id)
-
     return render_template('departments.html', departments=department_service.get_all_departments())
 
 
-@page.route('/add_department/', methods=['GET', 'POST'])
+@page.route('/departments/add/', methods=['GET', 'POST'])
 def add_department():
     """
     Add department to database.
@@ -40,7 +37,7 @@ def add_department():
     return render_template('add_department.html')
 
 
-@page.route('/delete_department/<dep_id>', methods=['POST'])
+@page.route('/departments/delete/<dep_id>', methods=['POST'])
 def delete_department(dep_id):
     """
     Delete department entry form database.

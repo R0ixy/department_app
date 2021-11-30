@@ -1,3 +1,4 @@
+# pylint: disable=wrong-import-position
 from flask import Blueprint
 from flask_restful import Api
 

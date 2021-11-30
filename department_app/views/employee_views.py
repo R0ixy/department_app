@@ -1,7 +1,10 @@
+"""
+This module represents the logic on routes starting with /employees
+"""
 from flask import render_template, request, redirect, url_for
-from . import page
 from department_app.service import employee_service
 from department_app.service.department_service import get_all_departments
+from . import page
 
 
 @page.route('/employees/', methods=['GET', 'POST'])
@@ -11,7 +14,7 @@ def employees():
     return render_template('employees.html', employees=employees_list, departments=dep)
 
 
-@page.route('/add_employee/', methods=['GET', 'POST'])
+@page.route('/employees/add/', methods=['GET', 'POST'])
 def add_employee():
     if request.method == 'POST':
         full_name = request.form['full_name']

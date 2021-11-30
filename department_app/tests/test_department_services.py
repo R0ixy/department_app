@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 from department_app.loader import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.department_model import Department
