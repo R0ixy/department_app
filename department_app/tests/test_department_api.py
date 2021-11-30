@@ -50,8 +50,8 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.post('/api/department/', data=json.dumps(data),
-                                 content_type='application/json')
+        response = self.app.put('/api/department/', data=json.dumps(data),
+                                content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
     def test_delete(self):
