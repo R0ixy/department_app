@@ -34,7 +34,7 @@ class EmployeesApi(Resource):
         full_name = request_data['full_name']
         salary = request_data['salary']
         position = request_data['position']
-        department = request_data['department']
+        department = request_data['department_id']
         date_of_birth = request_data['date_of_birth']
         try:
             add_new_employee(full_name, salary, date_of_birth, position, department)
@@ -56,7 +56,7 @@ class EmployeesApi(Resource):
                             salary=request_data['salary'],
                             birthday=request_data['date_of_birth'],
                             position=request_data['position'],
-                            department=request_data['department'])
+                            department=request_data['department_id'])
         except KeyError:
             return 'Wrong data', 400
         return 'Employee has been successfully changed', 200
