@@ -4,8 +4,8 @@ Loads all necessary modules and configs.
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from department_app.config import SECRET_KEY, DB_username, DB_password, DB_host, DB_port
 
+from department_app.config import SECRET_KEY, DB_username, DB_password, DB_host, DB_port
 
 app = Flask(__name__, static_url_path='/department_app/static/')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -16,6 +16,6 @@ migrate = Migrate(app, db)
 
 from department_app.rest import rest
 from department_app.views import page
+
 app.register_blueprint(page)
 app.register_blueprint(rest, url_prefix='/api')
-

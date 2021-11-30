@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+
 from department_app.service.department_service import get_all_departments, add_new_department, update_department, \
     delete_department
 from . import api

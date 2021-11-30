@@ -2,7 +2,7 @@
 Module contains the class Department to work with `department` table
 """
 # pylint: disable=cyclic-import
-from ..loader import db
+from department_app.loader import db
 
 
 # pylint: disable=no-member

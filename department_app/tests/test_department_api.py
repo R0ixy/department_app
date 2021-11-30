@@ -1,5 +1,6 @@
 import http
 import json
+
 from department_app.tests.conftest import BaseTest
 from department_app.models.department_model import Department
 from department_app.loader import db

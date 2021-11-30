@@ -2,6 +2,7 @@
 This module represents the logic on routes starting with /employees
 """
 from flask import render_template, request, redirect, url_for
+
 from department_app.service import employee_service
 from department_app.service.department_service import get_all_departments
 from . import page

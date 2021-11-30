@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+
 from department_app.service.employee_service import get_all_employees, add_new_employee, update_employee, \
     get_employee_with_params, delete_employee
 from . import api

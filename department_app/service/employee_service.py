@@ -3,8 +3,9 @@ CRUD operations form employee model.
 """
 # pylint: disable=no-member
 from datetime import datetime, date
-from ..loader import db
-from ..models.employee_model import Employee
+
+from department_app.loader import db
+from department_app.models.employee_model import Employee
 
 
 def get_all_employees() -> list:

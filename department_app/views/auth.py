@@ -1,7 +1,7 @@
 from flask import render_template, request, flash, redirect, url_for
-# from flask_login import login_user
-# from werkzeug.security import generate_password_hash, check_password_hash
-# from app import app, db, login_manager
+from flask_login import login_user
+from werkzeug.security import generate_password_hash, check_password_hash
+# from department_app.loader import login_manager
 # from models.employee import User
 from . import page
 
@@ -13,8 +13,8 @@ def hello_world():  # put application's code here
 # def load_user(user_id):
 #     return User.get(user_id)
 
-
-# @app.route('/login/', methods=['GET', 'POST'])
+#
+# @page.route('/login/', methods=['GET', 'POST'])
 # def login():
 #     if request.method == 'POST':
 #         username = request.form['username']
@@ -25,9 +25,9 @@ def hello_world():  # put application's code here
 #             login_user(user)
 #
 #     return render_template('login.html')
-
-
-# @app.route('/register/', methods=['GET', 'POST'])
+#
+#
+# @page.route('/register/', methods=['GET', 'POST'])
 # def register():
 #     if request.method == 'POST':
 #         username = request.form['username']

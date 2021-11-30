@@ -12,7 +12,6 @@ from department_app.loader import app, db
 #     return app
 
 
-# login_manager = LoginManager(app)
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@
 This module represents the logic on routes starting with /departments
 """
 from flask import render_template, request, redirect, url_for
+
 from department_app.service import department_service
 from . import page
 
