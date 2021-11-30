@@ -28,7 +28,7 @@ class DepartmentApi(Resource):
         try:
             add_new_department(request_data['name'], request_data['description'])
         except KeyError:
-            return 'Wrong data', 400
+            return {'message': 'Wrong Key argument'}, 400
         return 'Department has been successfully added', 201
 
     @staticmethod
@@ -42,7 +42,7 @@ class DepartmentApi(Resource):
         try:
             update_department(request_data['id'], request_data['name'], request_data['description'])
         except KeyError:
-            return {'message': 'Wrong data'}, 400
+            return {'message': 'Wrong Key argument'}, 400
         return 'Department has been successfully changed', 200
 
     @staticmethod
@@ -56,7 +56,7 @@ class DepartmentApi(Resource):
         try:
             delete_department(request_data['id'])
         except KeyError:
-            return {'message': 'Wrong data'}, 400
+            return {'message': 'Wrong Key argument'}, 400
         return 'Department has been successfully deleted', 200
 
 
