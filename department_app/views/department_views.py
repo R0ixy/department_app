@@ -11,7 +11,6 @@ from . import page
 def departments():
     """
     Render department page.
-    :return: render page
     """
     if request.method == 'POST':
         department_id = request.form['id']
@@ -46,6 +45,5 @@ def delete_department(dep_id):
     :param dep_id: id of department to delete.
     :return: redirect to department page.
     """
-    if request.method == 'POST':
-        department_service.delete_department(dep_id)
-        return redirect(url_for('page.departments'))
+    department_service.delete_department(dep_id)
+    return redirect(url_for('page.departments'))

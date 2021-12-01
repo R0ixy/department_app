@@ -2,6 +2,7 @@
 Starts application.
 """
 from department_app.loader import app, db
+
 # from department_app.rest import rest
 # from department_app.views import page
 #
@@ -12,10 +13,7 @@ from department_app.loader import app, db
 #     return app
 
 
-
-
 if __name__ == '__main__':
-
     db.init_app(app)
     db.create_all()
     app.run(debug=True, use_reloader=True)

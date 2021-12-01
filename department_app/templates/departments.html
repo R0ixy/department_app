@@ -17,7 +17,7 @@
     <h3 class="add_new"><a href="{{ url_for('page.add_department') }}" class="add_new">Add new department</a></h3>
         {% for department in departments %}
             <div class="department_block" id={{ department.id }}>
-                <h2 class="department_title">{{ department.name }}</h2>
+                <h2 class="department_title"><a href="/employees/{{ department.id}}">{{ department.name }}</a></h2>
                 <p class="department_text" style="margin-top: 40px;">Number of employees: <b
                         style="color:#0d6efd">{{ department.number_of_employees }}</b>
                 </p>

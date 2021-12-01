@@ -40,7 +40,8 @@ class Employee(db.Model):
             'date_of_birth': str(self.date_of_birth),
             'position': self.position,
             'department_id': self.department_id,
-            'age': self.age
+            'age': self.age,
+            'department': str(self.department)
         }
 
     def __repr__(self):
