@@ -3,9 +3,6 @@ Starts application.
 """
 from department_app.loader import app, db
 
-# from department_app.rest import rest
-# from department_app.views import page
-#
 #
 # def create_app():
 #     app.register_blueprint(page)

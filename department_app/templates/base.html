@@ -8,8 +8,18 @@
 <body>
 <header>
     <span class="head_link"><a href="/">Company</a></span>
-    <span class="left sign"><a href="/register/" class="link">Sign up</a></span>
-    <span class="left sign"><a class="link" href="/login/">Log in</a></span>
+    {% if g.user.is_authenticated %}
+    <span class="head_link"><a href="{{ url_for('page.departments') }}">Departments</a></span>
+    <span class="head_link"><a href="{{ url_for('page.employees') }}">Employees</a></span>
+    {% endif %}
+    {% if g.user.is_anonymous %}
+    <span class="right sign"><a href="/register/" class="link">Sign up</a></span>
+    <span class="right sign"><a class="link" href="/login/">Log in</a></span>
+    {% endif %}
+    {% if g.user.is_authenticated %}
+        <span class="right sign"><a href="/logout" class="link">Log out</a></span>
+        <span class="right username">{{ user.username }}</span>
+    {% endif %}
 </header>
 {% block body %}
 {% endblock %}

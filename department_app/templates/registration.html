@@ -1,40 +1,30 @@
 {% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Sign up</title>#}
-{#    <link href="/static/style.css" rel="stylesheet" type="text/css"/>#}
-{#</head>#}
 {% block title %}Sign up{% endblock %}
 <body>
-{#<header>#}
-{#    <span class="head_link"><a href="index.html">Company</a></span>#}
-{#    <span class="left sign"><a class="link" href="registration.html">Sign up</a></span>#}
-{#    <span class="left sign"><a class="link" href="login.html">Log in</a></span>#}
-{#</header>#}
 {% block body %}
 <div class="login">
     <form action="" method="post">
         <h3 class="top_title">Sign up</h3>
         <p>
             <label for="username">Username
-                <input type="text" class="form" name="username">
+                <input type="text" class="form" name="username" required>
             </label>
         </p>
         <p>
             <label for="email">Email
-                <input type="email" class="form" name="email">
+                <input type="email" class="form" name="email" required>
             </label>
         </p>
         <p>
             <label for="password">Password
-                <input class="password form" type="password" name="password">
+                <input class="password form" type="password" name="password" required>
             </label>
         </p>
         <p>
             <label for="password">Confirm Password
-                <input class="password-confirmation form" type="password" name="password">
+                <input class="password-confirmation form" type="password" name="password" required>
             </label>
         </p>
         <p id="wrongPassword">Passwords don't match</p>
@@ -47,7 +37,6 @@
     </form>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--<script src="jquery.js"></script>-->
 <script>
     isPasswordConfirmed = () => {
         return $('input.password').val() === $('input.password-confirmation').val();

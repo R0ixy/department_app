@@ -1,18 +1,9 @@
+{% extends 'base.html'%}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employees</title>
-    <link href="/department_app/static/style.css" rel="stylesheet" type="text/css"/>
-</head>
+{% block title %}Employees{% endblock %}
 <body>
-<header>
-    <span class="head_link"><a href="index.html">Company</a></span>
-    <span class="head_link"><a href="departments.html">Departments</a></span>
-    <span class="head_link"><a href="employees.html">Employees</a></span>
-    <span class="right sign"><a href="registration.html" class="link">Log out</a></span>
-    <span class="right username">Username</span>
-</header>
+{% block body %}
 <div class="content emp">
     <div class="up_emp">
         <p class="left search">Choose date</p>
@@ -59,87 +50,6 @@
     </div>
     {% endfor %}
 
-{##}
-{#    <div class="employee_block" id="2">#}
-{#        <h2 class="department_title">Name Surname</h2>#}
-{#        <div class="employee_text_block">#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>#}
-{#                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>#}
-{#            </div>#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>#}
-{#                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>#}
-{#            </div>#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="department_button">#}
-{#            <p>#}
-{#                <input type="button" class="edit" data-id="2" value="Edit">#}
-{#            </p>#}
-{#            <form action="/delete/2" method="post">#}
-{#                <p>#}
-{#                    <input type="button" class="delete" value="Delete">#}
-{#                </p>#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-{##}
-{#    <div class="employee_block" id="3">#}
-{#        <h2 class="department_title">Name Surname</h2>#}
-{#        <div class="employee_text_block">#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>#}
-{#                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>#}
-{#            </div>#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>#}
-{#                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>#}
-{#            </div>#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="department_button">#}
-{#            <p>#}
-{#                <input type="button" class="edit" data-id="3" value="Edit">#}
-{#            </p>#}
-{#            <form action="/delete/3" method="post">#}
-{#                <p>#}
-{#                    <input type="button" class="delete" value="Delete">#}
-{#                </p>#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-{#    <div class="employee_block" id="4">#}
-{#        <h2 class="department_title">Name Surname</h2>#}
-{#        <div class="employee_text_block">#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_left">Age: <b style="color:#0d6efd">23</b></p>#}
-{#                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">23.06.1998</b></p>#}
-{#            </div>#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_center">Salary: <b style="color:#0d6efd">1500</b></p>#}
-{#                <p class="emp_text_center">Position: <b style="color:#0d6efd">manager</b></p>#}
-{#            </div>#}
-{#            <div class="textcols-item">#}
-{#                <p class="emp_text_right">Department: <b style="color:#0d6efd">Main department</b></p>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="department_button">#}
-{#            <p>#}
-{#                <input type="button" class="edit" data-id="4" value="Edit">#}
-{#            </p>#}
-{#            <form action="/delete/4" method="post">#}
-{#                <p>#}
-{#                    <input type="button" class="delete" value="Delete">#}
-{#                </p>#}
-{#            </form>#}
-{#        </div>#}
-{#    </div>#}
-
 </div>
 <div class="b-popup"></div>
 <div id="window_emp" style="display: none">
@@ -172,5 +82,6 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/department_app/static/employees.js"></script>
+{% endblock %}
 </body>
 </html>

@@ -1,21 +1,14 @@
+{% extends 'base.html'%}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="/department_app/static/style.css" rel="stylesheet" type="text/css"/>
-</head>
+{% block title %}Company main page{% endblock %}
 <body>
-    <header>
-        <span class="head_link"><a href="/">Company</a></span>
-        <span class="left sign"><a href="/register/" class="link">Sign up</a></span>
-        <span class="left sign"><a class="link" href="/login/">Log in</a></span>
-    </header>
-
+{% block body %}
 <div class="main">
     <h1 class="display-4 font-weight-normal">Department App</h1>
     <p class="lead font-weight-normal">Start using app by clicking the link below</p>
     <span><a class="mainbtn" href="login.html">Get Started</a></span>
 </div>
+{% endblock %}
 </body>
 </html>

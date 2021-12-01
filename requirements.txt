@@ -3,6 +3,7 @@ Flask-sqlalchemy
 Flask_restful
 PyMysql
 flask_migrate
+flask_login
 cryptography
 python-dotenv
 coveralls

@@ -1,18 +1,9 @@
+{% extends 'base.html'%}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add new employee</title>
-    <link href="/department_app/static/style.css" rel="stylesheet" type="text/css"/>
-</head>
+{% block title %}Add new employee{% endblock %}
 <body>
-<header>
-    <span class="head_link"><a href="index.html">Company</a></span>
-    <span class="head_link"><a href="departments.html">Departments</a></span>
-    <span class="head_link"><a href="employees.html">Employees</a></span>
-    <span class="right sign"><a href="registration.html" class="link">Log out</a></span>
-    <span class="right username">Username</span>
-</header>
+{% block body %}
 <div class="content">
     <div class="up_emp" style="background:#f7f7f7">
         <h3 class="add_new_emp"><a href="{{ url_for('page.employees') }}" class="add_new_emp">Go back</a></h3>
@@ -59,5 +50,6 @@
             $('sup').hide();
         })
 </script>
+{% endblock %}
 </body>
 </html>
