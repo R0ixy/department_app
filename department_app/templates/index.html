@@ -5,9 +5,19 @@
 <body>
 {% block body %}
 <div class="main">
-    <h1 class="display-4 font-weight-normal">Department App</h1>
-    <p class="lead font-weight-normal">Start using app by clicking the link below</p>
-    <span><a class="mainbtn" href="login.html">Get Started</a></span>
+    <h2>Department App</h2>
+    <div id="index_text">
+        <h2>With this app you are able to:</h2>
+        <p>display a list of departments and the average salary
+            (calculated automatically) for these departments</p><br>
+
+        <p>display a list of employees in the departments with
+            an indication of the salary for each employee and a
+            search field to search for employees born on a certain
+            date or in the period between dates</p><br>
+        <p>change (add / edit / delete) the above data</p>
+    </div>
+    <h2><a id="mainbtn" href="{{ url_for('page.departments') }}">Get Started</a></h2>
 </div>
 {% endblock %}
 </body>
