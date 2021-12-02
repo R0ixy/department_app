@@ -15,6 +15,7 @@ class TestDepartmentApi(BaseTest):
         db.session.commit()
 
     def test_get(self):
+        self.fill_db()
         response = self.app.get('/api/department/')
         assert response.status_code == http.HTTPStatus.OK
 
