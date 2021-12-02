@@ -48,6 +48,8 @@ class TestAuthViews(BaseTest):
 
     def test_register_post_incorrect_username(self):
         user = User(username='test', email='email', psw_hash=generate_password_hash('password'))
+        db.session.add(user)
+        db.session.commit()
         response = self.app.post('/register/',
                                  data={'username': 'test',
                                        'email': 'mail',
@@ -57,6 +59,8 @@ class TestAuthViews(BaseTest):
 
     def test_register_post_incorrect_email(self):
         user = User(username='test', email='email', psw_hash=generate_password_hash('password'))
+        db.session.add(user)
+        db.session.commit()
         response = self.app.post('/register/',
                                  data={'username': 'testuser',
                                        'email': 'email',
