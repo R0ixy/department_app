@@ -8,3 +8,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(length=32), unique=True, nullable=False)
     psw_hash = db.Column(db.String(length=256), nullable=False)
 
+    def __repr__(self):
+        return self.username
+

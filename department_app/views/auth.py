@@ -2,18 +2,10 @@ from flask import render_template, request, flash, redirect, url_for, g
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from department_app.loader import login_manager, db
+from department_app.loader import login_manager
 from department_app.models.user_model import User
+from department_app.service import auth_service
 from . import page
-
-
-@page.before_request
-def before_request():
-    """
-    Get's current user before every request.
-    :return:
-    """
-    g.user = current_user
 
 
 @page.route('/')
@@ -23,19 +15,7 @@ def index():
 
     :return: rendered page
     """
-    user = g.user
-    return render_template('index.html', user=user)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    """
-    Loads user from database by id.
-
-    :param user_id: id of user
-    :return: User object
-    """
-    return User.query.get(user_id)
+    return render_template('index.html', user=g.user)
 
 
 @page.route('/login/', methods=['GET', 'POST'])
@@ -47,7 +27,7 @@ def login():
     """
     if request.method == 'POST':
         username = request.form['username']
-        user = User.query.filter_by(username=username).first()
+        user = auth_service.get_user(username=username)
         if not user or not check_password_hash(user.psw_hash, request.form['password']):
             flash('Wrong password or email')
         else:
@@ -70,15 +50,14 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
-        psw = generate_password_hash(request.form['password'])
-        new_user = User(
-            username=username,
-            email=email,
-            psw_hash=psw
-        )
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('page.login'))
+        if auth_service.username_exists(username.lower()):
+            flash('Username is already taken', 'username')
+        elif auth_service.email_exists(email.lower()):
+            flash('User with this email already exists', 'email')
+        else:
+            psw = generate_password_hash(request.form['password'])
+            auth_service.new_user(username.lower(), email.lower(), psw)
+            return redirect(url_for('page.login'))
 
     return render_template('registration.html')
 
@@ -106,3 +85,23 @@ def redirect_to_login(response):
     if response.status_code == 401:
         return redirect(url_for('page.login') + '?next=' + request.url)
     return response
+
+
+@page.before_request
+def before_request():
+    """
+    Get's current user before every request.
+    :return:
+    """
+    g.user = current_user
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """
+    Loads user from database by id.
+
+    :param user_id: id of user
+    :return: User object
+    """
+    return User.query.get(user_id)

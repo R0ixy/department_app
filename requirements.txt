@@ -4,6 +4,7 @@ Flask_restful
 PyMysql
 flask_migrate
 flask_login
+werkzeug
 cryptography
 python-dotenv
 coveralls
