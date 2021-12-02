@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+    <span class="head_link"><a href="index.html">Department App</a></span>
+    <span class="right sign"><a class="link" href="registration.html">Sign up</a></span>
+    <span class="right sign"><a class="link" href="login.html">Log in</a></span>
+</header>
+<div class="login">
+    <form action="" method="post">
+        <h3 class="top_title">Sign up</h3>
+        <p>
+            <label for="username">Username
+                <input type="text" class='form' name="username">
+            </label>
+        </p>
+        <p>
+            <label for="email">Email
+                <input type="email" class="form" name="email">
+            </label>
+        </p>
+        <p>
+            <label for="password">Password
+                <input class="password form" type="password" name="password">
+            </label>
+        </p>
+        <p>
+            <label for="password">Confirm Password
+                <input class="password-confirmation form" type="password" name="password">
+            </label>
+        </p>
+        <p id="wrongPassword">Passwords don't match</p>
+        <p id="sign">
+            Already a member? <a href="login.html" id="login_reg"><b>Log In</b></a>
+        </p>
+        <p>
+            <input type="submit" id="login_login" class="form" value="Sign up"/>
+        </p>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    isPasswordConfirmed = () => {
+        return $('input.password').val() === $('input.password-confirmation').val();
+    }
+    $('input.password-confirmation').blur(function (){
+        if (isPasswordConfirmed()) {
+            $('p#wrongPassword').hide();
+        } else {
+            $('p#wrongPassword').show();
+        }
+    })
+    $('input.password').blur(function (){
+        if (isPasswordConfirmed()) {
+            $('p#wrongPassword').hide();
+        }
+    })
+
+</script>
+</body>
+</html>
