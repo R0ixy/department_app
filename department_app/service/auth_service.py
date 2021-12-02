@@ -1,5 +1,16 @@
-from department_app.loader import db
+from department_app.loader import db, login_manager
 from department_app.models.user_model import User
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    """
+    Loads user from database by id.
+
+    :param user_id: id of user
+    :return: User object
+    """
+    return User.query.get(user_id)
 
 
 def username_exists(username):

@@ -1,9 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for, g
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
-
-from department_app.loader import login_manager
-from department_app.models.user_model import User
 from department_app.service import auth_service
 from . import page
 
@@ -15,7 +12,8 @@ def index():
 
     :return: rendered page
     """
-    return render_template('index.html', user=g.user)
+    user = g.user
+    return render_template('index.html', user=user)
 
 
 @page.route('/login/', methods=['GET', 'POST'])
@@ -34,7 +32,8 @@ def login():
             login_user(user)
             next_page = request.args.get('next')
             if next_page:
-                redirect(next_page)
+                return redirect(next_page)
+
             return redirect(url_for('page.index'))
 
     return render_template('login.html')
@@ -94,14 +93,3 @@ def before_request():
     :return:
     """
     g.user = current_user
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    """
-    Loads user from database by id.
-
-    :param user_id: id of user
-    :return: User object
-    """
-    return User.query.get(user_id)
