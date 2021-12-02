@@ -12,6 +12,7 @@ class BaseTest(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         app.config['DEBUG'] = False
+        app.config['LOGIN_DISABLED'] = True
         app.config["SQLALCHEMY_DATABASE_URI"] = f'mysql+pymysql://{DB_username}:{DB_password}@{DB_host}:{DB_port}/test_db'
         self.app = app.test_client()
         db.create_all()

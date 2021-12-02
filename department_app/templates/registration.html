@@ -13,11 +13,9 @@
                 </label>
             </p>
             {% with messages = get_flashed_messages(category_filter=["username"]) %}
-{#                {% if category=='username' %}#}
                     {% for message in messages %}
                         <div id="flashes" style="margin-left: 140px;">{{ message }}</div>
                     {% endfor %}
-{#                {% endif %}#}
             {% endwith %}
             <p>
                 <label for="email">Email
@@ -25,11 +23,9 @@
                 </label>
             </p>
                    {% with messages = get_flashed_messages(category_filter=["email"]) %}
-{#                {% if category=='email' %}#}
                     {% for message in messages %}
                         <div id="flashes" style="margin-left: 140px;">{{ message }}</div>
                     {% endfor %}
-{#                {% endif %}#}
             {% endwith %}
             <p>
                 <label for="password">Password
