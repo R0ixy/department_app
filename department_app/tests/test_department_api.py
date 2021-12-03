@@ -16,7 +16,7 @@ class TestDepartmentApi(BaseTest):
 
     def test_get(self):
         self.fill_db()
-        response = self.app.get('/api/department/')
+        response = self.app.get('/api/departments/')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_post(self):
@@ -24,7 +24,7 @@ class TestDepartmentApi(BaseTest):
             'name': 'Test Department1',
             'description': 'Test Description1'
         }
-        response = self.app.post('/api/department/', data=json.dumps(data),
+        response = self.app.post('/api/departments/', data=json.dumps(data),
                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.CREATED
 
@@ -32,7 +32,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.post('/api/department/', data=json.dumps(data),
+        response = self.app.post('/api/departments/', data=json.dumps(data),
                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -43,7 +43,7 @@ class TestDepartmentApi(BaseTest):
             'name': 'New Department',
             'description': 'New Description'
         }
-        response = self.app.put('/api/department/', data=json.dumps(data),
+        response = self.app.put('/api/departments/', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -52,7 +52,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/department/', data=json.dumps(data),
+        response = self.app.put('/api/departments/', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -61,7 +61,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'id': 1,
         }
-        response = self.app.delete('/api/department/', data=json.dumps(data),
+        response = self.app.delete('/api/departments/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -70,7 +70,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'id': 1780,
         }
-        response = self.app.delete('/api/department/', data=json.dumps(data),
+        response = self.app.delete('/api/departments/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -79,6 +79,6 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 1,
         }
-        response = self.app.delete('/api/department/', data=json.dumps(data),
+        response = self.app.delete('/api/departments/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST

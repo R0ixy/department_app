@@ -28,27 +28,27 @@ class TestEmployeeApi(BaseTest):
 
     def test_get(self):
         self.fill_db()
-        response = self.app.get('/api/employee/')
+        response = self.app.get('/api/employees/')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_with_param_id(self):
         self.fill_db()
-        response = self.app.get('/api/employee/?id=1&')
+        response = self.app.get('/api/employees/?id=1&')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_with_param_first_date(self):
         self.fill_db()
-        response = self.app.get('/api/employee/?first_date=1982-03-14')
+        response = self.app.get('/api/employees/?first_date=1982-03-14')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_with_param_id_and_first_date(self):
         self.fill_db()
-        response = self.app.get('/api/employee/?id=1&first_date=1982-03-14')
+        response = self.app.get('/api/employees/?id=1&first_date=1982-03-14')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_with_all_params(self):
         self.fill_db()
-        response = self.app.get('/api/employee/?id=1&first_date=1982-03-14&second_date=1991-02-21')
+        response = self.app.get('/api/employees/?id=1&first_date=1982-03-14&second_date=1991-02-21')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_post(self):
@@ -60,7 +60,7 @@ class TestEmployeeApi(BaseTest):
             'position': 'Engineer',
             'department_id': 1
         }
-        response = self.app.post('/api/employee/', data=json.dumps(data),
+        response = self.app.post('/api/employees/', data=json.dumps(data),
                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.CREATED
 
@@ -69,7 +69,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.post('/api/employee/', data=json.dumps(data),
+        response = self.app.post('/api/employees/', data=json.dumps(data),
                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -83,7 +83,7 @@ class TestEmployeeApi(BaseTest):
             'position': 'Engineer',
             'department_id': 1
         }
-        response = self.app.put('/api/employee/', data=json.dumps(data),
+        response = self.app.put('/api/employees/', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -92,7 +92,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/employee/', data=json.dumps(data),
+        response = self.app.put('/api/employees/', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -101,7 +101,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'id': 1,
         }
-        response = self.app.delete('/api/employee/', data=json.dumps(data),
+        response = self.app.delete('/api/employees/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -110,7 +110,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'id': 3423
         }
-        response = self.app.delete('/api/employee/', data=json.dumps(data),
+        response = self.app.delete('/api/employees/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -119,6 +119,6 @@ class TestEmployeeApi(BaseTest):
         data = {
             'wrong_arg': 3423
         }
-        response = self.app.delete('/api/employee/', data=json.dumps(data),
+        response = self.app.delete('/api/employees/', data=json.dumps(data),
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
