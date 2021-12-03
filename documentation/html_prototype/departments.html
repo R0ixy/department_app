@@ -31,11 +31,9 @@
             <p>
                 <input type="button" data-id="1" class="edit" value="Edit">
             </p>
-            <form action="/delete/1" method="post">
             <p>
-                <input type="button" class="delete" value="Delete">
+                <input type="button" data-id="1" class="delete" value="Delete">
             </p>
-            </form>
         </div>
     </div>
 
@@ -55,11 +53,9 @@
             <p>
                 <input type="button" class="edit" data-id="2" value="Edit">
             </p>
-            <form action="/delete/2" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
+            <p>
+                <input type="button" data-id="2" class="delete" value="Delete">
+            </p>
         </div>
     </div>
 
@@ -79,14 +75,21 @@
             <p>
                 <input type="button" class="edit" data-id="3" value="Edit">
             </p>
-            <form action="/delete/3" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
+            <p>
+                <input type="button" data-id="3" class="delete" value="Delete">
+            </p>
         </div>
     </div>
     <div class="b-popup"></div>
+
+    <div class="delete_window" style="display: none">
+        <form id='del' action="" method="post">
+            <p>Please confirm delete department</p>
+            <input type="submit" class="yes" value="Yes">
+            <input type="button" class="cancel" value="Cancel">
+        </form>
+    </div>
+
     <div id="window_dep" style="display: none">
         <div class="x"></div>
         <form action="" method="post">
@@ -115,12 +118,20 @@
             $('.add_title').val(title);
             $('div#window_dep').show();
             $('.b-popup').show();
-        })
+        });
         $('.x').click(function () {
             $('div#window_dep').hide();
             $('.b-popup').hide();
-        })
-
+        });
+        $('input.delete').click(function () {
+            $('form#del').attr('action', `/departments/delete/${this.dataset.id}`)
+            $('div.delete_window').show();
+            $('.b-popup').show();
+        });
+        $('input.cancel').click(function () {
+            $('div.delete_window').hide();
+            $('.b-popup').hide();
+        });
     </script>
 
 </div>

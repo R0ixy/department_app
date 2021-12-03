@@ -48,11 +48,9 @@
             <p>
                 <input type="button" class="edit" data-id="1" value="Edit">
             </p>
-            <form action="/delete/1" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
+            <p>
+                <input type="button" data-id="1" class="delete" value="Delete">
+            </p>
 
         </div>
     </div>
@@ -75,11 +73,9 @@
             <p>
                 <input type="button" class="edit" data-id="2" value="Edit">
             </p>
-            <form action="/delete/2" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
+            <p>
+                <input type="button" data-id="2" class="delete" value="Delete">
+            </p>
         </div>
     </div>
 
@@ -102,11 +98,9 @@
             <p>
                 <input type="button" class="edit" data-id="3" value="Edit">
             </p>
-            <form action="/delete/3" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
+            <p>
+                <input type="button" data-id="3" class="delete" value="Delete">
+            </p>
         </div>
     </div>
     <div class="employee_block" id="4">
@@ -128,16 +122,23 @@
             <p>
                 <input type="button" class="edit" data-id="4" value="Edit">
             </p>
-            <form action="/delete/4" method="post">
-                <p>
-                    <input type="button" class="delete" value="Delete">
-                </p>
-            </form>
+            <p>
+                <input type="button" data-id="4" class="delete" value="Delete">
+            </p>
         </div>
     </div>
 
 </div>
 <div class="b-popup"></div>
+
+    <div class="delete_window" style="display: none">
+        <form id='del' action="" method="post">
+            <p>Please confirm delete employee</p>
+            <input type="submit" class="yes" value="Yes">
+            <input type="button" class="cancel" value="Cancel">
+        </form>
+    </div>
+
 <div id="window_emp" style="display: none">
     <div class="x"></div>
     <form>
@@ -169,12 +170,12 @@
         $('.second_date').show();
         $('.hide_date').show();
         $('.add_date').hide();
-    })
+    });
     $('.hide_date').click(function () {
         $('.second_date').hide();
         $('.add_date').show();
         $('.hide_date').hide();
-    })
+    });
 
     $('.edit').click(function () {
         const a = $(`#${this.dataset.id}`);
@@ -190,11 +191,21 @@
         $(`select option[value='${list[4]}']`).prop('selected', true);
         $('div#window_emp').show();
         $('.b-popup').show();
-    })
+    });
     $('.x').click(function () {
         $('div#window_emp').hide();
         $('.b-popup').hide();
-    })
+    });
+    $('input.delete').click(function () {
+        $('form#del').attr('action', `/employees/delete/${this.dataset.id}`)
+        $('div.delete_window').show();
+        $('.b-popup').show();
+    });
+    $('input.cancel').click(function () {
+        $('div.delete_window').hide();
+        $('.b-popup').hide();
+    });
+
 </script>
 </body>
 </html>
