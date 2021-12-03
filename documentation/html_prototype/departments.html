@@ -112,8 +112,8 @@
 
         $('.edit').click(function () {
             const a = $(`#${this.dataset.id}`);
-            const title = a.find('.department_title').html()
-            const text = a.find('section.department_description').html()
+            const title = a.find('.department_title').html();
+            const text = a.find('section.department_description').html();
             $("textarea").append(text);
             $('.add_title').val(title);
             $('div#window_dep').show();
@@ -124,7 +124,7 @@
             $('.b-popup').hide();
         });
         $('input.delete').click(function () {
-            $('form#del').attr('action', `/departments/delete/${this.dataset.id}`)
+            $('form#del').attr('action', `/departments/delete/${this.dataset.id}`);
             $('div.delete_window').show();
             $('.b-popup').show();
         });

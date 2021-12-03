@@ -197,7 +197,7 @@
         $('.b-popup').hide();
     });
     $('input.delete').click(function () {
-        $('form#del').attr('action', `/employees/delete/${this.dataset.id}`)
+        $('form#del').attr('action', `/employees/delete/${this.dataset.id}`);
         $('div.delete_window').show();
         $('.b-popup').show();
     });
