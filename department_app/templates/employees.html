@@ -1,87 +1,99 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 {% block title %}Employees{% endblock %}
 <body>
 {% block body %}
-<div class="content emp">
-    <div class="up_emp">
-        <p class="left search">Choose date</p>
-        <label><input type="date" class="left search first_date"></label>
-        <label><input type="date" class="left search second_date" style="display: none"/></label>
-        <label><input type="button" class="left search add_date" value="add date"></label>
-        <label><input type="button" class="left search hide_date" value="hide" style="display: none"></label>
-        <label><select class="left search dep">
-                    <option selected value>choose department</option>
-                    {% for department in departments %}
+    <div class="content emp">
+        <div class="up_emp">
+            <p class="left search">Choose date</p>
+            <label><input type="date" class="left search first_date"></label>
+            <label><input type="date" class="left search second_date" style="display: none"/></label>
+            <label><input type="button" class="left search add_date" value="add date"></label>
+            <label><input type="button" class="left search hide_date" value="hide" style="display: none"></label>
+            <label><select class="left search dep">
+                <option selected value>choose department</option>
+                {% for department in departments %}
                     <option value="{{ department.id }}">{{ department.name }}</option>
-                    {% endfor %}
-        </select></label>
-        <label><input type="submit" class="left search" value="search"></label>
-        <h3 class="add_new_emp"><a href="{{ url_for('page.add_employee') }}" class="add_new_emp">Add new employee</a></h3>
-    </div>
-    {% for employee in employees %}
-    <div class="employee_block" id="{{ employee.id }}">
-        <h2 class="department_title">{{ employee.full_name }}</h2>
-        <div class="employee_text_block">
-            <div class="textcols-item">
-                <p class="emp_text_left">Age: <b style="color:#0d6efd">{{ employee.age }}</b></p>
-                <p class="emp_text_left">Birthday: <b style="color:#0d6efd">{{ employee.date_of_birth }}</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_center">Salary: <b style="color:#0d6efd">{{ employee.salary }}</b></p>
-                <p class="emp_text_center">Position: <b style="color:#0d6efd">{{ employee.position }}</b></p>
-            </div>
-            <div class="textcols-item">
-                <p class="emp_text_right">Department: <b style="color:#0d6efd">{{ employee.department.name }}</b></p>
-            </div>
+                {% endfor %}
+            </select></label>
+            <label><input type="submit" class="left search" value="search"></label>
+            <h3 class="add_new_emp"><a href="{{ url_for('page.add_employee') }}" class="add_new_emp">Add new
+                employee</a></h3>
         </div>
-        <div class="department_button">
-            <p>
-                <input type="button" class="edit" data-id="{{ employee.id }}" data-dep="{{ employee.department_id }}" value="Edit">
-            </p>
-            <form action="/employees/delete/{{ employee.id }}" method="post">
-                <p>
-                    <input type="submit" class="delete" value="Delete">
-                </p>
-            </form>
+        {% for employee in employees %}
+            <div class="employee_block" id="{{ employee.id }}">
+                <h2 class="department_title">{{ employee.full_name }}</h2>
+                <div class="employee_text_block">
+                    <div class="textcols-item">
+                        <p class="emp_text_left">Age: <b style="color:#0d6efd">{{ employee.age }}</b></p>
+                        <p class="emp_text_left">Birthday: <b style="color:#0d6efd">{{ employee.date_of_birth }}</b></p>
+                    </div>
+                    <div class="textcols-item">
+                        <p class="emp_text_center">Salary: <b style="color:#0d6efd">{{ employee.salary }}</b></p>
+                        <p class="emp_text_center">Position: <b style="color:#0d6efd">{{ employee.position }}</b></p>
+                    </div>
+                    <div class="textcols-item">
+                        <p class="emp_text_right">Department: <b
+                                style="color:#0d6efd">{{ employee.department.name }}</b></p>
+                    </div>
+                </div>
+                <div class="department_button">
+                    <p>
+                        <input type="button" class="edit" data-id="{{ employee.id }}"
+                               data-dep="{{ employee.department_id }}" value="Edit">
+                    </p>
+                    <p>
+                        <input type="button" data-id="{{ employee.id }}" class="delete" value="Delete">
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
 
-        </div>
     </div>
-    {% endfor %}
+    <div class="b-popup"></div>
 
-</div>
-<div class="b-popup"></div>
-<div id="window_emp" style="display: none">
-    <div class="x"></div>
-    <form action="" method="post">
-        <input type="hidden" id="emp_id" name="id">
-        <h2 class="ed_department_title"><label id="title_add_emp"><sup>Full name</sup><input type="text"
-                                                                                             class="input_name"
-                                                                                             name="full_name"
-                                                                                             placeholder="Name Surname"></label>
-        </h2>
-        <div class="employee_text_block">
-            <div class="ed_textcols-item">
-                <p class="emp_text_center"><label>Salary:<input type="number" id="salary" class="emp_inp" name="salary"></label></p>
-                <p class="emp_text_center"><label>Position: <input type="text" id="position" class="emp_inp" name="position"></label>
-                </p>
+    <div class="delete_window" style="display: none">
+        <form id='del' action="" method="post">
+            <p>Please confirm delete employee</p>
+            <input type="submit" class="yes" value="Yes">
+            <input type="button" class="cancel" value="Cancel">
+        </form>
+    </div>
+
+    <div id="window_emp" style="display: none">
+        <div class="x"></div>
+        <form action="" method="post">
+            <input type="hidden" id="emp_id" name="id">
+            <h2 class="ed_department_title"><label id="title_add_emp"><sup>Full name</sup><input type="text"
+                                                                                                 class="input_name"
+                                                                                                 name="full_name"
+                                                                                                 placeholder="Name Surname"></label>
+            </h2>
+            <div class="employee_text_block">
+                <div class="ed_textcols-item">
+                    <p class="emp_text_center"><label>Salary:<input type="number" id="salary" class="emp_inp"
+                                                                    name="salary"></label></p>
+                    <p class="emp_text_center"><label>Position: <input type="text" id="position" class="emp_inp"
+                                                                       name="position"></label>
+                    </p>
+                </div>
+                <div class="ed_textcols-item">
+                    <p class="emp_text_right"><label>Department: <select name="department">
+                        {% for department in departments %}
+                            <option value="{{ department.id }}">{{ department.name }}</option>
+                        {% endfor %}
+                    </select></label></p>
+                    <p class="emp_text_left"><label>Birthday: <input type="date" id="birthday" class="emp_inp_date"
+                                                                     name="date_of_birth"></label>
+                    </p>
+                </div>
             </div>
-            <div class="ed_textcols-item">
-                <p class="emp_text_right"><label>Department: <select name="department">
-                    {% for department in departments %}
-                    <option value="{{ department.id }}">{{ department.name }}</option>
-                    {% endfor %}
-                </select></label></p>
-                <p class="emp_text_left"><label>Birthday: <input type="date" id="birthday" class="emp_inp_date" name="date_of_birth"></label>
-                </p>
-            </div>
-        </div>
-        <input type="submit" class="save" value="Save">
-    </form>
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/department_app/static/employees.js"></script>
+            <input type="submit" class="save" value="Save">
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/department_app/static/employees.js"></script>
 {% endblock %}
 </body>
 </html>

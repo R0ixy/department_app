@@ -12,6 +12,10 @@ $('.x').click(function () {
     $('div#window_emp').hide();
     $('.b-popup').hide();
 })
+$('input.cancel').click(function () {
+    $('div.delete_window').hide();
+    $('.b-popup').hide();
+});
 $(document).ready(function () {
     $('body').on('click', '.edit', function () {
         const a = $(`#${this.dataset.id}`);
@@ -31,6 +35,13 @@ $(document).ready(function () {
         $('.b-popup').show();
     })
 });
+$(document).ready(function () {
+    $('body').on('click', 'input.delete', function () {
+        $('form#del').attr('action', `/employees/delete/${this.dataset.id}`)
+        $('div.delete_window').show();
+        $('.b-popup').show();
+    })
+})
 
 
 $('input[type="submit"].search').click(async function () {
@@ -66,12 +77,9 @@ $('input[type="submit"].search').click(async function () {
                                             <p>
                                                 <input type="button" class="edit" data-id="${i.id}" value="Edit">
                                             </p>
-                                            <form action="/delete/${i.id}" method="post">
-                                                <p>
-                                                    <input type="submit" class="delete" value="Delete">
-                                                </p>
-                                            </form>
-                                
+                                            <p>
+                                                <input type="button" data-id="${i.id}" class="delete" value="Delete">
+                                            </p>
                                         </div>
                                     </div>`);
     }

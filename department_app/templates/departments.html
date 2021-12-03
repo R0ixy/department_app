@@ -1,27 +1,26 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 {% block title %}Departments{% endblock %}
 <body>
 {% block body %}
-<div class="content departments">
-    <h3 class="add_new"><a href="{{ url_for('page.add_department') }}" class="add_new">Add new department</a></h3>
+    <div class="content departments">
+        <h3 class="add_new"><a href="{{ url_for('page.add_department') }}" class="add_new">Add new department</a></h3>
         {% for department in departments %}
             <div class="department_block" id={{ department.id }}>
-                <h2 class="department_title"><a href="/employees/{{ department.id}}">{{ department.name }}</a></h2>
+                <h2 class="department_title"><a href="/employees/{{ department.id }}">{{ department.name }}</a></h2>
                 <p class="department_text" style="margin-top: 40px;">Number of employees: <b
                         style="color:#0d6efd">{{ department.number_of_employees }}</b>
                 </p>
-                <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.average_salary }}</b></p>
+                <p class="department_text">Average salary: <b style="color:#0d6efd">{{ department.average_salary }}</b>
+                </p>
                 <div class="department_button">
                     <p>
                         <input type="button" data-id="{{ department.id }}" class="edit" value="Edit">
                     </p>
-                    <form action="/departments/delete/{{ department.id }}" method="post">
-                        <p>
-                            <input type="submit" class="delete" value="Delete">
-                        </p>
-                    </form>
+                    <p>
+                        <input type="button" data-id="{{ department.id }}" class="delete" value="Delete">
+                    </p>
                 </div>
                 <section class="department_description">
                     {{ department.description }}
@@ -29,45 +28,63 @@
 
             </div>
         {% endfor %}
+        <div class="b-popup"></div>
 
-    <div class="b-popup"></div>
-    <div id="window_dep" style="display: none">
-        <div class="x"></div>
-        <form action="" method="post">
-            <input type="hidden" id="dep_id" name="id">
-            <p>
-                <label class="add_department_title">Department name
-                    <input type="text" class="add_title" name="title">
-                </label>
-            </p>
-            <p>
-                <label class="add_department_description">Description
-                    <textarea name="description"></textarea>
-                </label>
-            </p>
-            <input type="submit" class="save" value="Save">
-        </form>
+        <div class="delete_window" style="display: none">
+            <form id='del' action="" method="post">
+                <p>Please confirm delete department</p>
+                <input type="submit" class="yes" value="Yes">
+                <input type="button" class="cancel" value="Cancel">
+            </form>
+        </div>
+
+        <div id="window_dep" style="display: none">
+            <div class="x"></div>
+            <form action="" method="post">
+                <input type="hidden" id="dep_id" name="id">
+                <p>
+                    <label class="add_department_title">Department name
+                        <input type="text" class="add_title" name="title">
+                    </label>
+                </p>
+                <p>
+                    <label class="add_department_description">Description
+                        <textarea name="description"></textarea>
+                    </label>
+                </p>
+                <input type="submit" class="save" value="Save">
+            </form>
+        </div>
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
 
-    $('.edit').click(function () {
-        const a = $(`#${this.dataset.id}`);
-        const title = a.find('.department_title').html();
-        const text = a.find('section.department_description').html();
-        $("textarea").append(text);
-        $('.add_title').val(title);
-        $('input#dep_id').val(this.dataset.id)
-        $('div#window_dep').show();
-        $('.b-popup').show();
-     });
+        $('.edit').click(function () {
+            const a = $(`#${this.dataset.id}`);
+            const title = a.find('.department_title').text();
+            const text = a.find('section.department_description').html();
+            $("textarea").append(text);
+            $('.add_title').val(title);
+            $('input#dep_id').val(this.dataset.id)
+            $('div#window_dep').show();
+            $('.b-popup').show();
+        });
 
-    $('.x').click(function () {
-        $('div#window_dep').hide();
-        $('.b-popup').hide();
-    });
-</script>
+        $('.x').click(function () {
+            $('div#window_dep').hide();
+            $('.b-popup').hide();
+        });
+
+        $('input.delete').click(function () {
+            $('form#del').attr('action', `/departments/delete/${this.dataset.id}`)
+            $('div.delete_window').show();
+            $('.b-popup').show();
+        })
+        $('input.cancel').click(function () {
+            $('div.delete_window').hide();
+            $('.b-popup').hide();
+        });
+    </script>
 {% endblock %}
 </body>
 </html>

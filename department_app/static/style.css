@@ -9,6 +9,7 @@
 .username {
     margin: 25px;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -17,6 +18,7 @@ body {
 
 a {
     text-decoration: none;
+    color: black;
 }
 
 a:visited {
@@ -64,13 +66,15 @@ header {
     width: 70%;
     padding-bottom: 20px;
 }
-#index_text p{
+
+#index_text p {
     font-size: 1.2em;
-    width:70%;
+    width: 70%;
     margin: 0 auto;
     text-align: center;
 }
-#mainbtn{
+
+#mainbtn {
     color: #0d6efd;
 }
 
@@ -96,7 +100,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     border: 2px solid #0d6efd;
 }
 
-input[type=submit] {
+input[type=submit], .cancel{
     padding: 5px;
     background-color: white;
     cursor: pointer;
@@ -399,7 +403,7 @@ sup {
     display: none;
 }
 
-#window_dep, #window_emp {
+#window_dep, #window_emp, .delete_window {
     background-color: white;
     text-align: center;
     padding: 15px;
@@ -411,6 +415,29 @@ sup {
     bottom: 0;
     left: 0;
     margin: auto;
+}
+
+.delete_window {
+    width: 300px;
+    height: 120px;
+}
+.delete_window p{
+    width: fit-content;
+    margin: 20px auto 50px;
+    font-size: 1.1em;
+}
+.cancel, .yes{
+    width: 80px;
+}
+.cancel{
+    margin-left:20px;
+}
+.yes{
+    margin-right:20px;
+}
+.cancel:hover {
+    background-color :#0d6efd;
+    color: white;
 }
 
 #window_dep {
