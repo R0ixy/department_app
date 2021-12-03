@@ -7,7 +7,7 @@
 </head>
 <body>
 <header>
-    <span class="head_link"><a href="/">Company</a></span>
+    <span class="head_link"><a href="/">Department App</a></span>
     {% if g.user.is_authenticated %}
     <span class="head_link"><a href="{{ url_for('page.departments') }}">Departments</a></span>
     <span class="head_link"><a href="{{ url_for('page.employees') }}">Employees</a></span>

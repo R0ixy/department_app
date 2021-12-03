@@ -1,20 +1,8 @@
 {% extends 'base.html'%}
 <!DOCTYPE html>
 <html lang="en">
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Add new department</title>#}
-{#    <link href="/department_app/static/style.css" rel="stylesheet" type="text/css"/>#}
-{#</head>#}
 {% block title %}Add new department{% endblock %}
 <body>
-{#<header>#}
-{#    <span class="head_link"><a href="index.html">Company</a></span>#}
-{#    <span class="head_link"><a href="departments.html">Departments</a></span>#}
-{#    <span class="head_link"><a href="employees.html">Employees</a></span>#}
-{#    <span class="right sign"><a href="registration.html" class="link">Log out</a></span>#}
-{#    <span class="right username">Username</span>#}
-{#</header>#}
 {% block body %}
 <div class="content">
     <h3 class="add_new"><a href="{{ url_for('page.departments') }}" class="add_new">Cancel</a></h3>

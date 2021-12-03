@@ -65,7 +65,7 @@
             const text = a.find('section.department_description').html();
             $("textarea").append(text);
             $('.add_title').val(title);
-            $('input#dep_id').val(this.dataset.id)
+            $('input#dep_id').val(this.dataset.id);
             $('div#window_dep').show();
             $('.b-popup').show();
         });
@@ -76,10 +76,10 @@
         });
 
         $('input.delete').click(function () {
-            $('form#del').attr('action', `/departments/delete/${this.dataset.id}`)
+            $('form#del').attr('action', `/departments/delete/${this.dataset.id}`);
             $('div.delete_window').show();
             $('.b-popup').show();
-        })
+        });
         $('input.cancel').click(function () {
             $('div.delete_window').hide();
             $('.b-popup').hide();

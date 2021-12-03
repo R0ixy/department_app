@@ -57,15 +57,15 @@
             } else {
                 $('p#wrongPassword').show();
             }
-        })
+        });
         $('input.password').blur(function () {
             if (isPasswordConfirmed()) {
                 $('p#wrongPassword').hide();
             }
-        })
+        });
         $('input.form').click(function () {
             $('#flashes').hide();
-        })
+        });
 
     </script>
 {% endblock %}
