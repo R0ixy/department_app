@@ -9,7 +9,7 @@ from department_app.loader import app, db
 # logging
 formatter = logging.Formatter(u'%(filename)s [LINE:%(lineno)d] #%(levelname)-8s [%(asctime)s]  %(message)s')
 
-file_handler = logging.FileHandler(filename='app.log', mode='w')
+file_handler = logging.FileHandler(filename='department_app/app.log', mode='w')
 file_handler.setFormatter(formatter)
 file_handler.setLevel(logging.DEBUG)
 
