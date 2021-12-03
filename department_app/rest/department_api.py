@@ -61,4 +61,4 @@ class DepartmentApi(Resource):
         return 'Department has been successfully deleted', 200
 
 
-api.add_resource(DepartmentApi, '/department/')
+api.add_resource(DepartmentApi, '/departments/')

@@ -77,4 +77,4 @@ class EmployeesApi(Resource):
         return 'Employee has been successfully deleted', 200
 
 
-api.add_resource(EmployeesApi, '/employee/')
+api.add_resource(EmployeesApi, '/employees/')
