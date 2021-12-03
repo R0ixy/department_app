@@ -100,7 +100,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, inp
     border: 2px solid #0d6efd;
 }
 
-input[type=submit], .cancel{
+input[type=submit], .cancel {
     padding: 5px;
     background-color: white;
     cursor: pointer;
@@ -393,6 +393,15 @@ textarea {
 
 .emp_inp {
     width: 60px;
+    height: 17px;
+}
+
+.emp_inp_date {
+    height: 17px;
+}
+
+#salary {
+    margin-bottom: -2px;
 }
 
 .input_name {
@@ -421,22 +430,27 @@ sup {
     width: 300px;
     height: 120px;
 }
-.delete_window p{
+
+.delete_window p {
     width: fit-content;
     margin: 20px auto 50px;
     font-size: 1.1em;
 }
-.cancel, .yes{
+
+.cancel, .yes {
     width: 80px;
 }
-.cancel{
-    margin-left:20px;
+
+.cancel {
+    margin-left: 20px;
 }
-.yes{
-    margin-right:20px;
+
+.yes {
+    margin-right: 20px;
 }
+
 .cancel:hover {
-    background-color :#0d6efd;
+    background-color: #0d6efd;
     color: white;
 }
 
