@@ -1,12 +1,12 @@
 """
-CRUD operations form department model.
+CRUD operations for department model.
 """
 # pylint: disable=no-member
+from sqlalchemy.sql import func
 
 from ..loader import db
 from ..models.department_model import Department
 from ..models.employee_model import Employee
-from sqlalchemy.sql import func
 
 
 def get_all_departments() -> list:

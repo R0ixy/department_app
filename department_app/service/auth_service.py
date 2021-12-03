@@ -1,3 +1,7 @@
+"""
+CRUD operations for user model.
+"""
+# pylint: disable=no-member
 from department_app.loader import db, login_manager
 from department_app.models.user_model import User
 
@@ -15,12 +19,12 @@ def load_user(user_id):
 
 def username_exists(username):
     user = User.query.filter_by(username=username).first()
-    return True if user else False
+    return bool(user)
 
 
 def email_exists(email):
     user = User.query.filter_by(email=email).first()
-    return True if user else False
+    return bool(user)
 
 
 def new_user(username, email, psw_hash):

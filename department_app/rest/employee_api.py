@@ -1,8 +1,8 @@
 from flask import request
 from flask_restful import Resource
 
-from department_app.service.employee_service import get_all_employees, add_new_employee, update_employee, \
-    get_employee_with_params, delete_employee
+from department_app.service.employee_service import get_all_employees, add_new_employee, \
+    update_employee, get_employee_with_params, delete_employee
 from . import api
 
 
@@ -18,7 +18,10 @@ class EmployeesApi(Resource):
         first_date = request.args.get('first_date')
         second_date = request.args.get('second_date')
         if dep_id or first_date or second_date:
-            employees = get_employee_with_params(dep_id=dep_id, first_date=first_date, second_date=second_date)
+            employees = get_employee_with_params(
+                dep_id=dep_id,
+                first_date=first_date,
+                second_date=second_date)
         else:
             employees = get_all_employees()
         emp = [employee.to_dict() for employee in employees]

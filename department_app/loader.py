@@ -16,6 +16,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 
+# pylint: disable=wrong-import-position
 from department_app.rest import rest
 from department_app.views import page
 

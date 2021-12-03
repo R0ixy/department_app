@@ -30,10 +30,6 @@ werkzeug_logger.addHandler(file_handler)
 werkzeug_logger.addHandler(console_handler)
 werkzeug_logger.setLevel(logging.DEBUG)
 
-# sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
-# sqlalchemy_logger.addHandler(file_handler)
-# sqlalchemy_logger.addHandler(console_handler)
-# sqlalchemy_logger.setLevel(logging.DEBUG)
 if __name__ == '__main__':
     db.init_app(app)
     db.create_all()

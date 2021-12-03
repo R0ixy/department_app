@@ -2,6 +2,7 @@
 CRUD operations form employee model.
 """
 # pylint: disable=no-member
+# pylint: disable=too-many-arguments
 from datetime import datetime, date
 
 from department_app.loader import db
@@ -86,13 +87,16 @@ def get_employee_with_params(*, dep_id=None, first_date=None, second_date=None):
         if second_date:
             second_date = datetime.strptime(second_date, "%Y-%m-%d").date()
             if dep_id:
-                employees = Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).filter_by(
+                employees = Employee.query.filter(
+                    Employee.date_of_birth.between(first_date, second_date)).filter_by(
                     department_id=dep_id).all()
             else:
-                employees = Employee.query.filter(Employee.date_of_birth.between(first_date, second_date)).all()
+                employees = Employee.query.filter(
+                    Employee.date_of_birth.between(first_date, second_date)).all()
         else:
             if dep_id:
-                employees = Employee.query.filter_by(date_of_birth=first_date).filter_by(department_id=dep_id).all()
+                employees = Employee.query.filter_by(
+                    date_of_birth=first_date).filter_by(department_id=dep_id).all()
             else:
                 employees = Employee.query.filter_by(date_of_birth=first_date).all()
     else:
