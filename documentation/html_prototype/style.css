@@ -392,6 +392,13 @@ textarea {
 
 .emp_inp {
     width: 60px;
+    height:17px;
+}
+.emp_inp_date{
+    height:17px;
+}
+#salary{
+    margin-bottom: -2px;
 }
 
 .input_name {
