@@ -1,5 +1,5 @@
 <h2>Department App</h2>
-##Vision
+## Vision
 
 ### "Department App" is a web application for managing departments and employees.
 
