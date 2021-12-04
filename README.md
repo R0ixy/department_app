@@ -48,7 +48,7 @@ localhost:5000/api/employees
 localhost:5000/api/employees/<employee_id>
 localhost:5000/api/employees/?id=<department_id>
 localhost:5000/api/employees/?first_date=<YYYY-MM-DD>
-localhost:5000/api/employees/?start_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
+localhost:5000/api/employees/?first_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
 localhost:5000/api/employees/?id=<department_id>&first_date=<YYYY-MM-DD>
 localhost:5000/api/employees/?id=<department_id>&first_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
 ```
