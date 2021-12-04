@@ -1,7 +1,7 @@
 """
 Module contains the class Employee to work with `employee` table
 """
-from department_app.loader import db
+from department_app import db
 from .department_model import Department
 
 

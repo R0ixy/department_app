@@ -4,7 +4,7 @@ Module contains class to test department views.
 # pylint: disable=no-member
 import http
 
-from department_app.loader import db
+from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.department_model import Department
 

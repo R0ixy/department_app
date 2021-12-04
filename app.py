@@ -4,7 +4,7 @@ Enable logging and start application.
 import sys
 import logging
 
-from department_app.loader import app, db
+from department_app import app, db
 
 # logging
 formatter = logging.Formatter(u'%(filename)s [LINE:%(lineno)d] #%(levelname)-8s [%(asctime)s]  %(message)s')

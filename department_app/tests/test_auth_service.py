@@ -2,7 +2,7 @@
 Module contains class to test auth service.
 """
 # pylint: disable=no-member
-from department_app.loader import db
+from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.user_model import User
 from department_app.service import auth_service

@@ -4,9 +4,9 @@ CRUD operations for department model.
 # pylint: disable=no-member
 from sqlalchemy.sql import func
 
-from ..loader import db
-from ..models.department_model import Department
-from ..models.employee_model import Employee
+from department_app import db
+from department_app.models.department_model import Department
+from department_app.models.employee_model import Employee
 
 
 def get_all_departments() -> list:

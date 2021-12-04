@@ -5,7 +5,7 @@ CRUD operations form employee model.
 # pylint: disable=too-many-arguments
 from datetime import datetime, date
 
-from department_app.loader import db
+from department_app import db
 from department_app.models.employee_model import Employee
 
 

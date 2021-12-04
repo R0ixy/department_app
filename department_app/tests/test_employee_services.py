@@ -2,7 +2,7 @@
 Module contains class to test employees service.
 """
 # pylint: disable=no-member
-from department_app.loader import db
+from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.employee_model import Employee
 from department_app.models.department_model import Department

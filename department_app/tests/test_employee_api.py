@@ -5,10 +5,10 @@ Module contains class to test employee api.
 import http
 import json
 
+from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.employee_model import Employee
 from department_app.models.department_model import Department
-from department_app.loader import db
 
 
 class TestEmployeeApi(BaseTest):

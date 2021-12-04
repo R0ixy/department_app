@@ -4,6 +4,7 @@ This module represents the logic for login or registration
 from flask import render_template, request, flash, redirect, url_for, g
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
+
 from department_app.service import auth_service
 from . import page
 

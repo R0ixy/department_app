@@ -4,7 +4,7 @@ Module contains the class User to work with `user` table
 # pylint: disable=no-member
 from flask_login import UserMixin
 
-from department_app.loader import db
+from department_app import db
 
 
 class User(UserMixin, db.Model):

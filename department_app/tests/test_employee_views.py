@@ -3,7 +3,7 @@ Module contains class to test employees views.
 """
 import http
 
-from department_app.loader import db
+from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.department_model import Department
 from department_app.models.employee_model import Employee

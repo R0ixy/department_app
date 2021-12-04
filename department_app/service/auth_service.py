@@ -2,7 +2,7 @@
 CRUD operations for user model.
 """
 # pylint: disable=no-member
-from department_app.loader import db, login_manager
+from department_app import db, login_manager
 from department_app.models.user_model import User
 
 

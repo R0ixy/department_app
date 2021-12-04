@@ -6,7 +6,7 @@ import http
 
 from werkzeug.security import generate_password_hash
 
-from department_app.loader import db
+from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.user_model import User
 
