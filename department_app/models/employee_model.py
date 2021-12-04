@@ -1,15 +1,14 @@
 """
 Module contains the class Employee to work with `employee` table
 """
-from .department_model import Department
-
 from department_app.loader import db
+from .department_model import Department
 
 
 # pylint: disable=no-member
 class Employee(db.Model):
     """
-    Employee table.
+    Employee model.
     """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     full_name = db.Column(db.String(length=64), nullable=False)

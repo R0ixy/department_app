@@ -1,3 +1,7 @@
+"""
+Module contains class to test department model.
+"""
+# pylint: disable=no-member
 from department_app.loader import db
 from department_app.models.department_model import Department
 from department_app.tests.conftest import BaseTest
@@ -13,7 +17,6 @@ class TestDepartment(BaseTest):
         department is correct
         """
         department = Department(name='test_department', description='test')
-        # pylint: disable=no-member
         db.session.add(department)
         db.session.commit()
         self.assertEqual('test_department', repr(department))

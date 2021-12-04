@@ -8,7 +8,7 @@ from department_app.loader import db
 # pylint: disable=no-member
 class Department(db.Model):
     """
-    Department table.
+    Department model.
     """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(length=32))

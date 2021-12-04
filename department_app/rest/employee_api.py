@@ -1,3 +1,6 @@
+"""
+Module contains employees REST API
+"""
 from flask import request
 from flask_restful import Resource
 
@@ -7,6 +10,9 @@ from . import api
 
 
 class EmployeesApi(Resource):
+    """
+    Class for Employees Api Resource available on '/api/employees' url
+    """
     @staticmethod
     def get():
         """

@@ -1,3 +1,6 @@
+"""
+Module contains class to test employee model.
+"""
 # pylint: disable=no-member
 from department_app.loader import db
 from department_app.models.employee_model import Employee
@@ -16,7 +19,10 @@ class TestEmployee(BaseTest):
         employee is correct
         """
         department = Department(name='test_department', description='test')
-        employee = Employee(full_name='John Smith', salary=15000, date_of_birth='1987-06-06', position='engineer',
+        employee = Employee(full_name='John Smith',
+                            salary=15000,
+                            date_of_birth='1987-06-06',
+                            position='engineer',
                             department_id=1)
         db.session.add(department)
         db.session.add(employee)

@@ -1,12 +1,18 @@
+"""
+Module contains department REST API
+"""
 from flask import request
 from flask_restful import Resource
 
-from department_app.service.department_service import get_all_departments, add_new_department, update_department, \
-    delete_department
+from department_app.service.department_service import get_all_departments, add_new_department,\
+    update_department, delete_department
 from . import api
 
 
 class DepartmentApi(Resource):
+    """
+    Class for Department Api Resource available on '/api/departments' url
+    """
     @staticmethod
     def get():
         """

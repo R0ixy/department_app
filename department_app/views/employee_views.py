@@ -34,10 +34,11 @@ def employees(dep_id):
     dep = get_all_departments()
     if dep_id:
         employees_list = employee_service.get_employee_with_params(dep_id=dep_id)
-        return render_template('employees.html', employees=employees_list, departments=dep, user=g.user)
-    else:
-        employees_list = employee_service.get_all_employees()
-    return render_template('employees.html', employees=employees_list, departments=dep, user=g.user)
+        return render_template('employees.html',
+                               employees=employees_list, departments=dep, user=g.user)
+    employees_list = employee_service.get_all_employees()
+    return render_template('employees.html',
+                           employees=employees_list, departments=dep, user=g.user)
 
 
 @page.route('/employees/add/', methods=['GET', 'POST'])

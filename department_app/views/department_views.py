@@ -20,7 +20,8 @@ def departments():
         description = request.form['description']
         department_service.update_department(department_id, name, description)
 
-    return render_template('departments.html', departments=department_service.get_all_departments(), user=g.user)
+    return render_template('departments.html',
+                           departments=department_service.get_all_departments(), user=g.user)
 
 
 @page.route('/departments/add/', methods=['GET', 'POST'])

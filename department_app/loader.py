@@ -1,5 +1,5 @@
 """
-Loads all necessary modules and configs.
+Initialize all necessary modules and configs.
 """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login_manager = LoginManager(app)
 
-# pylint: disable=wrong-import-position
+# pylint: disable=wrong-import-position, wrong-import-order, cyclic-import
 from department_app.rest import rest
 from department_app.views import page
 

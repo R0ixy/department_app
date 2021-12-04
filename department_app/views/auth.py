@@ -1,3 +1,6 @@
+"""
+This module represents the logic for login or registration
+"""
 from flask import render_template, request, flash, redirect, url_for, g
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -89,7 +92,7 @@ def redirect_to_login(response):
 @page.before_request
 def before_request():
     """
-    Get's current user before every request.
+    Get current user before every request.
     :return:
     """
     g.user = current_user

@@ -1,4 +1,7 @@
-# pylint: disable=wrong-import-position
+"""
+Initialize page Blueprint and import all submodules form views module.
+"""
+# pylint: disable=wrong-import-position, cyclic-import
 from flask import Blueprint
 
 page = Blueprint('page', __name__)

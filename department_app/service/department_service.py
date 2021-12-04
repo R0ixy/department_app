@@ -66,7 +66,8 @@ def get_average_salary(department_id) -> float:
     :param department_id: id of department to get average salary
     :return: average_salary
     """
-    return db.session.query(func.avg(Employee.salary)).filter_by(department_id=department_id).scalar()
+    return db.session.query(func.avg(Employee.salary)).filter_by(
+        department_id=department_id).scalar()
 
 
 def get_number_of_employees(department_id):
