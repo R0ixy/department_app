@@ -28,4 +28,4 @@ class Department(db.Model):
         }
 
     def __repr__(self):
-        return self.name
+        return str(self.name)

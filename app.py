@@ -33,4 +33,4 @@ werkzeug_logger.setLevel(logging.DEBUG)
 if __name__ == '__main__':
     db.init_app(app)
     db.create_all()
-    app.run(depug=True, use_reloader=True)
+    app.run(debug=True, use_reloader=True)

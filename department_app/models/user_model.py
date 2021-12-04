@@ -17,4 +17,4 @@ class User(UserMixin, db.Model):
     psw_hash = db.Column(db.String(length=256), nullable=False)
 
     def __repr__(self):
-        return self.username
+        return str(self.username)

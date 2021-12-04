@@ -35,4 +35,4 @@ class Employee(db.Model):
         }
 
     def __repr__(self):
-        return self.full_name
+        return str(self.full_name)

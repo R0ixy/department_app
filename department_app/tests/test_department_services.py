@@ -84,3 +84,24 @@ class TestDepartmentServices(BaseTest):
         """
         self.add_entries_to_db()
         self.assertEqual(2, department_service.get_number_of_employees(1))
+
+    def test_get_one_department(self):
+        """
+        Test get one department operation
+        """
+        department_service.add_new_department('department1', 'description')
+        department_service.add_new_department('department2', 'description')
+        department1 = department_service.get_one_department(1)
+        department2 = department_service.get_one_department(2)
+        self.assertEqual('department1', department1.name)
+        self.assertEqual('department2', department2.name)
+
+    def test_update_department_patch(self):
+        """
+        Test update patch department operation
+        """
+        department_service.add_new_department('department', 'description')
+        department_service.update_department_patch(1, 'new_department')
+        department = Department.query.get(1)
+        self.assertEqual('new_department', department.name)
+        self.assertEqual('description', department.description)

@@ -23,6 +23,20 @@ def get_all_employees() -> list:
     return employees
 
 
+def get_one_employee(emp_id):
+    """
+    Select one employee from database by id and calculate age.
+
+    :param emp_id id of employee
+    :return: employee object
+    """
+    employee = Employee.query.get_or_404(emp_id)
+    today = date.today()
+    born = employee.date_of_birth
+    employee.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    return employee
+
+
 def add_new_employee(name, salary, birthday, position, department):
     """
     Add new employee entry to database.
@@ -108,3 +122,30 @@ def get_employee_with_params(*, dep_id=None, first_date=None, second_date=None):
         age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
         employee.age = age
     return employees
+
+
+# pylint: disable=line-too-long
+def update_employee_patch(emp_id, *, name=None, salary=None, birthday=None, position=None, department=None):
+    """
+    Change existing employee entry without overwriting unspecified fields with None.
+
+    :param emp_id: id of employee
+    :param name: full name of employee
+    :param salary: salary of employee
+    :param birthday: date of birth of employee in format yyyy-mm-dd
+    :param position: position of employee
+    :param department: id of employee's department
+    """
+    employee = Employee.query.get_or_404(emp_id)
+    if name:
+        employee.full_name = name
+    if salary:
+        employee.salary = salary
+    if birthday:
+        employee.date_of_birth = birthday
+    if position:
+        employee.position = position
+    if department:
+        employee.department_id = department
+    db.session.add(employee)
+    db.session.commit()

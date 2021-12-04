@@ -112,14 +112,13 @@ class TestEmployeeApi(BaseTest):
         """
         self.fill_db()
         data = {
-            'id': 1,
             'full_name': 'Jhon Smith',
             'salary': 1500,
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
             'department_id': 1
         }
-        response = self.app.put('/api/employees/', data=json.dumps(data),
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -131,7 +130,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/employees/', data=json.dumps(data),
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -140,10 +139,7 @@ class TestEmployeeApi(BaseTest):
         Test delete request.
         """
         self.fill_db()
-        data = {
-            'id': 1,
-        }
-        response = self.app.delete('/api/employees/', data=json.dumps(data),
+        response = self.app.delete('/api/employees/1',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -152,21 +148,69 @@ class TestEmployeeApi(BaseTest):
         Test delete request exception because of wrong data.
         """
         self.create_dep()
-        data = {
-            'id': 3423
-        }
-        response = self.app.delete('/api/employees/', data=json.dumps(data),
+        response = self.app.delete('/api/employees/3423',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
-    def test_wrong_delete_args(self):
+    # def test_wrong_delete_args(self):
+    #     """
+    #     Test delete request exception because of wrong args.
+    #     """
+    #     self.create_dep()
+    #     data = {
+    #         'wrong_arg': 3423
+    #     }
+    #     response = self.app.delete('/api/employees/', data=json.dumps(data),
+    #                                content_type='application/json')
+    #     assert response.status_code == http.HTTPStatus.BAD_REQUEST
+    def test_get_one(self):
         """
-        Test delete request exception because of wrong args.
+        Test get by id request.
         """
-        self.create_dep()
+        self.fill_db()
+        response = self.app.get('/api/employees/1')
+        assert response.status_code == http.HTTPStatus.OK
+
+    def test_get_wrong_one(self):
+        """
+        Test get by id request exception.
+        """
+        self.fill_db()
+        response = self.app.get('/api/employees/423')
+        assert response.status_code == http.HTTPStatus.NOT_FOUND
+
+    def test_patch(self):
+        """
+        Test patch request.
+        """
+        self.fill_db()
         data = {
-            'wrong_arg': 3423
+            'full_name': 'Daisy Jonson',
         }
-        response = self.app.delete('/api/employees/', data=json.dumps(data),
-                                   content_type='application/json')
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.OK
+
+    def test_wrong_patch(self):
+        """
+        Test patch request exception.
+        """
+        self.fill_db()
+        data = {
+            'full_name': 'Daisy Jonson',
+        }
+        response = self.app.patch('/api/employees/423', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.NOT_FOUND
+
+    def test_wrong_args_patch(self):
+        """
+        Test patch request exception.
+        """
+        self.fill_db()
+        data = {
+            'wrong_data': 'wrong_data',
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST

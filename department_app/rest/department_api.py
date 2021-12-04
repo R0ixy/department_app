@@ -4,15 +4,16 @@ Module contains department REST API
 from flask import request
 from flask_restful import Resource
 
-from department_app.service.department_service import get_all_departments, add_new_department,\
-    update_department, delete_department
+from department_app.service.department_service import get_all_departments, add_new_department, \
+    update_department, delete_department, get_one_department, update_department_patch
 from . import api
 
 
-class DepartmentApi(Resource):
+class DepartmentListApi(Resource):
     """
     Class for Department Api Resource available on '/api/departments' url
     """
+
     @staticmethod
     def get():
         """
@@ -38,8 +39,46 @@ class DepartmentApi(Resource):
             return {'message': 'Wrong Key argument'}, 400
         return 'Department has been successfully added', 201
 
+
+class DepartmentApiByID(Resource):
+    """
+    Class for Department Api Resource available on '/api/departments/<id>' url
+    """
+
     @staticmethod
-    def put():
+    def get(dep_id):
+        """
+        Endpoint for getting one department by id.
+
+        :return: json response that contains one department entry.
+        """
+        try:
+            department = get_one_department(dep_id)
+        except AttributeError:
+            return {'message': 'Not found'}, 404
+        return department.to_dict()
+
+    @staticmethod
+    def patch(dep_id):
+        """
+        Endpoint for changing an existing department
+        without overwriting unspecified fields with None.
+
+        :return: json response containing the message whether the request was successful or not.
+        """
+        request_data = request.get_json()
+        try:
+            if not request_data.get('name') and not request_data.get('description'):
+                raise KeyError
+            update_department_patch(dep_id,
+                                    request_data.get('name'),
+                                    request_data.get('description'))
+        except KeyError:
+            return {'message': 'Wrong data'}, 400
+        return 'Department has been successfully changed', 200
+
+    @staticmethod
+    def put(dep_id):
         """
         Endpoint for changing an existing department.
 
@@ -47,24 +86,24 @@ class DepartmentApi(Resource):
         """
         request_data = request.get_json()
         try:
-            update_department(request_data['id'], request_data['name'], request_data['description'])
+            update_department(dep_id, request_data['name'], request_data['description'])
         except KeyError:
-            return {'message': 'Wrong Key argument'}, 400
+            return {'message': 'Wrong data'}, 400
         return 'Department has been successfully changed', 200
 
     @staticmethod
-    def delete():
+    def delete(dep_id):
         """
         Endpoint for deleting a department.
 
         :return: json response containing the message whether the request was successful or not.
         """
-        request_data = request.get_json()
         try:
-            delete_department(request_data['id'])
+            delete_department(dep_id)
         except KeyError:
-            return {'message': 'Wrong Key argument'}, 400
+            return {'message': 'Not found'}, 404
         return 'Department has been successfully deleted', 200
 
 
-api.add_resource(DepartmentApi, '/departments/')
+api.add_resource(DepartmentListApi, '/departments/')
+api.add_resource(DepartmentApiByID, '/departments/<dep_id>')

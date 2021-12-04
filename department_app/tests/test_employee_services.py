@@ -49,6 +49,12 @@ class TestEmployeeServices(BaseTest):
         db.session.commit()
         self.assertEqual(2, len(employee_service.get_all_employees()))
 
+    def test_get_one_employee(self):
+        self.create_department()
+        self.fill_db()
+        employee = employee_service.get_one_employee(1)
+        self.assertEqual('John Smith', employee.full_name)
+
     def test_add_new_employee(self):
         """
         Test add employee operation
@@ -92,3 +98,19 @@ class TestEmployeeServices(BaseTest):
                          employee_service.get_employee_with_params(
                              first_date='1982-04-16', second_date='1990-06-27'))
         self.assertEqual(Employee.query.all(), employee_service.get_employee_with_params())
+
+    def test_update_employee_patch(self):
+        """
+        Test update patch department operation
+        """
+        self.create_department()
+        self.fill_db()
+        employee_service.update_employee_patch(1, name='Steve')
+        employee_service.update_employee_patch(1,
+                                               salary=10000,
+                                               birthday='1955-04-27',
+                                               position='engineer2',
+                                               department=1)
+        employee = Employee.query.get(1)
+        self.assertEqual('Steve', employee.full_name)
+        self.assertEqual(10000, employee.salary)

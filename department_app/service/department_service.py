@@ -24,7 +24,7 @@ def get_all_departments() -> list:
     return departments
 
 
-def add_new_department(name, description):
+def add_new_department(name, description) -> None:
     """
     Add new entry in department table.
 
@@ -39,6 +39,7 @@ def add_new_department(name, description):
 def update_department(department_id, name, description):
     """
     Change existing entry in department table.
+
     :param department_id: id of department
     :param name: department name
     :param description: department description
@@ -53,6 +54,7 @@ def update_department(department_id, name, description):
 def delete_department(department_id):
     """
     Delete department form table.
+
     :param department_id: id of department to delete
     """
     department = Department.query.get_or_404(department_id)
@@ -63,6 +65,7 @@ def delete_department(department_id):
 def get_average_salary(department_id) -> float:
     """
     Get average_salary department by id.
+
     :param department_id: id of department to get average salary
     :return: average_salary
     """
@@ -73,7 +76,40 @@ def get_average_salary(department_id) -> float:
 def get_number_of_employees(department_id):
     """
     Get number of employees in department by its id.
+
     :param department_id: id of department
     :return: number of employees in department
     """
     return db.session.query(Employee).filter_by(department_id=department_id).count()
+
+
+def get_one_department(dep_id):
+    """
+    Select data by id form Departments table.
+
+    :param dep_id: if of department
+    :return: department object
+    """
+    department = Department.query.filter_by(id=dep_id).first()
+    salary = get_average_salary(department.id)
+    number_of_employees = get_number_of_employees(department.id)
+    department.average_salary = float(salary) if salary else 0
+    department.number_of_employees = number_of_employees
+    return department
+
+
+def update_department_patch(department_id, name=None, description=None):
+    """
+    Change existing department entry in without overwriting unspecified fields with None.
+
+    :param department_id: id of department
+    :param name: department name
+    :param description: department description
+    """
+    department = Department.query.get_or_404(department_id)
+    if name:
+        department.name = name
+    if description:
+        department.description = description
+    db.session.add(department)
+    db.session.commit()

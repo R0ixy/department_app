@@ -62,11 +62,10 @@ class TestDepartmentApi(BaseTest):
         """
         self.fill_db()
         data = {
-            'id': 1,
             'name': 'New Department',
             'description': 'New Description'
         }
-        response = self.app.put('/api/departments/', data=json.dumps(data),
+        response = self.app.put('/api/departments/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -78,7 +77,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/departments/', data=json.dumps(data),
+        response = self.app.put('/api/departments/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -87,33 +86,67 @@ class TestDepartmentApi(BaseTest):
         Test delete request.
         """
         self.fill_db()
-        data = {
-            'id': 1,
-        }
-        response = self.app.delete('/api/departments/', data=json.dumps(data),
+        response = self.app.delete('/api/departments/1',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
-    def test_wrong_delete_data(self):
+    def test_wrong_delete(self):
         """
-        Test delete request exception because of wrong data.
+        Test delete request exception.
         """
         self.fill_db()
-        data = {
-            'id': 1780,
-        }
-        response = self.app.delete('/api/departments/', data=json.dumps(data),
+        response = self.app.delete('/api/departments/1780',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
-    def test_wrong_delete_args(self):
+    def test_get_one(self):
         """
-        Test delete request exception because of wrong args.
+        Test get by id request.
+        """
+        self.fill_db()
+        response = self.app.get('/api/departments/1')
+        assert response.status_code == http.HTTPStatus.OK
+
+    def test_get_wrong_one(self):
+        """
+        Test get by id request exception.
+        """
+        self.fill_db()
+        response = self.app.get('/api/departments/241')
+        assert response.status_code == http.HTTPStatus.NOT_FOUND
+
+    def test_patch(self):
+        """
+        Test patch request.
         """
         self.fill_db()
         data = {
-            'wrong_data': 1,
+            'name': 'New Department',
         }
-        response = self.app.delete('/api/departments/', data=json.dumps(data),
-                                   content_type='application/json')
+        response = self.app.patch('/api/departments/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.OK
+
+    def test_wrong_patch(self):
+        """
+        Test patch request exception.
+        """
+        self.fill_db()
+        data = {
+            'name': 'New Department',
+        }
+        response = self.app.patch('/api/departments/241', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.NOT_FOUND
+
+    def test_wrong_args_patch(self):
+        """
+        Test patch request exception.
+        """
+        self.fill_db()
+        data = {
+            'wrong_data': 'wrong_data',
+        }
+        response = self.app.patch('/api/departments/1', data=json.dumps(data),
+                                  content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
