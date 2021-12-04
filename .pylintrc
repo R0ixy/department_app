@@ -1,0 +1,23 @@
+[MASTER]
+
+# List of plugins (as comma separated values of python modules names) to load,
+# usually to register additional checkers.
+
+
+ignore=migrations
+
+[TYPECHECK]
+
+ignored-classes=scoped_session
+
+
+[SIMILARITIES]
+
+# Minimum lines number of a similarity.
+min-similarity-lines=10
+
+
+[DESIGN]
+
+# Maximum number of arguments for function / method
+max-args=10
