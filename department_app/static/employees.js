@@ -45,10 +45,10 @@ $(document).ready(function () {
 
 
 $('input[type="submit"].search').click(async function () {
-    let first_date = $('input.first_date').val();
+    const first_date = $('input.first_date').val();
     const second_date = $('input.second_date').val();
     const dep_id = $('select.dep').val();
-    let response = await fetch('/api/employee/?' + new URLSearchParams({
+    let response = await fetch('/api/employees/?' + new URLSearchParams({
         'id': dep_id,
         'first_date': first_date,
         'second_date': second_date
