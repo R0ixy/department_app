@@ -66,10 +66,7 @@ class EmployeesApiByID(Resource):
 
         :return: json response that contains one employee entry.
         """
-        try:
-            employee = get_one_employee(emp_id)
-        except AttributeError:
-            return {'message': 'Not found'}, 404
+        employee = get_one_employee(emp_id)
         return employee.to_dict()
 
     @staticmethod

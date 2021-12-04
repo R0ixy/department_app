@@ -52,10 +52,7 @@ class DepartmentApiByID(Resource):
 
         :return: json response that contains one department entry.
         """
-        try:
-            department = get_one_department(dep_id)
-        except AttributeError:
-            return {'message': 'Not found'}, 404
+        department = get_one_department(dep_id)
         return department.to_dict()
 
     @staticmethod
