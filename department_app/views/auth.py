@@ -96,4 +96,5 @@ def before_request():
     Get current user before every request.
     :return:
     """
+    # pylint: disable=assigning-non-slot
     g.user = current_user

@@ -2,7 +2,6 @@
 CRUD operations form employee model.
 """
 # pylint: disable=no-member
-# pylint: disable=too-many-arguments
 from datetime import datetime, date
 
 from department_app import db
