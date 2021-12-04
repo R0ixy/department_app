@@ -90,7 +90,7 @@ def get_one_department(dep_id):
     :param dep_id: if of department
     :return: department object
     """
-    department = Department.query.get_or_404(id=dep_id)
+    department = Department.query.get_or_404(dep_id)
     salary = get_average_salary(department.id)
     number_of_employees = get_number_of_employees(department.id)
     department.average_salary = float(salary) if salary else 0
