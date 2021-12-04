@@ -101,7 +101,8 @@ class TestDepartmentServices(BaseTest):
         Test update patch department operation
         """
         department_service.add_new_department('department', 'description')
-        department_service.update_department_patch(1, 'new_department')
+        department_service.update_department_patch(1, name='new_department')
+        department_service.update_department_patch(1, description='new description')
         department = Department.query.get(1)
         self.assertEqual('new_department', department.name)
-        self.assertEqual('description', department.description)
+        self.assertEqual('new description', department.description)

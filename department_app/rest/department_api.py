@@ -71,8 +71,8 @@ class DepartmentApiByID(Resource):
             if not request_data.get('name') and not request_data.get('description'):
                 raise KeyError
             update_department_patch(dep_id,
-                                    request_data.get('name'),
-                                    request_data.get('description'))
+                                    name=request_data.get('name'),
+                                    description=request_data.get('description'))
         except KeyError:
             return {'message': 'Wrong data'}, 400
         return 'Department has been successfully changed', 200
@@ -98,10 +98,7 @@ class DepartmentApiByID(Resource):
 
         :return: json response containing the message whether the request was successful or not.
         """
-        try:
-            delete_department(dep_id)
-        except KeyError:
-            return {'message': 'Not found'}, 404
+        delete_department(dep_id)
         return 'Department has been successfully deleted', 200
 
 

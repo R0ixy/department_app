@@ -98,7 +98,7 @@ def get_one_department(dep_id):
     return department
 
 
-def update_department_patch(department_id, name=None, description=None):
+def update_department_patch(department_id, *,  name=None, description=None):
     """
     Change existing department entry in without overwriting unspecified fields with None.
 

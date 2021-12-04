@@ -152,17 +152,6 @@ class TestEmployeeApi(BaseTest):
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
-    # def test_wrong_delete_args(self):
-    #     """
-    #     Test delete request exception because of wrong args.
-    #     """
-    #     self.create_dep()
-    #     data = {
-    #         'wrong_arg': 3423
-    #     }
-    #     response = self.app.delete('/api/employees/', data=json.dumps(data),
-    #                                content_type='application/json')
-    #     assert response.status_code == http.HTTPStatus.BAD_REQUEST
     def test_get_one(self):
         """
         Test get by id request.

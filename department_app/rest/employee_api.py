@@ -121,10 +121,7 @@ class EmployeesApiByID(Resource):
 
         :return: json response containing the message whether the request was successful or not.
         """
-        try:
-            delete_employee(emp_id)
-        except KeyError:
-            return {'message': 'Not found'}, 404
+        delete_employee(emp_id)
         return 'Employee has been successfully deleted', 200
 
 
