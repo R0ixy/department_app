@@ -60,11 +60,9 @@ localhost:5000/register
 
 localhost:5000/departments
 localhost:5000/departments/add
-localhost:5000/departments/edit
 localhost:5000/departments/delete/<id>
 
 localhost:5000/employees
 localhost:5000/employees/<department_id>
 localhost:5000/employees/add
-localhost:5000/employees/edit
 localhost:5000/employees/delete/<id>
