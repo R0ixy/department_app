@@ -150,3 +150,22 @@ class TestDepartmentApi(BaseTest):
         response = self.app.patch('/api/departments/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_name_validation(self):
+        """
+        Test name validation.
+        """
+        self.fill_db()
+        data = {
+            'name': 'wronghfsjfhsjfhhhhhhhhhhhhhhhhhhhhhhhhsfjkshgsjkdghsdjkghsjkghsjkghsgjshgjkshgjkshgsjghsjdata',
+            'description': 'normal_description',
+        }
+        response1 = self.app.post('/api/departments/', data=json.dumps(data),
+                                  content_type='application/json')
+        response2 = self.app.patch('/api/departments/1', data=json.dumps(data),
+                                   content_type='application/json')
+        response3 = self.app.put('/api/departments/1', data=json.dumps(data),
+                                 content_type='application/json')
+        assert response1.status_code == http.HTTPStatus.BAD_REQUEST
+        assert response2.status_code == http.HTTPStatus.BAD_REQUEST
+        assert response3.status_code == http.HTTPStatus.BAD_REQUEST

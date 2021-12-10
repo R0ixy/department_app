@@ -203,3 +203,75 @@ class TestEmployeeApi(BaseTest):
         response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_validation_name(self):
+        """
+        Test name validation.
+        """
+        self.fill_db()
+        data = {
+            'full_name': 'wrongfhhhhhhhhhhhhhsgggsdfjcbnxzbvxbhsdvbsgfygreshfbndbchsfgsefgnbhfeyfdbvdhfdbhs'
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_validation_position(self):
+        """
+        Test position validation.
+        """
+        self.fill_db()
+        data = {
+            'position': 'wrongfhhhhhhhhhhhhhsgggsdfjcbnxzbvxbhsdvbsgfygreshfbndbchsfgsefgnbhfeyfdbvdhfdbhs'
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_validation_salary(self):
+        """
+        Test salary validation.
+        """
+        self.fill_db()
+        data = {
+            'salary': '43hb23'
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_validation_dep_id(self):
+        """
+        Test id validation.
+        """
+        self.fill_db()
+        data = {
+            'department_id': '43hb23'
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_validation_dep_id_2(self):
+        """
+        Test id validation.
+        """
+        self.fill_db()
+        data = {
+            'department_id': '34'
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_validation_date(self):
+        """
+        Test date validation.
+        """
+        self.fill_db()
+        data = {
+            'date_of_birth': 'sfsf'
+        }
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
+                                  content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
