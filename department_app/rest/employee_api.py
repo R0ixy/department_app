@@ -3,8 +3,10 @@ Module contains employees REST API
 """
 from flask import request
 from flask_restful import Resource
+from datetime import datetime
+from sqlalchemy.exc import IntegrityError
 
-from department_app.service.employee_service import get_all_employees, update_employee_patch,\
+from department_app.service.employee_service import get_all_employees, update_employee_patch, \
     update_employee, get_employee_with_params, delete_employee, get_one_employee, add_new_employee
 from . import api
 
@@ -46,12 +48,22 @@ class EmployeesListApi(Resource):
             full_name = request_data['full_name']
             salary = request_data['salary']
             position = request_data['position']
-            department = request_data['department_id']
+            department_id = request_data['department_id']
             date_of_birth = request_data['date_of_birth']
-            add_new_employee(full_name, salary, date_of_birth, position, department)
         except KeyError:
-            return {'message': 'Wrong Key argument'}, 400
-        return 'Employee has been successfully added', 201
+            return {'error': 'Wrong Key argument'}, 400
+
+        if error := validate(full_name=full_name,
+                             position=position,
+                             salary=salary,
+                             date_of_birth=date_of_birth,
+                             department_id=department_id):
+            return error
+        try:
+            employee = add_new_employee(full_name, salary, date_of_birth, position, department_id)
+        except IntegrityError:
+            return {'error': 'Department with specified ID do not exist'}, 400
+        return employee.to_dict(), 201
 
 
 class EmployeesApiByID(Resource):
@@ -78,19 +90,34 @@ class EmployeesApiByID(Resource):
         :return: json response containing the message whether the request was successful or not.
         """
         request_data = request.get_json()
+
+        for key in request_data.keys():
+            if key not in ['full_name', 'salary', 'date_of_birth', 'position', 'department_id']:
+                return {'error': 'Wrong data'}, 400
+
+        full_name = request_data.get('full_name')
+        salary = request_data.get('salary')
+        date_of_birth = request_data.get('date_of_birth')
+        position = request_data.get('position')
+        department_id = request_data.get('department_id')
+
+        if error := validate(full_name=full_name,
+                             position=position,
+                             salary=salary,
+                             date_of_birth=date_of_birth,
+                             department_id=department_id):
+            return error
+
         try:
-            for key in request_data.keys():
-                if key not in ['full_name', 'salary', 'date_of_birth', 'position', 'department_id']:
-                    raise KeyError
             update_employee_patch(emp_id=emp_id,
-                                  name=request_data.get('full_name'),
-                                  salary=request_data.get('salary'),
-                                  birthday=request_data.get('date_of_birth'),
-                                  position=request_data.get('position'),
-                                  department=request_data.get('department_id'))
-        except KeyError:
-            return {'message': 'Wrong data'}, 400
-        return 'Employee has been successfully changed', 200
+                                  name=full_name,
+                                  salary=salary,
+                                  birthday=date_of_birth,
+                                  position=position,
+                                  department=department_id)
+        except IntegrityError:
+            return {'error': 'Department with specified ID do not exist'}, 400
+        return get_one_employee(emp_id).to_dict(), 200
 
     @staticmethod
     def put(emp_id):
@@ -101,15 +128,33 @@ class EmployeesApiByID(Resource):
         """
         request_data = request.get_json()
         try:
-            update_employee(emp_id=emp_id,
-                            name=request_data['full_name'],
-                            salary=request_data['salary'],
-                            birthday=request_data['date_of_birth'],
-                            position=request_data['position'],
-                            department=request_data['department_id'])
+            full_name = request_data['full_name']
+            salary = request_data['salary']
+            date_of_birth = request_data['date_of_birth']
+            position = request_data['position']
+            department_id = request_data['department_id']
         except KeyError:
-            return {'message': 'Wrong data'}, 400
-        return 'Employee has been successfully changed', 200
+            return {'error': 'Wrong parameters. Note: all parameters (full_name,'
+                             ' salary, date_of_birth,'
+                             ' position, department_id)'
+                             ' are required for PUT method.'}, 400
+
+        if error := validate(full_name=full_name,
+                             position=position,
+                             salary=salary,
+                             date_of_birth=date_of_birth,
+                             department_id=department_id):
+            return error
+        try:
+            update_employee(emp_id=emp_id,
+                            name=full_name,
+                            salary=salary,
+                            birthday=date_of_birth,
+                            position=position,
+                            department=department_id)
+        except IntegrityError:
+            return {'error': 'Department with specified ID do not exist'}, 400
+        return get_one_employee(emp_id).to_dict(), 200
 
     @staticmethod
     def delete(emp_id):
@@ -124,3 +169,28 @@ class EmployeesApiByID(Resource):
 
 api.add_resource(EmployeesListApi, '/employees/')
 api.add_resource(EmployeesApiByID, '/employees/<emp_id>')
+
+
+def validate(*, full_name, position, salary, date_of_birth, department_id):
+    """
+    Data validation.
+
+    :param full_name:
+    :param position:
+    :param salary:
+    :param date_of_birth:
+    :param department_id:
+    """
+    if full_name and len(full_name) > 64:
+        return {'error': 'Full name too long (max length 64 symbols)'}, 400
+    if position and len(position) > 64:
+        return {'error': 'Position too long (max length 64 symbols)'}, 400
+    if salary and not str(salary).isdigit():
+        return {'error': 'Wrong data type. Salary must contain only digits'}, 400
+    if department_id and not str(department_id).isdigit():
+        return {'error': 'Wrong data type. Department ID must contain only digits'}, 400
+    if date_of_birth:
+        try:
+            datetime.strptime(date_of_birth, '%Y-%m-%d')
+        except ValueError:
+            return {'error': 'Wrong date format. Please use YYYY-MM-DD format'}, 400

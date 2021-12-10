@@ -20,7 +20,8 @@ class Employee(db.Model):
 
     def to_dict(self):
         """
-        Serializer that returns a dictionary from its fields
+        Serializer that returns a dictionary from its fields.
+
         :return: the employee in json format
         """
         return {

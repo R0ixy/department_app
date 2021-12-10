@@ -37,7 +37,7 @@ def get_one_employee(emp_id):
     return employee
 
 
-def add_new_employee(name, salary, birthday, position, department):
+def add_new_employee(name, salary, birthday, position, department) -> Employee:
     """
     Add new employee entry to database.
 
@@ -51,6 +51,12 @@ def add_new_employee(name, salary, birthday, position, department):
                         department_id=department)
     db.session.add(employee)
     db.session.commit()
+
+    emp = db.session.query(Employee).order_by(Employee.id.desc()).first()
+    today = date.today()
+    born = emp.date_of_birth
+    emp.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    return emp
 
 
 def update_employee(emp_id, name, salary, birthday, position, department):
