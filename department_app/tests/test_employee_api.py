@@ -275,3 +275,67 @@ class TestEmployeeApi(BaseTest):
         response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_post_validate(self):
+        """
+        Test post request validation.
+        """
+        self.fill_db()
+        data = {
+            'full_name': 'Jhon Smith',
+            'salary': '15s00',
+            'date_of_birth': '1991-02-21',
+            'position': 'Engineer',
+            'department_id': 1
+        }
+        response = self.app.post('/api/employees/', data=json.dumps(data),
+                                 content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_post_validate_id(self):
+        """
+        Test post request id validation.
+        """
+        self.fill_db()
+        data = {
+            'full_name': 'Jhon Smith',
+            'salary': 1500,
+            'date_of_birth': '1991-02-21',
+            'position': 'Engineer',
+            'department_id': 19
+        }
+        response = self.app.post('/api/employees/', data=json.dumps(data),
+                                 content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_put_validate(self):
+        """
+        Test put request validation.
+        """
+        self.fill_db()
+        data = {
+            'full_name': 'Jhon Smith',
+            'salary': '150o0',
+            'date_of_birth': '1991-02-21',
+            'position': 'Engineer',
+            'department_id': 1
+        }
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
+                                content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_put_validate_id(self):
+        """
+        Test put request id validation.
+        """
+        self.fill_db()
+        data = {
+            'full_name': 'Jhon Smith',
+            'salary': '1500',
+            'date_of_birth': '1991-02-21',
+            'position': 'Engineer',
+            'department_id': 18
+        }
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
+                                content_type='application/json')
+        assert response.status_code == http.HTTPStatus.BAD_REQUEST
