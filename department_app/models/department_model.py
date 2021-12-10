@@ -19,12 +19,19 @@ class Department(db.Model):
         Serializer that returns a dictionary from its fields
         :return: the department in json format
         """
+        try:
+            average_salary = self.average_salary
+            number_of_employees = self.number_of_employees
+        except AttributeError:
+            return {'id': self.id,
+                    'name': self.name,
+                    'description': self.description, }
         return {
             'id': self.id,
             'name': self.name,
             'description': self.description,
-            'average_salary': self.average_salary,
-            'number_of_employees': self.number_of_employees
+            'average_salary': average_salary,
+            'number_of_employees': number_of_employees
         }
 
     def __repr__(self):

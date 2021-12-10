@@ -24,16 +24,18 @@ def get_all_departments() -> list:
     return departments
 
 
-def add_new_department(name, description) -> None:
+def add_new_department(name, description) -> Department:
     """
     Add new entry in department table.
 
     :param name: department name
     :param description: department description
+    :return: last department query
     """
     department = Department(name=name, description=description)
     db.session.add(department)
     db.session.commit()
+    return db.session.query(Department).order_by(Department.id.desc()).first()
 
 
 def update_department(department_id, name, description):
@@ -98,7 +100,7 @@ def get_one_department(dep_id):
     return department
 
 
-def update_department_patch(department_id, *,  name=None, description=None):
+def update_department_patch(department_id, *, name=None, description=None):
     """
     Change existing department entry in without overwriting unspecified fields with None.
 

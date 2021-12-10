@@ -34,10 +34,13 @@ class DepartmentListApi(Resource):
         """
         request_data = request.get_json()
         try:
-            add_new_department(request_data['name'], request_data['description'])
+            name = request_data['name']
+            if len(name) > 32:
+                return {'error': 'Name too long (max length 32 symbols)'}, 400
+            department = add_new_department(name, request_data['description'])
         except KeyError:
-            return {'message': 'Wrong Key argument'}, 400
-        return 'Department has been successfully added', 201
+            return {'error': 'Wrong Key argument'}, 400
+        return department.to_dict(), 201
 
 
 class DepartmentApiByID(Resource):
@@ -64,15 +67,16 @@ class DepartmentApiByID(Resource):
         :return: json response containing the message whether the request was successful or not.
         """
         request_data = request.get_json()
-        try:
-            if not request_data.get('name') and not request_data.get('description'):
-                raise KeyError
-            update_department_patch(dep_id,
-                                    name=request_data.get('name'),
-                                    description=request_data.get('description'))
-        except KeyError:
-            return {'message': 'Wrong data'}, 400
-        return 'Department has been successfully changed', 200
+        name = request_data.get('name', '')
+        description = request_data.get('description', '')
+        if not name and not description:
+            return {'error': 'Wrong data'}, 400
+        if len(name) > 32:
+            return {'error': 'Name too long (max length 32 symbols)'}, 400
+        update_department_patch(dep_id,
+                                name=name,
+                                description=description)
+        return get_one_department(dep_id).to_dict(), 200
 
     @staticmethod
     def put(dep_id):
@@ -83,10 +87,15 @@ class DepartmentApiByID(Resource):
         """
         request_data = request.get_json()
         try:
-            update_department(dep_id, request_data['name'], request_data['description'])
+            name = request_data['name']
+            if len(name) > 32:
+                return {'error': 'Name too long (max length 32 symbols)'}, 400
+
+            update_department(dep_id, name, request_data['description'])
         except KeyError:
-            return {'message': 'Wrong data'}, 400
-        return 'Department has been successfully changed', 200
+            return {'error': 'Wrong parameters. Note: both parameters (name, description)'
+                             ' are required for PUT method.'}, 400
+        return get_one_department(dep_id).to_dict(), 200
 
     @staticmethod
     def delete(dep_id):
