@@ -193,13 +193,9 @@ input.delete, input.edit, input.save_btn {
     border: 1px solid #0d6efd;
 }
 
-input.save_btn {
+input.save_btn:hover {
     background-color: #0d6efd;
     color: white;
-}
-
-input.save_btn:hover {
-    background-color: blue;
     cursor: pointer;
 }
 

@@ -13,28 +13,29 @@
             <h2 class="department_title"><label id="title_add_emp"><sup>Full name</sup><input type="text"
                                                                                               class="input_name"
                                                                                               name="full_name"
-                                                                                              placeholder="Name Surname"></label>
+                                                                                              placeholder="Name Surname"
+                                                                                              required></label>
             </h2>
             <div class="employee_text_block">
                 <div class="textcols-item">
-                    <p class="emp_text_center"><label>Salary:<input type="number" class="emp_inp" name="salary"></label></p>
-                    <p class="emp_text_center"><label>Position: <input type="text" class="emp_inp" name="position"></label></p>
+                    <p class="emp_text_center"><label>Salary:<input type="number" class="emp_inp" name="salary" placeholder="99999" required></label></p>
+                    <p class="emp_text_center"><label>Position: <input type="text" class="emp_inp" name="position" placeholder="engineer" required></label></p>
                 </div>
                 <div class="textcols-item">
                     <p class="emp_text_right"><label>Department: <select name="department">
                         {% for department in departments %}
-                        <option value="{{ department.id }}">{{ department.name }}</option>
+                        <option value="{{ department.uuid }}">{{ department.name }}</option>
                         {% endfor %}
                     </select></label></p>
-                    <p class="emp_text_left"><label>Birthday: <input type="date" class="emp_inp_date" name="date_of_birth"></label></p>
+                    <p class="emp_text_left"><label>Birthday: <input type="date" class="emp_inp_date" name="date_of_birth" required></label></p>
                 </div>
             </div>
             <div class="department_button">
                 <p>
-                    <input type="reset" class="edit" value="Clear">
+                    <input type="submit" class="save_btn" value="Save">
                 </p>
                 <p>
-                    <input type="submit" class="save_btn" value="Save">
+                    <input type="reset" class="delete" value="Clear">
                 </p>
             </div>
         </form>

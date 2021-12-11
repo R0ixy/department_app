@@ -15,7 +15,7 @@ def departments():
     Render department page.
     """
     if request.method == 'POST':
-        department_id = request.form['id']
+        department_id = request.form['uuid']
         name = request.form['title']
         description = request.form['description']
         department_service.update_department(department_id, name, description)
@@ -41,14 +41,14 @@ def add_department():
     return render_template('add_department.html', user=g.user)
 
 
-@page.route('/departments/delete/<dep_id>', methods=['POST'])
+@page.route('/departments/delete/<dep_uuid>', methods=['POST'])
 @login_required
-def delete_department(dep_id):
+def delete_department(dep_uuid):
     """
     Delete department entry form database.
 
-    :param dep_id: id of department to delete.
+    :param dep_uuid: uuid of department to delete.
     :return: redirect to department page.
     """
-    department_service.delete_department(dep_id)
+    department_service.delete_department(dep_uuid)
     return redirect(url_for('page.departments'))

@@ -29,7 +29,7 @@ $(document).ready(function () {
         $('.emp_inp_date').val(list[1]);
         $('#salary').val(list[2]);
         $('#position').val(list[3]);
-        $('.title_add_emp').append(title);
+        $('.title_add_emp').val(title);
         $(`select option[value=${this.dataset.dep}]`).prop('selected', true);
         $('div#window_emp').show();
         $('.b-popup').show();
@@ -47,9 +47,9 @@ $(document).ready(function () {
 $('input[type="submit"].search').click(async function () {
     const first_date = $('input.first_date').val();
     const second_date = $('input.second_date').val();
-    const dep_id = $('select.dep').val();
-    let response = await fetch('/api/employees/?' + new URLSearchParams({
-        'id': dep_id,
+    const dep_uuid = $('select.dep').val();
+    let response = await fetch('/api/employees?' + new URLSearchParams({
+        'uuid': dep_uuid,
         'first_date': first_date,
         'second_date': second_date
     }));
@@ -58,7 +58,7 @@ $('input[type="submit"].search').click(async function () {
     $('div.employee_block').remove();
 
     for (let i of result) {
-        $('div.content').append(`<div class="employee_block" id="${i.id}">
+        $('div.content').append(`<div class="employee_block" id="${i.uuid}">
                                         <h2 class="department_title">${i.full_name}</h2>
                                         <div class="employee_text_block">
                                             <div class="textcols-item">
@@ -75,10 +75,11 @@ $('input[type="submit"].search').click(async function () {
                                         </div>
                                         <div class="department_button">
                                             <p>
-                                                <input type="button" class="edit" data-id="${i.id}" value="Edit">
+                                                <input type="button" class="edit" data-id="${i.uuid}"
+                                                 data-dep="${i.department_uuid}" value="Edit">
                                             </p>
                                             <p>
-                                                <input type="button" data-id="${i.id}" class="delete" value="Delete">
+                                                <input type="button" data-id="${i.uuid}" class="delete" value="Delete">
                                             </p>
                                         </div>
                                     </div>`);

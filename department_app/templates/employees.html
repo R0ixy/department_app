@@ -14,7 +14,7 @@
             <label><select class="left search dep">
                 <option selected value>choose department</option>
                 {% for department in departments %}
-                    <option value="{{ department.id }}">{{ department.name }}</option>
+                    <option value="{{ department.uuid }}">{{ department.name }}</option>
                 {% endfor %}
             </select></label>
             <label><input type="submit" class="left search" value="search"></label>
@@ -22,7 +22,7 @@
                 employee</a></h3>
         </div>
         {% for employee in employees %}
-            <div class="employee_block" id="{{ employee.id }}">
+            <div class="employee_block" id="{{ employee.uuid }}">
                 <h2 class="department_title">{{ employee.full_name }}</h2>
                 <div class="employee_text_block">
                     <div class="textcols-item">
@@ -40,11 +40,11 @@
                 </div>
                 <div class="department_button">
                     <p>
-                        <input type="button" class="edit" data-id="{{ employee.id }}"
-                               data-dep="{{ employee.department_id }}" value="Edit">
+                        <input type="button" class="edit" data-id="{{ employee.uuid }}"
+                               data-dep="{{ employee.department_uuid }}" value="Edit">
                     </p>
                     <p>
-                        <input type="button" data-id="{{ employee.id }}" class="delete" value="Delete">
+                        <input type="button" data-id="{{ employee.uuid }}" class="delete" value="Delete">
                     </p>
                 </div>
             </div>
@@ -64,7 +64,7 @@
     <div id="window_emp" style="display: none">
         <div class="x"></div>
         <form action="" method="post">
-            <input type="hidden" id="emp_id" name="id">
+            <input type="hidden" id="emp_id" name="uuid">
             <h2 class="ed_department_title"><label id="title_add_emp"><sup>Full name</sup><input type="text"
                                                                                                  class="input_name"
                                                                                                  name="full_name"
@@ -81,7 +81,7 @@
                 <div class="ed_textcols-item">
                     <p class="emp_text_right"><label>Department: <select name="department">
                         {% for department in departments %}
-                            <option value="{{ department.id }}">{{ department.name }}</option>
+                            <option value="{{ department.uuid }}">{{ department.name }}</option>
                         {% endfor %}
                     </select></label></p>
                     <p class="emp_text_left"><label>Birthday: <input type="date" id="birthday" class="emp_inp_date"
