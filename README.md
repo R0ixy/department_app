@@ -42,15 +42,15 @@ python -m flask run
 - ### Web Service:
 ```
 localhost:5000/api/departments
-localhost:5000/api/departments/<department_id>
+localhost:5000/api/departments/<department_uuid>
 
 localhost:5000/api/employees
-localhost:5000/api/employees/<employee_id>
-localhost:5000/api/employees/?id=<department_id>
-localhost:5000/api/employees/?first_date=<YYYY-MM-DD>
-localhost:5000/api/employees/?first_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
-localhost:5000/api/employees/?id=<department_id>&first_date=<YYYY-MM-DD>
-localhost:5000/api/employees/?id=<department_id>&first_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
+localhost:5000/api/employees/<employee_uuid>
+localhost:5000/api/employees?uuid=<department_uuid>
+localhost:5000/api/employees?first_date=<YYYY-MM-DD>
+localhost:5000/api/employees?first_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
+localhost:5000/api/employees?uuid=<department_uuid>&first_date=<YYYY-MM-DD>
+localhost:5000/api/employees?uuid=<department_uuid>&first_date=<YYYY-MM-DD>&second_date=<YYYY-MM-DD>
 ```
 - ### Web Application:
 ```
@@ -60,9 +60,9 @@ localhost:5000/register
 
 localhost:5000/departments
 localhost:5000/departments/add
-localhost:5000/departments/delete/<id>
+localhost:5000/departments/delete/<uuid>
 
 localhost:5000/employees
-localhost:5000/employees/<department_id>
+localhost:5000/employees/<department_uuid>
 localhost:5000/employees/add
-localhost:5000/employees/delete/<id>
+localhost:5000/employees/delete/<uuid>
