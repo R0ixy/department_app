@@ -13,6 +13,7 @@ class Department(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(length=32))
     description = db.Column(db.Text)
+    uuid = db.Column(db.String(length=36), unique=True)
 
     def to_dict(self):
         """
@@ -23,11 +24,12 @@ class Department(db.Model):
             average_salary = self.average_salary
             number_of_employees = self.number_of_employees
         except AttributeError:
-            return {'id': self.id,
+            return {'uuid': self.uuid,
                     'name': self.name,
-                    'description': self.description, }
+                    'description': self.description,
+                    }
         return {
-            'id': self.id,
+            'uuid': self.uuid,
             'name': self.name,
             'description': self.description,
             'average_salary': average_salary,
