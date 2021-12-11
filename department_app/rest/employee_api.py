@@ -24,12 +24,12 @@ class EmployeesListApi(Resource):
 
         :return: json response that contains all employee entries.
         """
-        dep_id = request.args.get('id')
+        dep_uuid = request.args.get('id')
         first_date = request.args.get('first_date')
         second_date = request.args.get('second_date')
-        if dep_id or first_date or second_date:
+        if dep_uuid or first_date or second_date:
             employees = get_employee_with_params(
-                dep_id=dep_id,
+                dep_uuid=dep_uuid,
                 first_date=first_date,
                 second_date=second_date)
         else:
@@ -49,7 +49,7 @@ class EmployeesListApi(Resource):
             full_name = request_data['full_name']
             salary = request_data['salary']
             position = request_data['position']
-            department_id = request_data['department_id']
+            department_uuid = request_data['department_id']
             date_of_birth = request_data['date_of_birth']
         except KeyError:
             return {'error': 'Wrong Key argument'}, 400
@@ -58,10 +58,10 @@ class EmployeesListApi(Resource):
                              position=position,
                              salary=salary,
                              date_of_birth=date_of_birth,
-                             department_id=department_id):
+                             department_uuid=department_uuid):
             return error
         try:
-            employee = add_new_employee(full_name, salary, date_of_birth, position, department_id)
+            employee = add_new_employee(full_name, salary, date_of_birth, position, department_uuid)
         except IntegrityError:
             return {'error': 'Department with specified ID do not exist'}, 400
         return employee.to_dict(), 201
@@ -69,21 +69,21 @@ class EmployeesListApi(Resource):
 
 class EmployeesApiByID(Resource):
     """
-    Class for Employees Api Resource available on '/api/employees/<id>' url
+    Class for Employees Api Resource available on '/api/employees/<uuid>' url
     """
 
     @staticmethod
-    def get(emp_id):
+    def get(emp_uuid):
         """
         Endpoint for getting one employee by id.
 
         :return: json response that contains one employee entry.
         """
-        employee = get_one_employee(emp_id)
+        employee = get_one_employee(emp_uuid)
         return employee.to_dict()
 
     @staticmethod
-    def patch(emp_id):
+    def patch(emp_uuid):
         """
         Endpoint for changing an existing employee
         without overwriting unspecified fields with None.
@@ -100,28 +100,28 @@ class EmployeesApiByID(Resource):
         salary = request_data.get('salary')
         date_of_birth = request_data.get('date_of_birth')
         position = request_data.get('position')
-        department_id = request_data.get('department_id')
+        department_uuid = request_data.get('department_id')
 
         if error := validate(full_name=full_name,
                              position=position,
                              salary=salary,
                              date_of_birth=date_of_birth,
-                             department_id=department_id):
+                             department_uuid=department_uuid):
             return error
 
         try:
-            update_employee_patch(emp_id=emp_id,
+            update_employee_patch(emp_uuid=emp_uuid,
                                   name=full_name,
                                   salary=salary,
                                   birthday=date_of_birth,
                                   position=position,
-                                  department=department_id)
+                                  department=department_uuid)
         except IntegrityError:
             return {'error': 'Department with specified ID do not exist'}, 400
-        return get_one_employee(emp_id).to_dict(), 200
+        return get_one_employee(emp_uuid).to_dict(), 200
 
     @staticmethod
-    def put(emp_id):
+    def put(emp_uuid):
         """
         Endpoint for changing an existing employee.
 
@@ -133,7 +133,7 @@ class EmployeesApiByID(Resource):
             salary = request_data['salary']
             date_of_birth = request_data['date_of_birth']
             position = request_data['position']
-            department_id = request_data['department_id']
+            department_uuid = request_data['department_id']
         except KeyError:
             return {'error': 'Wrong parameters. Note: all parameters (full_name,'
                              ' salary, date_of_birth,'
@@ -144,35 +144,35 @@ class EmployeesApiByID(Resource):
                              position=position,
                              salary=salary,
                              date_of_birth=date_of_birth,
-                             department_id=department_id):
+                             department_uuid=department_uuid):
             return error
         try:
-            update_employee(emp_id=emp_id,
+            update_employee(emp_uuid=emp_uuid,
                             name=full_name,
                             salary=salary,
                             birthday=date_of_birth,
                             position=position,
-                            department=department_id)
+                            department=department_uuid)
         except IntegrityError:
             return {'error': 'Department with specified ID do not exist'}, 400
-        return get_one_employee(emp_id).to_dict(), 200
+        return get_one_employee(emp_uuid).to_dict(), 200
 
     @staticmethod
-    def delete(emp_id):
+    def delete(emp_uuid):
         """
         Endpoint for deleting an employee.
 
         :return: json response containing the message whether the request was successful or not.
         """
-        delete_employee(emp_id)
+        delete_employee(emp_uuid)
         return 'Employee has been successfully deleted', 200
 
 
 api.add_resource(EmployeesListApi, '/employees/')
-api.add_resource(EmployeesApiByID, '/employees/<emp_id>')
+api.add_resource(EmployeesApiByID, '/employees/<emp_uuid>')
 
 
-def validate(*, full_name, position, salary, date_of_birth, department_id):
+def validate(*, full_name, position, salary, date_of_birth, department_uuid):
     """
     Data validation.
 
@@ -180,7 +180,7 @@ def validate(*, full_name, position, salary, date_of_birth, department_id):
     :param position:
     :param salary:
     :param date_of_birth:
-    :param department_id:
+    :param department_uuid:
     """
     if full_name and len(full_name) > 64:
         return {'error': 'Full name too long (max length 64 symbols)'}, 400
@@ -188,8 +188,8 @@ def validate(*, full_name, position, salary, date_of_birth, department_id):
         return {'error': 'Position too long (max length 64 symbols)'}, 400
     if salary and not str(salary).isdigit():
         return {'error': 'Wrong data type. Salary must contain only digits'}, 400
-    if department_id and not str(department_id).isdigit():
-        return {'error': 'Wrong data type. Department ID must contain only digits'}, 400
+    if department_uuid and not len(department_uuid) == 36:
+        return {'error': 'Wrong data. Department UUID must contain exactly 36 symbols'}, 400
     if date_of_birth:
         try:
             datetime.strptime(date_of_birth, '%Y-%m-%d')

@@ -45,21 +45,21 @@ class DepartmentListApi(Resource):
 
 class DepartmentApiByID(Resource):
     """
-    Class for Department Api Resource available on '/api/departments/<id>' url
+    Class for Department Api Resource available on '/api/departments/<uuid>' url
     """
 
     @staticmethod
-    def get(dep_id):
+    def get(dep_uuid):
         """
         Endpoint for getting one department by id.
 
         :return: json response that contains one department entry.
         """
-        department = get_one_department(dep_id)
+        department = get_one_department(dep_uuid)
         return department.to_dict()
 
     @staticmethod
-    def patch(dep_id):
+    def patch(dep_uuid):
         """
         Endpoint for changing an existing department
         without overwriting unspecified fields with None.
@@ -73,13 +73,13 @@ class DepartmentApiByID(Resource):
             return {'error': 'Wrong data'}, 400
         if len(name) > 32:
             return {'error': 'Name too long (max length 32 symbols)'}, 400
-        update_department_patch(dep_id,
+        update_department_patch(dep_uuid,
                                 name=name,
                                 description=description)
-        return get_one_department(dep_id).to_dict(), 200
+        return get_one_department(dep_uuid).to_dict(), 200
 
     @staticmethod
-    def put(dep_id):
+    def put(dep_uuid):
         """
         Endpoint for changing an existing department.
 
@@ -91,22 +91,22 @@ class DepartmentApiByID(Resource):
             if len(name) > 32:
                 return {'error': 'Name too long (max length 32 symbols)'}, 400
 
-            update_department(dep_id, name, request_data['description'])
+            update_department(dep_uuid, name, request_data['description'])
         except KeyError:
             return {'error': 'Wrong parameters. Note: both parameters (name, description)'
                              ' are required for PUT method.'}, 400
-        return get_one_department(dep_id).to_dict(), 200
+        return get_one_department(dep_uuid).to_dict(), 200
 
     @staticmethod
-    def delete(dep_id):
+    def delete(dep_uuid):
         """
         Endpoint for deleting a department.
 
         :return: json response containing the message whether the request was successful or not.
         """
-        delete_department(dep_id)
+        delete_department(dep_uuid)
         return 'Department has been successfully deleted', 200
 
 
 api.add_resource(DepartmentListApi, '/departments/')
-api.add_resource(DepartmentApiByID, '/departments/<dep_id>')
+api.add_resource(DepartmentApiByID, '/departments/<dep_uuid>')

@@ -19,10 +19,9 @@ def get_all_departments() -> list:
     """
     departments = db.session.query(Department).all()
     for department in departments:
-        salary = get_average_salary(department.id)
-        number_of_employees = get_number_of_employees(department.id)
+        salary = get_average_salary(department.uuid)
         department.average_salary = float(salary) if salary else 0
-        department.number_of_employees = number_of_employees
+        department.number_of_employees = get_number_of_employees(department.uuid)
     return departments
 
 
@@ -66,25 +65,25 @@ def delete_department(department_uuid):
     db.session.commit()
 
 
-def get_average_salary(department_id) -> float:
+def get_average_salary(department_uuid) -> float:
     """
     Get average_salary department by id.
 
-    :param department_id: id of department to get average salary
+    :param department_uuid: id of department to get average salary
     :return: average_salary
     """
     return db.session.query(func.avg(Employee.salary)).filter_by(
-        department_id=department_id).scalar()
+        department_uuid=department_uuid).scalar()
 
 
-def get_number_of_employees(department_id):
+def get_number_of_employees(department_uuid):
     """
     Get number of employees in department by its id.
 
-    :param department_id: id of department
+    :param department_uuid: id of department
     :return: number of employees in department
     """
-    return db.session.query(Employee).filter_by(department_id=department_id).count()
+    return db.session.query(Employee).filter_by(department_uuid=department_uuid).count()
 
 
 def get_one_department(dep_uuid):
@@ -95,8 +94,8 @@ def get_one_department(dep_uuid):
     :return: department object
     """
     department = Department.query.filter_by(uuid=dep_uuid).first_or_404()
-    salary = get_average_salary(department.id)
-    number_of_employees = get_number_of_employees(department.id)
+    salary = get_average_salary(department.uuid)
+    number_of_employees = get_number_of_employees(department.uuid)
     department.average_salary = float(salary) if salary else 0
     department.number_of_employees = number_of_employees
     return department
