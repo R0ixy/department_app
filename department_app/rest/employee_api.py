@@ -24,7 +24,7 @@ class EmployeesListApi(Resource):
 
         :return: json response that contains all employee entries.
         """
-        dep_uuid = request.args.get('id')
+        dep_uuid = request.args.get('uuid')
         first_date = request.args.get('first_date')
         second_date = request.args.get('second_date')
         if dep_uuid or first_date or second_date:
@@ -168,19 +168,13 @@ class EmployeesApiByID(Resource):
         return 'Employee has been successfully deleted', 200
 
 
-api.add_resource(EmployeesListApi, '/employees/')
-api.add_resource(EmployeesApiByID, '/employees/<emp_uuid>')
+api.add_resource(EmployeesListApi, '/employees')
+api.add_resource(EmployeesApiByID, '/employee/<emp_uuid>')
 
 
 def validate(*, full_name, position, salary, date_of_birth, department_uuid):
     """
     Data validation.
-
-    :param full_name:
-    :param position:
-    :param salary:
-    :param date_of_birth:
-    :param department_uuid:
     """
     if full_name and len(full_name) > 64:
         return {'error': 'Full name too long (max length 64 symbols)'}, 400
@@ -188,7 +182,7 @@ def validate(*, full_name, position, salary, date_of_birth, department_uuid):
         return {'error': 'Position too long (max length 64 symbols)'}, 400
     if salary and not str(salary).isdigit():
         return {'error': 'Wrong data type. Salary must contain only digits'}, 400
-    if department_uuid and not len(department_uuid) == 36:
+    if department_uuid and len(str(department_uuid)) != 36:
         return {'error': 'Wrong data. Department UUID must contain exactly 36 symbols'}, 400
     if date_of_birth:
         try:

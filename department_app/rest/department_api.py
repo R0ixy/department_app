@@ -108,5 +108,5 @@ class DepartmentApiByID(Resource):
         return 'Department has been successfully deleted', 200
 
 
-api.add_resource(DepartmentListApi, '/departments/')
-api.add_resource(DepartmentApiByID, '/departments/<dep_uuid>')
+api.add_resource(DepartmentListApi, '/departments')
+api.add_resource(DepartmentApiByID, '/department/<dep_uuid>')

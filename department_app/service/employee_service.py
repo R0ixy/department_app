@@ -48,7 +48,11 @@ def add_new_employee(name, salary, birthday, position, department) -> Employee:
     :param position: position of employee
     :param department: uuid of employee's department
     """
-    employee = Employee(uuid=uuid4(), full_name=name, salary=salary, date_of_birth=birthday, position=position,
+    employee = Employee(uuid=uuid4(),
+                        full_name=name,
+                        salary=salary,
+                        date_of_birth=birthday,
+                        position=position,
                         department_uuid=department)
     db.session.add(employee)
     db.session.commit()

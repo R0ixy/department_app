@@ -2,7 +2,7 @@
 Module contains the class Employee to work with `employee` table
 """
 from department_app import db
-from .department_model import Department
+from department_app.models.department_model import Department
 
 
 # pylint: disable=no-member
@@ -11,12 +11,12 @@ class Employee(db.Model):
     Employee model.
     """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    uuid = db.Column(db.String(length=36), unique=True)
+    uuid = db.Column(db.String(length=36), unique=True, nullable=False)
     full_name = db.Column(db.String(length=64), nullable=False)
     salary = db.Column(db.Integer)
     date_of_birth = db.Column(db.Date)
     position = db.Column(db.String(length=64))
-    department_uuid = db.Column(db.String(length=36), db.ForeignKey('department.uuid'), unique=True)
+    department_uuid = db.Column(db.String(length=36), db.ForeignKey('department.uuid'))
     department = db.relationship(Department, backref='employee')
 
     def to_dict(self):

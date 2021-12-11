@@ -1,7 +1,6 @@
 """
 Module contains the class Department to work with `department` table
 """
-# pylint: disable=cyclic-import
 from department_app import db
 
 
@@ -11,9 +10,9 @@ class Department(db.Model):
     Department model.
     """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
+    uuid = db.Column(db.String(length=36), unique=True, nullable=False)
     name = db.Column(db.String(length=32))
     description = db.Column(db.Text)
-    uuid = db.Column(db.String(length=36), unique=True)
 
     def to_dict(self):
         """
