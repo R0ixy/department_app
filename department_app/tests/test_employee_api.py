@@ -212,7 +212,7 @@ class TestEmployeeApi(BaseTest):
         Test uuid validation.
         """
         data = {
-            'department_id': '34'
+            'department_id': 'a4152167-a788-4f43-a232-d45a765aa678'
         }
         response = self.app.patch('/api/employee/1', data=json.dumps(data),
                                   content_type='application/json')
@@ -253,7 +253,7 @@ class TestEmployeeApi(BaseTest):
             'salary': 1500,
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': '19'
+            'department_id': 'a4152167-a788-4f43-a232-d45a765aa678'
         }
         response = self.app.post('/api/employees', data=json.dumps(data),
                                  content_type='application/json')
@@ -283,7 +283,7 @@ class TestEmployeeApi(BaseTest):
             'salary': '1500',
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': '1'
+            'department_id': 'a4152167-a788-4f43-a232-d45a765aa678'
         }
         response = self.app.put('/api/employee/1', data=json.dumps(data),
                                 content_type='application/json')

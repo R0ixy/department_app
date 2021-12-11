@@ -11,6 +11,12 @@ class TestDepartmentApi(BaseTest):
     """
     Class for department api test cases.
     """
+    def test_get(self):
+        """
+        Test get request.
+        """
+        response = self.app.get('/api/departments')
+        assert response.status_code == http.HTTPStatus.OK
 
     def test_post(self):
         """
