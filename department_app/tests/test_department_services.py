@@ -18,10 +18,7 @@ class TestDepartmentServices(BaseTest):
         """
         Test get all departments operation
         """
-        department1 = Department(name='department1', description='description1')
-        department2 = Department(name='department2', description='description2')
-
-        db.session.add(department1)
+        department2 = Department(uuid='2', name='department2', description='description2')
         db.session.add(department2)
         db.session.commit()
         self.assertEqual(2, len(department_service.get_all_departments()))
@@ -30,15 +27,14 @@ class TestDepartmentServices(BaseTest):
         """
         Test add department operation
         """
-        department_service.add_new_department('department1', 'description')
         self.assertEqual(1, Department.query.count())
 
     def test_update_department(self):
         """
         Test update department operation
         """
-        department_service.add_new_department('department1', 'description')
-        department_service.update_department(1, 'new_department', 'new_description')
+        department_service.update_department('a4152167-a788-4c39-a232-d45a205aa678', 'new_department',
+                                             'new_description')
         department = Department.query.get(1)
         self.assertEqual('new_department', department.name)
         self.assertEqual('new_description', department.description)
@@ -47,8 +43,7 @@ class TestDepartmentServices(BaseTest):
         """
         Test delete department operation
         """
-        department_service.add_new_department('department1', 'description1')
-        department_service.delete_department(1)
+        department_service.delete_department('a4152167-a788-4c39-a232-d45a205aa678')
         self.assertEqual(0, Department.query.count())
 
     @staticmethod
@@ -56,19 +51,13 @@ class TestDepartmentServices(BaseTest):
         """
         Fill database with test data.
         """
-        department_service.add_new_department('department1', 'description1')
-        employee1 = Employee(full_name='John Smith',
+        employee1 = Employee(uuid='2',
+                             full_name='John Smith',
                              salary=15000,
                              date_of_birth='1987-06-06',
                              position='engineer',
-                             department_id=1)
-        employee2 = Employee(full_name='Steve Jobs',
-                             salary=20000,
-                             date_of_birth='1955-02-24',
-                             position='SEO',
-                             department_id=1)
+                             department_uuid='a4152167-a788-4c39-a232-d45a205aa678')
         db.session.add(employee1)
-        db.session.add(employee2)
         db.session.commit()
 
     def test_get_average_salary(self):
@@ -76,33 +65,29 @@ class TestDepartmentServices(BaseTest):
         Test get average salary operation
         """
         self.add_entries_to_db()
-        self.assertEqual(17500, department_service.get_average_salary(1))
+        self.assertEqual(17500, department_service.get_average_salary('a4152167-a788-4c39-a232-d45a205aa678'))
 
     def test_get_number_of_employees(self):
         """
         Test get number of employees operation
         """
         self.add_entries_to_db()
-        self.assertEqual(2, department_service.get_number_of_employees(1))
+        self.assertEqual(2, department_service.get_number_of_employees('a4152167-a788-4c39-a232-d45a205aa678'))
 
     def test_get_one_department(self):
         """
         Test get one department operation
         """
-        department_service.add_new_department('department1', 'description')
-        department_service.add_new_department('department2', 'description')
-        department1 = department_service.get_one_department(1)
-        department2 = department_service.get_one_department(2)
-        self.assertEqual('department1', department1.name)
-        self.assertEqual('department2', department2.name)
+        department1 = department_service.get_one_department('a4152167-a788-4c39-a232-d45a205aa678')
+        self.assertEqual('Test Department', department1.name)
 
     def test_update_department_patch(self):
         """
         Test update patch department operation
         """
-        department_service.add_new_department('department', 'description')
-        department_service.update_department_patch(1, name='new_department')
-        department_service.update_department_patch(1, description='new description')
+        department_service.update_department_patch('a4152167-a788-4c39-a232-d45a205aa678', name='new_department')
+        department_service.update_department_patch('a4152167-a788-4c39-a232-d45a205aa678',
+                                                   description='new description')
         department = Department.query.get(1)
         self.assertEqual('new_department', department.name)
         self.assertEqual('new description', department.description)

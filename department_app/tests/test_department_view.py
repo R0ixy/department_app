@@ -4,24 +4,13 @@ Module contains class to test department views.
 # pylint: disable=no-member
 import http
 
-from department_app import db
 from department_app.tests.conftest import BaseTest
-from department_app.models.department_model import Department
 
 
 class TestDepartmentViews(BaseTest):
     """
     Class for department views test cases.
     """
-
-    @staticmethod
-    def fill_db():
-        """
-        Fill database with test data.
-        """
-        department = Department(name='department1', description='description1')
-        db.session.add(department)
-        db.session.commit()
 
     def test_departments(self):
         """
@@ -34,9 +23,8 @@ class TestDepartmentViews(BaseTest):
         """
         Test '/departments/' route for post request
         """
-        self.fill_db()
         response = self.app.post('/departments/',
-                                 data={'id': 1,
+                                 data={'uuid': 'a4152167-a788-4c39-a232-d45a205aa678',
                                        'title': 'test name',
                                        'description': 'test description'},
                                  follow_redirects=True)
@@ -60,9 +48,8 @@ class TestDepartmentViews(BaseTest):
 
     def test_delete_department(self):
         """
-        Test '/departments/delete/<id>' route
+        Test '/departments/delete/<uuid>' route
         """
-        self.fill_db()
-        response = self.app.post('/departments/delete/1',
+        response = self.app.post('/departments/delete/a4152167-a788-4c39-a232-d45a205aa678',
                                  follow_redirects=True)
         self.assertEqual(response.status_code, http.HTTPStatus.OK)

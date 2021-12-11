@@ -14,7 +14,7 @@ class TestAuthService(BaseTest):
     """
 
     @staticmethod
-    def fill_db():
+    def fill_user_table():
         """
         Fill database with test data.
         """
@@ -27,28 +27,28 @@ class TestAuthService(BaseTest):
         """
         Test if username exists.
         """
-        self.fill_db()
+        self.fill_user_table()
         self.assertEqual(True, auth_service.username_exists('test_user'))
 
     def test_not_username_exists(self):
         """
         Test if username don't exist.
         """
-        self.fill_db()
+        self.fill_user_table()
         self.assertEqual(False, auth_service.username_exists('sgfhs'))
 
     def test_email_exists(self):
         """
         Test if email exists.
         """
-        self.fill_db()
+        self.fill_user_table()
         self.assertEqual(True, auth_service.email_exists('test_email'))
 
     def test_not_email_exists(self):
         """
         Test if email don't exist.
         """
-        self.fill_db()
+        self.fill_user_table()
         self.assertEqual(False, auth_service.email_exists('fdfs'))
 
     def test_new_user(self):
@@ -62,6 +62,6 @@ class TestAuthService(BaseTest):
         """
         Test get user operation.
         """
-        self.fill_db()
+        self.fill_user_table()
         user = auth_service.get_user('test_user')
         self.assertEqual('test_user', user.username)

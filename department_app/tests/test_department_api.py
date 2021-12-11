@@ -5,33 +5,12 @@ import http
 import json
 
 from department_app.tests.conftest import BaseTest
-from department_app.models.department_model import Department
-from department_app import db
 
 
 class TestDepartmentApi(BaseTest):
     """
     Class for department api test cases.
     """
-
-    @staticmethod
-    def fill_db():
-        """
-        Fill database with test data.
-        :return:
-        """
-        department = Department(name='Test Department', description='Test Description')
-        # pylint: disable=no-member
-        db.session.add(department)
-        db.session.commit()
-
-    def test_get(self):
-        """
-        Test get request.
-        """
-        self.fill_db()
-        response = self.app.get('/api/departments/')
-        assert response.status_code == http.HTTPStatus.OK
 
     def test_post(self):
         """
@@ -60,12 +39,11 @@ class TestDepartmentApi(BaseTest):
         """
         Test put request.
         """
-        self.fill_db()
         data = {
             'name': 'New Department',
             'description': 'New Description'
         }
-        response = self.app.put('/api/departments/1', data=json.dumps(data),
+        response = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -73,11 +51,10 @@ class TestDepartmentApi(BaseTest):
         """
         Test put request exception.
         """
-        self.fill_db()
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/departments/1', data=json.dumps(data),
+        response = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -85,8 +62,7 @@ class TestDepartmentApi(BaseTest):
         """
         Test delete request.
         """
-        self.fill_db()
-        response = self.app.delete('/api/departments/1',
+        response = self.app.delete('/api/departments/a4152167-a788-4c39-a232-d45a205aa678',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -94,24 +70,21 @@ class TestDepartmentApi(BaseTest):
         """
         Test delete request exception.
         """
-        self.fill_db()
         response = self.app.delete('/api/departments/1780',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
     def test_get_one(self):
         """
-        Test get by id request.
+        Test get by uuid request.
         """
-        self.fill_db()
-        response = self.app.get('/api/departments/1')
+        response = self.app.get('/api/departments/a4152167-a788-4c39-a232-d45a205aa678')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_wrong_one(self):
         """
-        Test get by id request exception.
+        Test get by uuid request exception.
         """
-        self.fill_db()
         response = self.app.get('/api/departments/241')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -119,11 +92,10 @@ class TestDepartmentApi(BaseTest):
         """
         Test patch request.
         """
-        self.fill_db()
         data = {
             'name': 'New Department',
         }
-        response = self.app.patch('/api/departments/1', data=json.dumps(data),
+        response = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -131,7 +103,6 @@ class TestDepartmentApi(BaseTest):
         """
         Test patch request exception.
         """
-        self.fill_db()
         data = {
             'name': 'New Department',
         }
@@ -143,11 +114,10 @@ class TestDepartmentApi(BaseTest):
         """
         Test patch request exception.
         """
-        self.fill_db()
         data = {
             'wrong_data': 'wrong_data',
         }
-        response = self.app.patch('/api/departments/1', data=json.dumps(data),
+        response = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -155,16 +125,15 @@ class TestDepartmentApi(BaseTest):
         """
         Test name validation.
         """
-        self.fill_db()
         data = {
             'name': 'wronghfsjfhsjfhhhhhhhhhhhhhhhhhhhhhhhhsfjkshgsjkdghsdjkghsjkghsjkghsgjshgjkshgjkshgsjghsjdata',
             'description': 'normal_description',
         }
         response1 = self.app.post('/api/departments/', data=json.dumps(data),
                                   content_type='application/json')
-        response2 = self.app.patch('/api/departments/1', data=json.dumps(data),
+        response2 = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                    content_type='application/json')
-        response3 = self.app.put('/api/departments/1', data=json.dumps(data),
+        response3 = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                  content_type='application/json')
         assert response1.status_code == http.HTTPStatus.BAD_REQUEST
         assert response2.status_code == http.HTTPStatus.BAD_REQUEST

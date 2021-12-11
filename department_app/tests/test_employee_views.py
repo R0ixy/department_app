@@ -6,28 +6,12 @@ import http
 from department_app import db
 from department_app.tests.conftest import BaseTest
 from department_app.models.department_model import Department
-from department_app.models.employee_model import Employee
 
 
 class TestEmployeeViews(BaseTest):
     """
     Class for employees views test cases.
     """
-
-    @staticmethod
-    def fill_db():
-        """
-        Fill database with test data.
-        """
-        department = Department(name='department1', description='description1')
-        employee = Employee(full_name='Jhon Smith',
-                            salary=2000,
-                            date_of_birth='1982-03-14',
-                            position='Developer',
-                            department_id=1)
-        db.session.add(department)
-        db.session.add(employee)
-        db.session.commit()
 
     def test_employees(self):
         """
@@ -38,23 +22,22 @@ class TestEmployeeViews(BaseTest):
 
     def test_employees_with_params(self):
         """
-        Test '/employees/<id>' route
+        Test '/employees/<uuid>' route
         """
-        response = self.app.get('/employees/1')
+        response = self.app.get('/employees/a4152167-a788-4c39-a232-d45a205aa678')
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
 
     def test_employees_post(self):
         """
         Test '/employees/' route for post request
         """
-        self.fill_db()
         response = self.app.post('/employees/',
-                                 data={'id': 1,
+                                 data={'uuid': '1',
                                        'full_name': 'test name',
                                        'salary': 2000,
                                        'date_of_birth': '1975-05-23',
                                        'position': 'test position',
-                                       'department': 1},
+                                       'department': 'a4152167-a788-4c39-a232-d45a205aa678'},
                                  follow_redirects=True)
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
 
@@ -69,7 +52,7 @@ class TestEmployeeViews(BaseTest):
         """
         Test '/employees/add/' route for post request
         """
-        department = Department(name='department1', description='description1')
+        department = Department(uuid='3', name='department1', description='description1')
         db.session.add(department)
         db.session.commit()
         response = self.app.post('/employees/add/',
@@ -77,14 +60,13 @@ class TestEmployeeViews(BaseTest):
                                        'salary': 2000,
                                        'date_of_birth': '1975-05-23',
                                        'position': 'test position',
-                                       'department': 1},
+                                       'department': 'a4152167-a788-4c39-a232-d45a205aa678'},
                                  follow_redirects=True)
         self.assertEqual(response.status_code, http.HTTPStatus.OK)
 
     def test_delete_employee(self):
         """
-        Test '/employees/delete/<id>' route
+        Test '/employees/delete/<uuid>' route
         """
-        self.fill_db()
         response = self.app.post('/employees/delete/1', follow_redirects=True)
         self.assertEqual(response.status_code, http.HTTPStatus.OK)

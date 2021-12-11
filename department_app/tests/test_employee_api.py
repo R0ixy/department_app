@@ -5,10 +5,7 @@ Module contains class to test employee api.
 import http
 import json
 
-from department_app import db
 from department_app.tests.conftest import BaseTest
-from department_app.models.employee_model import Employee
-from department_app.models.department_model import Department
 
 
 class TestEmployeeApi(BaseTest):
@@ -16,33 +13,10 @@ class TestEmployeeApi(BaseTest):
     Class for employees api test cases.
     """
 
-    @staticmethod
-    def create_dep():
-        """
-        Fill department table with test data.
-        """
-        department = Department(name='Test Department', description='Test Description')
-        db.session.add(department)
-        db.session.commit()
-
-    def fill_db(self):
-        """
-        Fill database with test data.
-        """
-        self.create_dep()
-        employee = Employee(full_name='James Johnson',
-                            salary=2000,
-                            date_of_birth='1982-03-14',
-                            position='Developer',
-                            department_id=1)
-        db.session.add(employee)
-        db.session.commit()
-
     def test_get(self):
         """
         Test get request.
         """
-        self.fill_db()
         response = self.app.get('/api/employees/')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -50,15 +24,13 @@ class TestEmployeeApi(BaseTest):
         """
         Test get request with param id.
         """
-        self.fill_db()
-        response = self.app.get('/api/employees/?id=1&')
+        response = self.app.get('/api/employees/?uuid=1&')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_with_param_first_date(self):
         """
         Test get request with param first_date.
         """
-        self.fill_db()
         response = self.app.get('/api/employees/?first_date=1982-03-14')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -66,29 +38,26 @@ class TestEmployeeApi(BaseTest):
         """
         Test get request with params id and first_date.
         """
-        self.fill_db()
-        response = self.app.get('/api/employees/?id=1&first_date=1982-03-14')
+        response = self.app.get('/api/employees/?uuid=1&first_date=1982-03-14')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_with_all_params(self):
         """
         Test get request with all possible params.
         """
-        self.fill_db()
-        response = self.app.get('/api/employees/?id=1&first_date=1982-03-14&second_date=1991-02-21')
+        response = self.app.get('/api/employees/?uuid=1&first_date=1982-03-14&second_date=1991-02-21')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_post(self):
         """
         Test post request.
         """
-        self.create_dep()
         data = {
-            'full_name': 'Jhon Smith',
+            'full_name': 'John Smith',
             'salary': 1500,
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': 1
+            'department_id': 'a4152167-a788-4c39-a232-d45a205aa678'
         }
         response = self.app.post('/api/employees/', data=json.dumps(data),
                                  content_type='application/json')
@@ -98,7 +67,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test post request exception.
         """
-        self.create_dep()
         data = {
             'wrong_data': 'wrong data'
         }
@@ -110,13 +78,12 @@ class TestEmployeeApi(BaseTest):
         """
         Test put request.
         """
-        self.fill_db()
         data = {
-            'full_name': 'Jhon Smith',
+            'full_name': 'John Smith',
             'salary': 1500,
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': 1
+            'department_id': 'a4152167-a788-4c39-a232-d45a205aa678'
         }
         response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
@@ -126,7 +93,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test put request exception.
         """
-        self.create_dep()
         data = {
             'wrong_data': 'wrong data'
         }
@@ -138,7 +104,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test delete request.
         """
-        self.fill_db()
         response = self.app.delete('/api/employees/1',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
@@ -147,24 +112,21 @@ class TestEmployeeApi(BaseTest):
         """
         Test delete request exception because of wrong data.
         """
-        self.create_dep()
         response = self.app.delete('/api/employees/3423',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
     def test_get_one(self):
         """
-        Test get by id request.
+        Test get by uuid request.
         """
-        self.fill_db()
         response = self.app.get('/api/employees/1')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_wrong_one(self):
         """
-        Test get by id request exception.
+        Test get by uuid request exception.
         """
-        self.fill_db()
         response = self.app.get('/api/employees/423')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -172,7 +134,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test patch request.
         """
-        self.fill_db()
         data = {
             'full_name': 'Daisy Jonson',
         }
@@ -184,7 +145,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test patch request exception.
         """
-        self.fill_db()
         data = {
             'full_name': 'Daisy Jonson',
         }
@@ -196,7 +156,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test patch request exception.
         """
-        self.fill_db()
         data = {
             'wrong_data': 'wrong_data',
         }
@@ -208,7 +167,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test name validation.
         """
-        self.fill_db()
         data = {
             'full_name': 'wrongfhhhhhhhhhhhhhsgggsdfjcbnxzbvxbhsdvbsgfygreshfbndbchsfgsefgnbhfeyfdbvdhfdbhs'
         }
@@ -220,7 +178,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test position validation.
         """
-        self.fill_db()
         data = {
             'position': 'wrongfhhhhhhhhhhhhhsgggsdfjcbnxzbvxbhsdvbsgfygreshfbndbchsfgsefgnbhfeyfdbvdhfdbhs'
         }
@@ -232,7 +189,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test salary validation.
         """
-        self.fill_db()
         data = {
             'salary': '43hb23'
         }
@@ -244,7 +200,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test id validation.
         """
-        self.fill_db()
         data = {
             'department_id': '43hb23'
         }
@@ -254,9 +209,8 @@ class TestEmployeeApi(BaseTest):
 
     def test_validation_dep_id_2(self):
         """
-        Test id validation.
+        Test uuid validation.
         """
-        self.fill_db()
         data = {
             'department_id': '34'
         }
@@ -268,7 +222,6 @@ class TestEmployeeApi(BaseTest):
         """
         Test date validation.
         """
-        self.fill_db()
         data = {
             'date_of_birth': 'sfsf'
         }
@@ -280,13 +233,12 @@ class TestEmployeeApi(BaseTest):
         """
         Test post request validation.
         """
-        self.fill_db()
         data = {
             'full_name': 'Jhon Smith',
             'salary': '15s00',
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': 1
+            'department_id': 'a4152167-a788-4c39-a232-d45a205aa678'
         }
         response = self.app.post('/api/employees/', data=json.dumps(data),
                                  content_type='application/json')
@@ -294,15 +246,14 @@ class TestEmployeeApi(BaseTest):
 
     def test_post_validate_id(self):
         """
-        Test post request id validation.
+        Test post request uuid validation.
         """
-        self.fill_db()
         data = {
             'full_name': 'Jhon Smith',
             'salary': 1500,
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': 19
+            'department_id': '19'
         }
         response = self.app.post('/api/employees/', data=json.dumps(data),
                                  content_type='application/json')
@@ -312,13 +263,12 @@ class TestEmployeeApi(BaseTest):
         """
         Test put request validation.
         """
-        self.fill_db()
         data = {
             'full_name': 'Jhon Smith',
             'salary': '150o0',
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': 1
+            'department_id': 'a4152167-a788-4c39-a232-d45a205aa678'
         }
         response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
@@ -326,15 +276,14 @@ class TestEmployeeApi(BaseTest):
 
     def test_put_validate_id(self):
         """
-        Test put request id validation.
+        Test put request uuid validation.
         """
-        self.fill_db()
         data = {
             'full_name': 'Jhon Smith',
             'salary': '1500',
             'date_of_birth': '1991-02-21',
             'position': 'Engineer',
-            'department_id': 18
+            'department_id': '1'
         }
         response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
