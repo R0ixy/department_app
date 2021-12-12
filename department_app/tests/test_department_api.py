@@ -144,3 +144,14 @@ class TestDepartmentApi(BaseTest):
         assert response1.status_code == http.HTTPStatus.BAD_REQUEST
         assert response2.status_code == http.HTTPStatus.BAD_REQUEST
         assert response3.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_no_request_body(self):
+        """
+        Test request body missing.
+        """
+        response1 = self.app.post('/api/departments')
+        response2 = self.app.patch('/api/department/a4152167-a788-4c39-a232-d45a205aa678',)
+        response3 = self.app.put('/api/department/a4152167-a788-4c39-a232-d45a205aa678')
+        assert response1.status_code == http.HTTPStatus.BAD_REQUEST
+        assert response2.status_code == http.HTTPStatus.BAD_REQUEST
+        assert response3.status_code == http.HTTPStatus.BAD_REQUEST

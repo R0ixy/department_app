@@ -2,8 +2,6 @@
 CRUD operations for department model.
 """
 # pylint: disable=no-member
-from uuid import uuid4
-
 from sqlalchemy.sql import func
 
 from department_app import db
@@ -33,7 +31,7 @@ def add_new_department(name, description) -> Department:
     :param description: department description
     :return: last department query
     """
-    department = Department(name=name, description=description, uuid=uuid4())
+    department = Department(name=name, description=description)
     db.session.add(department)
     db.session.commit()
     return db.session.query(Department).order_by(Department.id.desc()).first()
@@ -47,7 +45,8 @@ def update_department(department_uuid, name, description):
     :param name: department name
     :param description: department description
     """
-    department = Department.query.filter_by(uuid=department_uuid).first_or_404()
+    department = Department.query.filter_by(uuid=department_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     department.name = name
     department.description = description
     db.session.add(department)
@@ -60,7 +59,8 @@ def delete_department(department_uuid):
 
     :param department_uuid: uuid of department to delete
     """
-    department = Department.query.filter_by(uuid=department_uuid).first_or_404()
+    department = Department.query.filter_by(uuid=department_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     db.session.delete(department)
     db.session.commit()
 
@@ -93,7 +93,8 @@ def get_one_department(dep_uuid):
     :param dep_uuid: uuid of department
     :return: department object
     """
-    department = Department.query.filter_by(uuid=dep_uuid).first_or_404()
+    department = Department.query.filter_by(uuid=dep_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     salary = get_average_salary(department.uuid)
     number_of_employees = get_number_of_employees(department.uuid)
     department.average_salary = float(salary) if salary else 0
@@ -109,7 +110,8 @@ def update_department_patch(department_uuid, *, name=None, description=None):
     :param name: department name
     :param description: department description
     """
-    department = Department.query.filter_by(uuid=department_uuid).first_or_404()
+    department = Department.query.filter_by(uuid=department_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     if name:
         department.name = name
     if description:

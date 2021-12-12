@@ -288,3 +288,14 @@ class TestEmployeeApi(BaseTest):
         response = self.app.put('/api/employee/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
+
+    def test_no_request_body(self):
+        """
+        Test request body missing.
+        """
+        response1 = self.app.post('/api/employees')
+        response2 = self.app.patch('/api/employee/1',)
+        response3 = self.app.put('/api/employee/1')
+        assert response1.status_code == http.HTTPStatus.BAD_REQUEST
+        assert response2.status_code == http.HTTPStatus.BAD_REQUEST
+        assert response3.status_code == http.HTTPStatus.BAD_REQUEST

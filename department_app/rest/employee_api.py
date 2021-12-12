@@ -53,6 +53,8 @@ class EmployeesListApi(Resource):
             date_of_birth = request_data['date_of_birth']
         except KeyError:
             return {'error': 'Wrong Key argument'}, 400
+        except TypeError:
+            return {'error': 'Missing request body. Request body is required for this method.'}, 400
 
         if error := validate(full_name=full_name,
                              position=position,
@@ -91,10 +93,12 @@ class EmployeesApiByID(Resource):
         :return: json response containing the message whether the request was successful or not.
         """
         request_data = request.get_json()
-
-        for key in request_data.keys():
-            if key not in ['full_name', 'salary', 'date_of_birth', 'position', 'department_id']:
-                return {'error': 'Wrong data'}, 400
+        try:
+            for key in request_data.keys():
+                if key not in ['full_name', 'salary', 'date_of_birth', 'position', 'department_id']:
+                    return {'error': 'Wrong data'}, 400
+        except AttributeError:
+            return {'error': 'Missing request body. Request body is required for this method.'}, 400
 
         full_name = request_data.get('full_name')
         salary = request_data.get('salary')
@@ -139,6 +143,8 @@ class EmployeesApiByID(Resource):
                              ' salary, date_of_birth,'
                              ' position, department_id)'
                              ' are required for PUT method.'}, 400
+        except TypeError:
+            return {'error': 'Missing request body. Request body is required for this method.'}, 400
 
         if error := validate(full_name=full_name,
                              position=position,

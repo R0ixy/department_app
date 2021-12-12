@@ -40,6 +40,8 @@ class DepartmentListApi(Resource):
             department = add_new_department(name, request_data['description'])
         except KeyError:
             return {'error': 'Wrong Key argument'}, 400
+        except TypeError:
+            return {'error': 'Missing request body. Request body is required for this method.'}, 400
         return department.to_dict(), 201
 
 
@@ -67,8 +69,11 @@ class DepartmentApiByID(Resource):
         :return: json response containing the message whether the request was successful or not.
         """
         request_data = request.get_json()
-        name = request_data.get('name', '')
-        description = request_data.get('description', '')
+        try:
+            name = request_data.get('name', '')
+            description = request_data.get('description', '')
+        except AttributeError:
+            return {'error': 'Missing request body. Request body is required for this method.'}, 400
         if not name and not description:
             return {'error': 'Wrong data'}, 400
         if len(name) > 32:
@@ -95,6 +100,8 @@ class DepartmentApiByID(Resource):
         except KeyError:
             return {'error': 'Wrong parameters. Note: both parameters (name, description)'
                              ' are required for PUT method.'}, 400
+        except TypeError:
+            return {'error': 'Missing request body. Request body is required for this method.'}, 400
         return get_one_department(dep_uuid).to_dict(), 200
 
     @staticmethod

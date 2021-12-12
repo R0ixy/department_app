@@ -1,6 +1,8 @@
 """
 Module contains the class Department to work with `department` table
 """
+from uuid import uuid4
+
 from department_app import db
 
 
@@ -10,7 +12,7 @@ class Department(db.Model):
     Department model.
     """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    uuid = db.Column(db.String(length=36), unique=True, nullable=False)
+    uuid = db.Column(db.String(length=36), unique=True, nullable=False, default=uuid4)
     name = db.Column(db.String(length=32))
     description = db.Column(db.Text)
 

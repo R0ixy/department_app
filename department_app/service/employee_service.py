@@ -3,7 +3,6 @@ CRUD operations form employee model.
 """
 # pylint: disable=no-member
 from datetime import datetime, date
-from uuid import uuid4
 
 from department_app import db
 from department_app.models.employee_model import Employee
@@ -31,7 +30,8 @@ def get_one_employee(emp_uuid):
     :param emp_uuid uuid of employee
     :return: employee object
     """
-    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404()
+    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     today = date.today()
     born = employee.date_of_birth
     employee.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
@@ -48,8 +48,7 @@ def add_new_employee(name, salary, birthday, position, department) -> Employee:
     :param position: position of employee
     :param department: uuid of employee's department
     """
-    employee = Employee(uuid=uuid4(),
-                        full_name=name,
+    employee = Employee(full_name=name,
                         salary=salary,
                         date_of_birth=birthday,
                         position=position,
@@ -75,7 +74,8 @@ def update_employee(emp_uuid, name, salary, birthday, position, department):
     :param position: position of employee
     :param department: id of employee's department
     """
-    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404()
+    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     employee.full_name = name
     employee.salary = salary
     employee.date_of_birth = birthday
@@ -91,7 +91,8 @@ def delete_employee(emp_uuid):
 
     :param emp_uuid: id of employee
     """
-    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404()
+    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     db.session.delete(employee)
     db.session.commit()
 
@@ -147,7 +148,8 @@ def update_employee_patch(emp_uuid, *, name=None, salary=None, birthday=None, po
     :param position: position of employee
     :param department: uuid of employee's department
     """
-    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404()
+    employee = Employee.query.filter_by(uuid=emp_uuid).first_or_404(
+        description='Not found. Entry with specified ID is missing.')
     if name:
         employee.full_name = name
     if salary:

@@ -1,6 +1,8 @@
 """
 Module contains the class Employee to work with `employee` table
 """
+from uuid import uuid4
+
 from department_app import db
 from department_app.models.department_model import Department
 
@@ -11,7 +13,7 @@ class Employee(db.Model):
     Employee model.
     """
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    uuid = db.Column(db.String(length=36), unique=True, nullable=False)
+    uuid = db.Column(db.String(length=36), unique=True, nullable=False, default=uuid4)
     full_name = db.Column(db.String(length=64), nullable=False)
     salary = db.Column(db.Integer)
     date_of_birth = db.Column(db.Date)
