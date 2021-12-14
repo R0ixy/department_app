@@ -116,4 +116,4 @@ class DepartmentApiByID(Resource):
 
 
 api.add_resource(DepartmentListApi, '/departments')
-api.add_resource(DepartmentApiByID, '/department/<dep_uuid>')
+api.add_resource(DepartmentApiByID, '/departments/<dep_uuid>')

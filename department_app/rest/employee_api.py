@@ -175,7 +175,7 @@ class EmployeesApiByID(Resource):
 
 
 api.add_resource(EmployeesListApi, '/employees')
-api.add_resource(EmployeesApiByID, '/employee/<emp_uuid>')
+api.add_resource(EmployeesApiByID, '/employees/<emp_uuid>')
 
 
 def validate(*, full_name, position, salary, date_of_birth, department_uuid):

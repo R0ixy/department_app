@@ -85,7 +85,7 @@ class TestEmployeeApi(BaseTest):
             'position': 'Engineer',
             'department_id': 'a4152167-a788-4c39-a232-d45a205aa678'
         }
-        response = self.app.put('/api/employee/1', data=json.dumps(data),
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -96,7 +96,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/employee/1', data=json.dumps(data),
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -104,7 +104,7 @@ class TestEmployeeApi(BaseTest):
         """
         Test delete request.
         """
-        response = self.app.delete('/api/employee/1',
+        response = self.app.delete('/api/employees/1',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -112,7 +112,7 @@ class TestEmployeeApi(BaseTest):
         """
         Test delete request exception because of wrong data.
         """
-        response = self.app.delete('/api/employee/3423',
+        response = self.app.delete('/api/employees/3423',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -120,14 +120,14 @@ class TestEmployeeApi(BaseTest):
         """
         Test get by uuid request.
         """
-        response = self.app.get('/api/employee/1')
+        response = self.app.get('/api/employees/1')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_wrong_one(self):
         """
         Test get by uuid request exception.
         """
-        response = self.app.get('/api/employee/423')
+        response = self.app.get('/api/employees/423')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
     def test_patch(self):
@@ -137,7 +137,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'full_name': 'Daisy Jonson',
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -148,7 +148,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'full_name': 'Daisy Jonson',
         }
-        response = self.app.patch('/api/employee/423', data=json.dumps(data),
+        response = self.app.patch('/api/employees/423', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -159,7 +159,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'wrong_data': 'wrong_data',
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -170,7 +170,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'full_name': 'wrongfhhhhhhhhhhhhhsgggsdfjcbnxzbvxbhsdvbsgfygreshfbndbchsfgsefgnbhfeyfdbvdhfdbhs'
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -181,7 +181,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'position': 'wrongfhhhhhhhhhhhhhsgggsdfjcbnxzbvxbhsdvbsgfygreshfbndbchsfgsefgnbhfeyfdbvdhfdbhs'
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -192,7 +192,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'salary': '43hb23'
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -203,7 +203,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'department_id': '43hb23'
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -214,7 +214,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'department_id': 'a4152167-a788-4f43-a232-d45a765aa678'
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -225,7 +225,7 @@ class TestEmployeeApi(BaseTest):
         data = {
             'date_of_birth': 'sfsf'
         }
-        response = self.app.patch('/api/employee/1', data=json.dumps(data),
+        response = self.app.patch('/api/employees/1', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -270,7 +270,7 @@ class TestEmployeeApi(BaseTest):
             'position': 'Engineer',
             'department_id': 'a4152167-a788-4c39-a232-d45a205aa678'
         }
-        response = self.app.put('/api/employee/1', data=json.dumps(data),
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -285,7 +285,7 @@ class TestEmployeeApi(BaseTest):
             'position': 'Engineer',
             'department_id': 'a4152167-a788-4f43-a232-d45a765aa678'
         }
-        response = self.app.put('/api/employee/1', data=json.dumps(data),
+        response = self.app.put('/api/employees/1', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -294,8 +294,8 @@ class TestEmployeeApi(BaseTest):
         Test request body missing.
         """
         response1 = self.app.post('/api/employees')
-        response2 = self.app.patch('/api/employee/1',)
-        response3 = self.app.put('/api/employee/1')
+        response2 = self.app.patch('/api/employees/1',)
+        response3 = self.app.put('/api/employees/1')
         assert response1.status_code == http.HTTPStatus.BAD_REQUEST
         assert response2.status_code == http.HTTPStatus.BAD_REQUEST
         assert response3.status_code == http.HTTPStatus.BAD_REQUEST

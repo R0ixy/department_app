@@ -49,7 +49,7 @@ class TestDepartmentApi(BaseTest):
             'name': 'New Department',
             'description': 'New Description'
         }
-        response = self.app.put('/api/department/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
+        response = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -60,7 +60,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 'wrong data'
         }
-        response = self.app.put('/api/department/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
+        response = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                 content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -68,7 +68,7 @@ class TestDepartmentApi(BaseTest):
         """
         Test delete request.
         """
-        response = self.app.delete('/api/department/a4152167-a788-4c39-a232-d45a205aa678',
+        response = self.app.delete('/api/departments/a4152167-a788-4c39-a232-d45a205aa678',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -76,7 +76,7 @@ class TestDepartmentApi(BaseTest):
         """
         Test delete request exception.
         """
-        response = self.app.delete('/api/department/1780',
+        response = self.app.delete('/api/departments/1780',
                                    content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -84,14 +84,14 @@ class TestDepartmentApi(BaseTest):
         """
         Test get by uuid request.
         """
-        response = self.app.get('/api/department/a4152167-a788-4c39-a232-d45a205aa678')
+        response = self.app.get('/api/departments/a4152167-a788-4c39-a232-d45a205aa678')
         assert response.status_code == http.HTTPStatus.OK
 
     def test_get_wrong_one(self):
         """
         Test get by uuid request exception.
         """
-        response = self.app.get('/api/department/241')
+        response = self.app.get('/api/departments/241')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
     def test_patch(self):
@@ -101,7 +101,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'name': 'New Department',
         }
-        response = self.app.patch('/api/department/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
+        response = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.OK
 
@@ -112,7 +112,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'name': 'New Department',
         }
-        response = self.app.patch('/api/department/241', data=json.dumps(data),
+        response = self.app.patch('/api/departments/241', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.NOT_FOUND
 
@@ -123,7 +123,7 @@ class TestDepartmentApi(BaseTest):
         data = {
             'wrong_data': 'wrong_data',
         }
-        response = self.app.patch('/api/department/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
+        response = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                   content_type='application/json')
         assert response.status_code == http.HTTPStatus.BAD_REQUEST
 
@@ -137,9 +137,9 @@ class TestDepartmentApi(BaseTest):
         }
         response1 = self.app.post('/api/departments', data=json.dumps(data),
                                   content_type='application/json')
-        response2 = self.app.patch('/api/department/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
+        response2 = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                    content_type='application/json')
-        response3 = self.app.put('/api/department/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
+        response3 = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678', data=json.dumps(data),
                                  content_type='application/json')
         assert response1.status_code == http.HTTPStatus.BAD_REQUEST
         assert response2.status_code == http.HTTPStatus.BAD_REQUEST
@@ -150,8 +150,8 @@ class TestDepartmentApi(BaseTest):
         Test request body missing.
         """
         response1 = self.app.post('/api/departments')
-        response2 = self.app.patch('/api/department/a4152167-a788-4c39-a232-d45a205aa678',)
-        response3 = self.app.put('/api/department/a4152167-a788-4c39-a232-d45a205aa678')
+        response2 = self.app.patch('/api/departments/a4152167-a788-4c39-a232-d45a205aa678',)
+        response3 = self.app.put('/api/departments/a4152167-a788-4c39-a232-d45a205aa678')
         assert response1.status_code == http.HTTPStatus.BAD_REQUEST
         assert response2.status_code == http.HTTPStatus.BAD_REQUEST
         assert response3.status_code == http.HTTPStatus.BAD_REQUEST
