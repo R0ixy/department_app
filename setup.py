@@ -20,5 +20,6 @@ setup(
         'Werkzeug==2.0.2',
         'cryptography==36.0.0',
         'python-dotenv==0.19.2',
+        'gunicorn==20.1.0',
     ]
 )
