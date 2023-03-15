@@ -150,8 +150,7 @@ class TestEmployeeApi(BaseTest):
         }
         response = self.app.patch('/api/employees/423', data=json.dumps(data),
                                   content_type='application/json')
-        assert response.status_code == http.HTTPStatus.OK
-        # assert response.status_code == http.HTTPStatus.NOT_FOUND
+        assert response.status_code == http.HTTPStatus.NOT_FOUND
 
     def test_wrong_args_patch(self):
         """
