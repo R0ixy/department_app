@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/R0ixy/epam_project/badge.svg?branch=main)](https://coveralls.io/github/R0ixy/epam_project?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/R0ixy/department_app/badge.svg?branch=main)](https://coveralls.io/github/R0ixy/department_app?branch=main)
 
 # EPAM Online UA Python final project - Department App
 ## With this app you can:
